@@ -18,6 +18,19 @@
   * 面向现代浏览器，高效的简洁 API 设计
   * 按需加载
 
+* 版本说明
+  * **V1**
+    * [ ] ~~v1.0 基于 vue2.6+，停止维护 ~~
+  * **V2**
+    * [ ] ~~v2.0 基于 vue2.6+，停止维护 ~~
+  * **V3**
+    * [ ] v3.0 实现表单设计器、列表设计器
+  * **V4**
+    * [x] v4.0 实现表单设计器、列表设计器
+* 版本计划
+  * [ ] 计划功能：工作流设计器
+  * [ ] 计划功能：打印设计器
+
 ## 浏览器支持
 
 ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
