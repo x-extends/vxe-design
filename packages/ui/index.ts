@@ -1,8 +1,6 @@
 import { VxeUI, setConfig, setIcon } from '@vxe-ui/core'
 
-export const version = process.env.VUE_APP_VXE_VERSION as string
-
-VxeUI.uiVersion = version
+VxeUI.designVersion = process.env.VUE_APP_VXE_VERSION as string
 
 setConfig({
   formDesign: {

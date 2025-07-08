@@ -12,7 +12,7 @@ export function install (app: App, options?: VxeGlobalConfig): void
 // Vxe core
 export * from 'vxe-pc-ui/types/ui'
 
-// Vxe Table
+// Vxe Design
 export * from 'vxe-pc-ui/types/components/flow-design'
 export * from 'vxe-pc-ui/types/components/flow-view'
 export * from 'vxe-pc-ui/types/components/form-design'
