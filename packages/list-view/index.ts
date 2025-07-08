@@ -1,9 +1,9 @@
-import { App } from 'vue'
-import { VxeUI } from '@vxe-ui/core'
+import { VueConstructor } from 'vue'
+import { VxeUI } from 'vxe-pc-ui'
 import VxeListViewComponent from '../list-design/src/list-view'
 
 export const VxeListView = Object.assign(VxeListViewComponent, {
-  install: function (app: App) {
+  install: function (app: VueConstructor) {
     app.component(VxeListViewComponent.name as string, VxeListViewComponent)
   }
 })

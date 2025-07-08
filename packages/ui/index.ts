@@ -1,8 +1,6 @@
-import { VxeUI, setConfig, setIcon } from '@vxe-ui/core'
+import { VxeUI, setConfig, setIcon } from 'vxe-pc-ui'
 
-export const version = process.env.VUE_APP_VXE_VERSION as string
-
-VxeUI.uiVersion = version
+VxeUI.designVersion = process.env.VUE_APP_VXE_VERSION as string
 
 setConfig({
   formDesign: {
@@ -42,5 +40,7 @@ setIcon({
   LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE: iconPrefix + 'delete'
 })
 
-export * from '@vxe-ui/core'
+export {
+  VxeUI
+}
 export default VxeUI

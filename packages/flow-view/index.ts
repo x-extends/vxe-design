@@ -1,9 +1,9 @@
-import { App } from 'vue'
-import { VxeUI } from '@vxe-ui/core'
-import VxeFlowViewComponent from './src/flow-view'
+import { VueConstructor } from 'vue'
+import { VxeUI } from 'vxe-pc-ui'
+import VxeFlowViewComponent from '../flow-design/src/flow-view'
 
 export const VxeFlowView = Object.assign({}, VxeFlowViewComponent, {
-  install (app: App) {
+  install (app: VueConstructor) {
     app.component(VxeFlowViewComponent.name as string, VxeFlowViewComponent)
   }
 })

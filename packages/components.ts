@@ -1,5 +1,5 @@
-import { App } from 'vue'
-import { setConfig, VxeGlobalConfig } from '@vxe-ui/core'
+import { VueConstructor } from 'vue'
+import { VxeUI, setConfig, VxeGlobalConfig } from 'vxe-pc-ui'
 
 import VxeFlowDesign from './flow-design'
 import VxeFlowView from './flow-view'
@@ -17,13 +17,13 @@ const components = [
   VxeListView
 ]
 
-export function install (app: App, options?: VxeGlobalConfig) {
+export function install (app: VueConstructor, options?: VxeGlobalConfig) {
   setConfig(options)
 
   components.forEach(component => app.use(component))
 }
 
-export * from './ui'
+export { VxeUI }
 
 // Components
 export * from './flow-design'

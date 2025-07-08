@@ -19,36 +19,46 @@
   </vxe-layout-container>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { VxeUI, VxeMenuPropTypes } from 'vxe-pc-ui'
+<script lang="ts">
+import Vue from 'vue'
+import { VxeUI } from 'vxe-pc-ui'
 
-const collapsed = ref(false)
+const theme = (localStorage.getItem('VXE_THEME') as 'light' | 'dark') || 'light'
+VxeUI.setTheme(theme)
 
-const navList = ref<VxeMenuPropTypes.Options>([
-  { name: 'Home', icon: 'vxe-icon-user-fill', routerLink: { path: '/' } },
-  { name: 'ListDesignTest', icon: 'vxe-icon-user-fill', routerLink: { name: 'ListDesignTest' } },
-  { name: 'FormDesignTest', icon: 'vxe-icon-user-fill', routerLink: { name: 'FormDesignTest' } }
-])
+const language = (localStorage.getItem('VXE_LANGUAGE') as 'zh-CN' | 'en-US') || 'zh-CN'
 
-const theme = ref((localStorage.getItem('VXE_THEME') as 'light' | 'dark') || 'light')
-VxeUI.setTheme(theme.value)
-const changeTheme = () => {
-  const themeName = VxeUI.getTheme() === 'dark' ? 'light' : 'dark'
-  theme.value = themeName
-  VxeUI.setTheme(themeName)
-  localStorage.setItem('VXE_THEME', themeName)
-}
-
-const language = ref((localStorage.getItem('VXE_LANGUAGE') as 'zh-CN' | 'en-US') || 'zh-CN')
-const langOptions = ref([
-  { value: 'zh-CN', label: '中文' },
-  { value: 'en-US', label: '英文' }
-])
-const changeLanguage = () => {
-  VxeUI.setLanguage(language.value)
-  localStorage.setItem('VXE_LANGUAGE', language.value)
-}
+export default Vue.extend({
+  data () {
+    return {
+      collapsed: false,
+      theme,
+      language,
+      langOptions: [
+        { value: 'zh-CN', label: '中文' },
+        { value: 'en-US', label: '英文' }
+      ],
+      navList: [
+        { name: 'Home', icon: 'vxe-icon-user-fill', routerLink: { path: '/' } },
+        { name: 'ListDesignTest', icon: 'vxe-icon-user-fill', routerLink: { name: 'ListDesignTest' } },
+        { name: 'FormDesignTest', icon: 'vxe-icon-user-fill', routerLink: { name: 'FormDesignTest' } }
+      ]
+    }
+  },
+  methods: {
+    changeTheme () {
+      const themeName = VxeUI.getTheme() === 'dark' ? 'light' : 'dark'
+      this.theme = themeName
+      VxeUI.setTheme(themeName)
+      localStorage.setItem('VXE_THEME', themeName)
+    },
+    changeLanguage () {
+      debugger
+      VxeUI.setLanguage(this.language)
+      localStorage.setItem('VXE_LANGUAGE', this.language)
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

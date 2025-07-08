@@ -4,15 +4,15 @@ import XEUtils from 'xe-utils'
 import { createEvent } from 'vxe-pc-ui'
 
 import type { ValueOf } from 'vxe-pc-ui'
-import type { FlowDesignReactData, VxeFlowDesignEmits } from '../../../types'
+import type { FlowViewReactData, VxeFlowViewEmits } from '../../../types'
 
 export default /* define-vxe-component start */ defineVxeComponent({
-  name: 'VxeFlowDesign',
+  name: 'VxeFlowView',
   props: {
   },
   data () {
     const xID = XEUtils.uniqueId()
-    const reactData: FlowDesignReactData = {
+    const reactData: FlowViewReactData = {
     }
     return {
       xID,
@@ -23,18 +23,18 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Method
     //
-    dispatchEvent (type: ValueOf<VxeFlowDesignEmits>, params: Record<string, any>, evnt: Event | null) {
-      const $xeFlowDesign = this
-      $xeFlowDesign.$emit(type, createEvent(evnt, { $flowDesign: $xeFlowDesign }, params))
+    dispatchEvent (type: ValueOf<VxeFlowViewEmits>, params: Record<string, any>, evnt: Event | null) {
+      const $xeFlowView = this
+      $xeFlowView.$emit(type, createEvent(evnt, { $flowView: $xeFlowView }, params))
     },
     emitModel  (value: any) {
-      const $xeFlowDesign = this
+      const $xeFlowView = this
 
-      const { _events } = $xeFlowDesign as any
+      const { _events } = $xeFlowView as any
       if (_events && _events.modelValue) {
-        $xeFlowDesign.$emit('modelValue', value)
+        $xeFlowView.$emit('modelValue', value)
       } else {
-        $xeFlowDesign.$emit('model-value', value)
+        $xeFlowView.$emit('model-value', value)
       }
     },
 
@@ -42,13 +42,13 @@ export default /* define-vxe-component start */ defineVxeComponent({
     // Render
     //
     renderVN (h: CreateElement): VNode {
-      const $xeFlowDesign = this
-      const slots = $xeFlowDesign.$scopedSlots
+      const $xeFlowView = this
+      const slots = $xeFlowView.$scopedSlots
 
       const defaultSlot = slots.default
       return h('div', {
         ref: 'refElem',
-        class: 'vxe-flow-design'
+        class: 'vxe-flow-view'
       }, defaultSlot ? defaultSlot({}) : [])
     }
   },

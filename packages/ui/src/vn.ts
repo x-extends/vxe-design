@@ -1,19 +1,26 @@
 import XEUtils from 'xe-utils'
-import { VxeComponentSlotType } from '@vxe-ui/core'
+import { VxeComponentSlotType } from 'vxe-pc-ui'
+
+import type { CombinedVueInstance } from 'vue/types/vue'
 
 export function getOnName (type: string) {
-  return 'on' + type.substring(0, 1).toLocaleUpperCase() + type.substring(1)
+  return XEUtils.kebabCase(type)
 }
 
 export function getModelEvent (name: string) {
   switch (name) {
-    case 'input':
-    case 'textarea':
-      return 'input'
+    case 'VxeInput':
+    case 'VxeTextarea':
+    case 'VxeNumberInput':
+    case 'VxeSelect':
+    case 'VxeTreeSelect':
+    case 'VxeTableSelect':
+    case 'VxeDatePicker':
+      return 'modelValue'
     case 'select':
       return 'change'
   }
-  return 'update:modelValue'
+  return 'input'
 }
 
 export function getChangeEvent (name: string) {
@@ -34,4 +41,13 @@ export function getSlotVNs (vns: VxeComponentSlotType | VxeComponentSlotType[] |
     return vns
   }
   return vns ? [vns] : []
+}
+
+export function getEventCaseName (_vm: CombinedVueInstance<any, any, any, any, any>, name: string) {
+  const caseName = XEUtils.camelCase(name)
+  if (caseName === name) {
+    return name
+  }
+  const _events = _vm ? _vm._events : null
+  return _events && _events[caseName] ? caseName : name
 }

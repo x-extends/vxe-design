@@ -1,0 +1,11 @@
+@use '../variable.scss' as light_variable;
+
+[data-vxe-ui-theme="light"] {
+  /*form-design*/
+  --vxe-ui-form-design-widget-hover-background-color: var(--vxe-ui-base-hover-background-color);
+  --vxe-ui-form-design-sub-widget-hover-background-color: #{light_variable.$vxe-ui-form-design-sub-widget-hover-background-color};
+  
+  /*list-design*/
+  --vxe-ui-list-design-table-border-color: #{light_variable.$vxe-ui-list-design-table-border-color};
+  --vxe-ui-list-design-table-header-background-color: #{light_variable.$vxe-ui-list-design-table-header-background-color};
+}

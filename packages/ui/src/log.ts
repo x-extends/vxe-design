@@ -1,4 +1,4 @@
-import { log } from '@vxe-ui/core'
+import { log } from 'vxe-pc-ui'
 
 const version = `ui v${process.env.VUE_APP_VXE_VERSION}`
 

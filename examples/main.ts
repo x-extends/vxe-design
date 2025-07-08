@@ -1,6 +1,7 @@
-import { createApp } from 'vue'
+import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import i18n from './i18n'
 
 import './styles/index.scss'
 
@@ -37,11 +38,14 @@ VxeUI.setConfig({
 
 window.axios.defaults.baseURL = process.env.VUE_APP_SERVE_API_URL
 
-const app = createApp(App)
+Vue.use(VxeUIAll)
+Vue.use(VxeUIDesign)
+// Vue.use(VxeUITable)
 
-app.use(router)
-app.use(VxeUIAll)
-app.use(VxeUIDesign)
-// app.use(VxeUITable)
+Vue.config.productionTip = false
 
-app.mount('#app')
+new Vue({
+  router,
+  i18n,
+  render: h => h(App)
+}).$mount('#app')
