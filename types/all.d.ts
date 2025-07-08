@@ -1,0 +1,25 @@
+import { App } from 'vue'
+import { VxeUIExport, VxeGlobalConfig } from 'vxe-pc-ui'
+
+declare global {
+  interface Window {
+    /**
+     * @deprecated
+     */
+    VXETable: VxeUIExport;
+    VxeUITable: VxeUIExport;
+  }
+}
+
+export function install (app: App, options?: VxeGlobalConfig): void
+
+// Vxe core
+export * from 'vxe-pc-ui/types/ui'
+
+// Vxe Table
+export * from 'vxe-pc-ui/types/components/flow-design'
+export * from 'vxe-pc-ui/types/components/flow-view'
+export * from 'vxe-pc-ui/types/components/form-design'
+export * from 'vxe-pc-ui/types/components/form-view'
+export * from 'vxe-pc-ui/types/components/list-design'
+export * from 'vxe-pc-ui/types/components/list-view'
