@@ -27,7 +27,7 @@
 ## 在线文档
 
 👉 [组件文档](https://vxeui.com)
-👉 [设计器文档](https://vxeui.com)  
+👉 [设计器文档](https://design.vxeui.com)  
 👉 [表格文档](https://vxetable.cn)  
 
 ## QQ 交流群
