@@ -17,7 +17,7 @@ export const DefaultSettingFormComponent = defineVxeComponent({
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUISwitchComponent = VxeUI.getComponent('vxe-switch')
-    const VxeUITextComponent = VxeUI.getComponent('vxe-form')
+    const VxeUITextComponent = VxeUI.getComponent('vxe-text')
 
     const $xeFormDesign = inject<(VxeFormDesignConstructor & VxeFormDesignPrivateMethods) | null>('$xeFormDesign', null)
 

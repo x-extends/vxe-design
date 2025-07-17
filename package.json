@@ -1,6 +1,6 @@
 {
   "name": "vxe-design",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A PC-based visual designer based on Vxe UI, used for building zero-code and low-code platforms",
   "scripts": {
     "update": "npm install --legacy-peer-deps",
