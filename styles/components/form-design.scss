@@ -41,6 +41,7 @@
   min-height: 3em;
   border: 1px solid var(--vxe-ui-input-border-color);
   border-radius: var(--vxe-ui-base-border-radius);
+  overflow: hidden;
 }
 .vxe-form-design--header-left,
 .vxe-form-design--header-right {
@@ -48,6 +49,7 @@
 }
 .vxe-form-design--header-middle {
   flex-grow: 1;
+  overflow: auto;
 }
 .vxe-form-design--header-right {
   display: flex;

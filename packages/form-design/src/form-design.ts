@@ -406,23 +406,25 @@ export default defineVxeComponent({
     Object.assign($xeFormDesign, formDesignMethods, formDesignPrivateMethods)
 
     const renderLayoutHeader = () => {
-      const extraSlot = slots.extra
+      const titleSlot = slots.title
+      const titlePrefixSlot = slots.titlePrefix || slots['title-prefix']
+      const titleSuffixSlot = slots.titleSuffix || slots['title-suffix'] || slots.extra
       return h('div', {
         class: 'vxe-form-design--header-wrapper'
       }, [
         h('div', {
           class: 'vxe-form-design--header-left'
-        }),
+        }, titlePrefixSlot ? titlePrefixSlot({}) : []),
         h('div', {
           class: 'vxe-form-design--header-middle'
-        }),
+        }, titleSlot ? titleSlot({}) : []),
         h('div', {
           class: 'vxe-form-design--header-right'
         }, [
-          extraSlot
+          titleSuffixSlot
             ? h('div', {
               class: 'vxe-form-design--header-extra'
-            }, extraSlot({}))
+            }, titleSuffixSlot({}))
             : renderEmptyElement($xeFormDesign),
           h('div', {
             class: 'vxe-form-design--header-setting'
