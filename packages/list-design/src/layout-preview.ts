@@ -4,6 +4,7 @@ import { VxeUI, getI18n } from '@vxe-ui/core'
 import { errLog } from '../../ui/src/log'
 import XEUtils from 'xe-utils'
 
+import type { VxeFormPropTypes } from 'vxe-pc-ui'
 import type { VxeGridInstance, VxeGridPropTypes, VxeTableEvents, VxeTablePropTypes } from 'vxe-table'
 import { VxeListDesignConstructor, VxeListDesignPrivateMethods } from '../../../types'
 
@@ -144,7 +145,7 @@ export default defineVxeComponent({
             searchFormItems.length
               ? h(VxeUIFormComponent, {
                 data: searchFormData,
-                items: formItems
+                items: formItems as VxeFormPropTypes.Items
               })
               : h('div', {
                 class: 'vxe-list-design--field-configs-empty-data'

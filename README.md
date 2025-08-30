@@ -39,9 +39,10 @@
 
 ## 在线文档
 
-👉 [组件文档](https://vxeui.com)  
-👉 [表格文档](https://vxetable.cn)  
-👉 [可视化文档](https://design.vxeui.com)  
+👉 [基础库](https://vxeui.com)  
+👉 [表格库](https://vxetable.cn)  
+👉 [甘特图](https://gantt.vxeui.com)  
+👉 [可视化](https://design.vxeui.com)  
 
 ## QQ 交流群
 

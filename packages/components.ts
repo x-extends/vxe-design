@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { setConfig, VxeGlobalConfig } from '@vxe-ui/core'
+import VxeUI from './ui'
 
 import VxeFlowDesign from './flow-design'
 import VxeFlowView from './flow-view'
@@ -7,6 +7,10 @@ import VxeFormDesign from './form-design'
 import VxeFormView from './form-view'
 import VxeListDesign from './list-design'
 import VxeListView from './list-view'
+
+import type { VxeGlobalConfig } from 'vxe-pc-ui'
+
+const { setConfig } = VxeUI
 
 const components = [
   VxeFlowDesign,
@@ -23,7 +27,7 @@ export function install (app: App, options?: VxeGlobalConfig) {
   components.forEach(component => app.use(component))
 }
 
-export * from './ui'
+export { VxeUI }
 
 // Components
 export * from './flow-design'

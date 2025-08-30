@@ -1,5 +1,5 @@
 import { h } from 'vue'
-import { renderer } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 
 import { getWidgetTextConfig, WidgetTextViewComponent, WidgetTextFormComponent } from '../widget-text'
 import { getWidgetRowConfig, WidgetRowEditComponent, WidgetRowViewComponent, WidgetRowFormComponent } from '../widget-row'
@@ -22,6 +22,8 @@ import { getWidgetVxeUploadFileConfig, WidgetVxeUploadFileViewComponent, WidgetV
 import { getWidgetVxeUploadImageConfig, WidgetVxeUploadImageViewComponent, WidgetVxeUploadImageFormComponent } from '../widget-vxe-upload-image'
 import { getWidgetVxeRateConfig, WidgetVxeRateViewComponent, WidgetVxeRateFormComponent } from '../widget-vxe-rate'
 import { getWidgetVxeSliderConfig, WidgetVxeSliderViewComponent, WidgetVxeSliderFormComponent } from '../widget-vxe-slider'
+
+const { renderer } = VxeUI
 
 /**
  * 表单设计器 - 渲染器

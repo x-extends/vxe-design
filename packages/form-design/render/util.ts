@@ -1,4 +1,6 @@
-import { getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
+
+const { getI18n } = VxeUI
 
 export const getFormDesignWidgetName = (name: string) => {
   return getI18n(`vxe.formDesign.widget.component.${name}`)

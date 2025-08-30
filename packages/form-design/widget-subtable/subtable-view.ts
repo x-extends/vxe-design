@@ -107,6 +107,7 @@ const ViewSubItemComponent = defineVxeComponent({
       const subParams = {
         $table: null,
         $grid: null,
+        $gantt: null,
         seq: '',
         column: {
           field: widget.field,

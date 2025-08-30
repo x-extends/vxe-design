@@ -1,8 +1,10 @@
 import { h, ref, PropType, inject, createCommentVNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 
 import type { VxeFormDesignDefines, VxeFormDesignConstructor, VxeFormDesignPrivateMethods } from '../../../types'
+
+const { getI18n } = VxeUI
 
 const getBoldOptions = () => {
   return [

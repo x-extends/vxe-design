@@ -11,6 +11,8 @@ process.env.VUE_APP_VXE_ENV = 'development'
 
 const externalMaps = {
   'xe-utils': 'XEUtils',
+  'vxe-table': 'VxeUITable',
+  'vxe-gantt': 'VxeUIGantt',
   '@vxe-ui/core': 'VxeUI'
 }
 
@@ -33,7 +35,7 @@ module.exports = defineConfig({
   productionSourceMap: false,
   pages: {
     index: {
-      title: 'Vxe PC UI',
+      title: 'Vxe Design',
       entry: 'examples/main.ts',
       template: 'public/index.html',
       filename: 'index.html'
