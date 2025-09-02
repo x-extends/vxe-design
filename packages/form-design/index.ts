@@ -4,7 +4,7 @@ import VxeFormDesignComponent from './src/form-design'
 import { useWidgetView, useWidgetName, useSubtableView, useWidgetPropDataSource } from './src/use'
 import './render'
 
-import { FormDesignHandleExport } from '../../types'
+import type { FormDesignHandleExport } from '../../types'
 
 export const VxeFormDesign = Object.assign({}, VxeFormDesignComponent, {
   install (app: App) {

@@ -1,4 +1,4 @@
-import { VxeListDesignDefines } from '../../../types'
+import type { VxeListDesignDefines } from '../../../types'
 
 export const getDefaultSettingFormData = (): VxeListDesignDefines.DefaultSettingFormDataObjVO => {
   return {

@@ -1,4 +1,4 @@
-import { VxeGlobalRendererHandles, VxeFormDesignDefines } from '../../../types'
+import type { VxeGlobalRendererHandles, VxeFormDesignDefines } from '../../../types'
 import type { VxeFormProps } from 'vxe-pc-ui'
 
 export const getDefaultSettingFormData = (defOpts?: Partial<VxeFormDesignDefines.DefaultSettingFormDataObjVO>): VxeFormDesignDefines.DefaultSettingFormDataObjVO => {

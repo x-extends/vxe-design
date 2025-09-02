@@ -6,7 +6,7 @@ import XEUtils from 'xe-utils'
 
 import type { VxeFormPropTypes } from 'vxe-pc-ui'
 import type { VxeGridInstance, VxeGridPropTypes, VxeTableEvents, VxeTablePropTypes } from 'vxe-table'
-import { VxeListDesignConstructor, VxeListDesignPrivateMethods } from '../../../types'
+import type { VxeListDesignConstructor, VxeListDesignPrivateMethods } from '../../../types'
 
 export default defineVxeComponent({
   name: 'ListDesignLayoutView',

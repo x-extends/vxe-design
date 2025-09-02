@@ -3,7 +3,7 @@ import { VxeUI } from '@vxe-ui/core'
 import VxeListDesignComponent from './src/list-design'
 import './render'
 
-import { ListDesignHandleExport } from '../../types'
+import type { ListDesignHandleExport } from '../../types'
 
 export const VxeListDesign = Object.assign({}, VxeListDesignComponent, {
   install (app: App) {
