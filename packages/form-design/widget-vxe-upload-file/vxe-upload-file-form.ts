@@ -65,7 +65,7 @@ export const WidgetVxeUploadFileFormComponent = defineVxeComponent({
               ? h(VxeUIFormItemComponent, {
                 title: getI18n('vxe.formDesign.widgetProp.uploadProp.limitFileCount'),
                 field: 'limitCount',
-                itemRender: { name: 'VxeInput', props: { type: 'integer', min: 1, clearable: true } }
+                itemRender: { name: 'VxeNumberInput', props: { type: 'integer', min: 1, clearable: true } }
               })
               : createCommentVNode(),
             h(VxeUIFormItemComponent, {

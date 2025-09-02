@@ -78,17 +78,22 @@ export default defineVxeComponent({
 
     const renderStylePreview = () => {
       const { activeTab } = reactData
+      const isMobile = activeTab === 2
       return h('div', {
-        class: ['vxe-form-design--layout-style-preview', `is--${activeTab === 2 ? 'mobile' : 'pc'}`]
+        class: ['vxe-form-design--layout-style-preview', `is--${isMobile ? 'mobile' : 'pc'}`]
       }, [
-        h(VxeFormViewComponent, {
-          modelValue: settingFormData.value,
-          config: settingConfig.value,
-          createFormConfig: createFormViewFormConfig,
-          'onUpdate:modelValue' (val) {
-            settingFormData.value = val
-          }
-        })
+        isMobile
+          ? h('div', {
+            class: 'vxe-form-view'
+          }, '暂不支持')
+          : h(VxeFormViewComponent, {
+            modelValue: settingFormData.value,
+            config: settingConfig.value,
+            createFormConfig: createFormViewFormConfig,
+            'onUpdate:modelValue' (val) {
+              settingFormData.value = val
+            }
+          })
       ])
     }
 

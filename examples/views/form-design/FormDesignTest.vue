@@ -2,10 +2,10 @@
   <div>
     <p>电脑端</p>
     <vxe-button @click="clickEvent">获取JSON</vxe-button>
-    <VxeFormDesign ref="formDesignRef" :height="800" />
+    <VxeFormDesign ref="formDesignRef" :height="800" show-mobile />
 
     <p>电脑端和手机端</p>
-    <VxeFormDesign :height="400" :widgets="widgetConfigs" showMobile />
+    <VxeFormDesign :height="400" :widgets="widgetConfigs" show-mobile />
 
     <p @click="previewEvent">点击预览</p>
 

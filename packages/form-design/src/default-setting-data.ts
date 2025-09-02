@@ -10,6 +10,7 @@ export const getDefaultSettingFormData = (defOpts?: Partial<VxeFormDesignDefines
     pcTitleColon: false,
     pcTitleAlign: '',
     pcTitleWidth: '',
+    pcTitleAutoWidth: true,
     pcTitleWidthUnit: '',
     mobileVisible: defOpts ? !!defOpts.mobileVisible : true,
     mobileVertical: true,
@@ -17,6 +18,7 @@ export const getDefaultSettingFormData = (defOpts?: Partial<VxeFormDesignDefines
     mobileTitleColon: false,
     mobileTitleAlign: '',
     mobileTitleWidth: '',
+    mobileTitleAutoWidth: true,
     mobileTitleWidthUnit: ''
   }
 }
@@ -28,7 +30,7 @@ export const createDefaultFormViewPCFormConfig = (params: VxeGlobalRendererHandl
     titleBold: formConfig.pcTitleBold,
     titleColon: formConfig.pcTitleColon,
     titleAlign: formConfig.pcTitleAlign,
-    titleWidth: formConfig.pcTitleWidth
+    titleWidth: formConfig.pcTitleAutoWidth ? 'auto' : formConfig.pcTitleWidth
   }
 }
 
@@ -39,6 +41,6 @@ export const createDefaultFormViewMobileFormConfig = (params: VxeGlobalRendererH
     titleBold: formConfig.mobileTitleBold,
     titleColon: formConfig.mobileTitleColon,
     titleAlign: formConfig.mobileTitleAlign,
-    titleWidth: formConfig.mobileTitleWidth
+    titleWidth: formConfig.mobileTitleAutoWidth ? 'auto' : formConfig.mobileTitleWidth
   }
 }

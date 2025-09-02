@@ -1,4 +1,4 @@
-import { h, ref, PropType, inject, createCommentVNode } from 'vue'
+import { h, ref, PropType, inject } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import { VxeUI } from '@vxe-ui/core'
 
@@ -31,6 +31,13 @@ const getWidthUnitOptions = () => {
   return [
     { label: getI18n('vxe.formDesign.styleSetting.unitPx'), value: '' },
     { label: getI18n('vxe.formDesign.styleSetting.unitPct'), value: '%' }
+  ]
+}
+
+const getWidthAutoOptions = () => {
+  return [
+    { label: '自适应', value: true },
+    { label: '固定', value: false }
   ]
 }
 
@@ -72,7 +79,7 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
   setup (props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
-    const VxeUIInputComponent = VxeUI.getComponent('VxeInput')
+    const VxeUINumberInputComponent = VxeUI.getComponent('vxe-number-input')
     const VxeUIRadioGroupComponent = VxeUI.getComponent('vxe-radio-group')
     const VxeUISelectComponent = VxeUI.getComponent('vxe-select')
 
@@ -83,6 +90,7 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
     const refBoldOpts = ref(getBoldOptions())
     const refColonOpts = ref(getColonOptions())
     const refAlignOpts = ref(getAlignOptions())
+    const refWidthAutoOpts = ref(getWidthAutoOptions())
     const refWidthUnitOpts = ref(getWidthUnitOptions())
 
     const refreshPreview = () => {
@@ -129,8 +137,9 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
               title: getI18n('vxe.formDesign.styleSetting.styleTitle')
             }, {
               default () {
-                return [
+                const propVns = [
                   h('div', {
+                    key: 'tb',
                     class: 'vxe-form-design--widget-form-item-prop-list'
                   }, [
                     h('span', {}, getI18n('vxe.formDesign.styleSetting.boldTitle')),
@@ -144,6 +153,7 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
                     })
                   ]),
                   h('div', {
+                    key: 'tc',
                     class: 'vxe-form-design--widget-form-item-prop-list'
                   }, [
                     h('span', {}, getI18n('vxe.formDesign.styleSetting.colonTitle')),
@@ -155,10 +165,15 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
                         formData.pcTitleColon = val
                       }
                     })
-                  ]),
-                  formData.pcVertical
-                    ? createCommentVNode()
-                    : h('div', {
+                  ])
+                ]
+
+                if (formData.pcVertical) {
+                  //
+                } else {
+                  propVns.push(
+                    h('div', {
+                      key: 'ta',
                       class: 'vxe-form-design--widget-form-item-prop-list'
                     }, [
                       h('span', {}, getI18n('vxe.formDesign.styleSetting.alignTitle')),
@@ -171,33 +186,52 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
                         }
                       })
                     ]),
-                  formData.pcVertical
-                    ? createCommentVNode()
-                    : h('div', {
+                    h('div', {
+                      key: 'twa',
                       class: 'vxe-form-design--widget-form-item-prop-list'
                     }, [
                       h('span', {}, getI18n('vxe.formDesign.styleSetting.widthTitle')),
-                      h(VxeUIInputComponent, {
-                        class: 'vxe-form-design--widget-form-item-prop-width',
-                        modelValue: formData.pcTitleWidth,
-                        type: 'integer',
+                      h(VxeUIRadioGroupComponent, {
+                        modelValue: formData.pcTitleAutoWidth,
+                        options: refWidthAutoOpts.value,
                         onChange: refreshPreview,
                         'onUpdate:modelValue' (val) {
-                          formData.pcTitleWidth = val as number
-                        }
-                      }),
-                      h(VxeUISelectComponent, {
-                        class: 'vxe-form-design--widget-form-item-prop-unit',
-                        modelValue: formData.pcTitleWidthUnit,
-                        options: refWidthUnitOpts.value,
-                        transfer: true,
-                        onChange: refreshPreview,
-                        'onUpdate:modelValue' (val) {
-                          formData.pcTitleWidthUnit = val as ''
+                          formData.pcTitleAutoWidth = val
                         }
                       })
                     ])
-                ]
+                  )
+                  if (!formData.pcTitleAutoWidth) {
+                    propVns.push(
+                      h('div', {
+                        key: 'tw',
+                        class: 'vxe-form-design--widget-form-item-prop-list'
+                      }, [
+                        h(VxeUINumberInputComponent, {
+                          class: 'vxe-form-design--widget-form-item-prop-width',
+                          modelValue: formData.pcTitleWidth,
+                          type: 'integer',
+                          onChange: refreshPreview,
+                          'onUpdate:modelValue' (val) {
+                            formData.pcTitleWidth = val as number
+                          }
+                        }),
+                        h(VxeUISelectComponent, {
+                          class: 'vxe-form-design--widget-form-item-prop-unit',
+                          modelValue: formData.pcTitleWidthUnit,
+                          options: refWidthUnitOpts.value,
+                          transfer: true,
+                          onChange: refreshPreview,
+                          'onUpdate:modelValue' (val) {
+                            formData.pcTitleWidthUnit = val as ''
+                          }
+                        })
+                      ])
+                    )
+                  }
+                }
+
+                return propVns
               }
             })
           ]
@@ -219,7 +253,7 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
   setup (props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
-    const VxeUIInputComponent = VxeUI.getComponent('VxeInput')
+    const VxeUINumberInputComponent = VxeUI.getComponent('vxe-number-input')
     const VxeUIRadioGroupComponent = VxeUI.getComponent('vxe-radio-group')
     const VxeUISelectComponent = VxeUI.getComponent('vxe-select')
 
@@ -230,6 +264,7 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
     const refBoldOpts = ref(getBoldOptions())
     const refColonOpts = ref(getColonOptions())
     const refAlignOpts = ref(getAlignOptions())
+    const refWidthAutoOpts = ref(getWidthAutoOptions())
     const refWidthUnitOpts = ref(getWidthUnitOptions())
 
     const refreshPreview = () => {
@@ -276,8 +311,9 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
               title: getI18n('vxe.formDesign.styleSetting.styleTitle')
             }, {
               default () {
-                return [
+                const propVns = [
                   h('div', {
+                    key: 'tb',
                     class: 'vxe-form-design--widget-form-item-prop-list'
                   }, [
                     h('span', {}, getI18n('vxe.formDesign.styleSetting.boldTitle')),
@@ -291,6 +327,7 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
                     })
                   ]),
                   h('div', {
+                    key: 'tc',
                     class: 'vxe-form-design--widget-form-item-prop-list'
                   }, [
                     h('span', {}, getI18n('vxe.formDesign.styleSetting.colonTitle')),
@@ -302,10 +339,15 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
                         formData.mobileTitleColon = val
                       }
                     })
-                  ]),
-                  formData.mobileVertical
-                    ? createCommentVNode()
-                    : h('div', {
+                  ])
+                ]
+
+                if (formData.mobileVertical) {
+                  //
+                } else {
+                  propVns.push(
+                    h('div', {
+                      key: 'ta',
                       class: 'vxe-form-design--widget-form-item-prop-list'
                     }, [
                       h('span', {}, getI18n('vxe.formDesign.styleSetting.alignTitle')),
@@ -318,33 +360,52 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
                         }
                       })
                     ]),
-                  formData.mobileVertical
-                    ? createCommentVNode()
-                    : h('div', {
+                    h('div', {
+                      key: 'twa',
                       class: 'vxe-form-design--widget-form-item-prop-list'
                     }, [
                       h('span', {}, getI18n('vxe.formDesign.styleSetting.widthTitle')),
-                      h(VxeUIInputComponent, {
-                        class: 'vxe-form-design--widget-form-item-prop-width',
-                        modelValue: formData.mobileTitleWidth,
-                        type: 'integer',
+                      h(VxeUIRadioGroupComponent, {
+                        modelValue: formData.mobileTitleAutoWidth,
+                        options: refWidthAutoOpts.value,
                         onChange: refreshPreview,
                         'onUpdate:modelValue' (val) {
-                          formData.mobileTitleWidth = val as number
-                        }
-                      }),
-                      h(VxeUISelectComponent, {
-                        class: 'vxe-form-design--widget-form-item-prop-unit',
-                        modelValue: formData.mobileTitleWidthUnit,
-                        options: refWidthUnitOpts.value,
-                        transfer: true,
-                        onChange: refreshPreview,
-                        'onUpdate:modelValue' (val) {
-                          formData.mobileTitleWidthUnit = val as ''
+                          formData.mobileTitleAutoWidth = val
                         }
                       })
                     ])
-                ]
+                  )
+                  if (!formData.mobileTitleAutoWidth) {
+                    propVns.push(
+                      h('div', {
+                        key: 'wt',
+                        class: 'vxe-form-design--widget-form-item-prop-list'
+                      }, [
+                        h(VxeUINumberInputComponent, {
+                          class: 'vxe-form-design--widget-form-item-prop-width',
+                          modelValue: formData.mobileTitleWidth,
+                          type: 'integer',
+                          onChange: refreshPreview,
+                          'onUpdate:modelValue' (val) {
+                            formData.mobileTitleWidth = val as number
+                          }
+                        }),
+                        h(VxeUISelectComponent, {
+                          class: 'vxe-form-design--widget-form-item-prop-unit',
+                          modelValue: formData.mobileTitleWidthUnit,
+                          options: refWidthUnitOpts.value,
+                          transfer: true,
+                          onChange: refreshPreview,
+                          'onUpdate:modelValue' (val) {
+                            formData.mobileTitleWidthUnit = val as ''
+                          }
+                        })
+                      ])
+                    )
+                  }
+                }
+
+                return propVns
               }
             })
           ]
