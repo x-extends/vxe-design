@@ -2,6 +2,7 @@
 
 简体中文 | [繁體中文](README.zh-TW.md) | [English](README.en.md) | [日本語](README.ja-JP.md)  
 
+[![github star](https://img.shields.io/github/stars/x-extends/vxe-design.svg)](https://github.com/x-extends/vxe-design/stargazers)
 [![gitee star](https://gitee.com/x-extends/vxe-design/badge/star.svg)](https://gitee.com/x-extends/vxe-design/stargazers)
 [![gitcode star](https://gitcode.com/x-extends/vxe-design/star/badge.svg)](https://gitcode.com/x-extends/vxe-design/stargazers)
 [![npm version](https://img.shields.io/npm/v/vxe-design.svg?style=flat-square)](https://www.npmjs.com/package/vxe-design)
