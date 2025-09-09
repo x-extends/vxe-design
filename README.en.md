@@ -2,7 +2,8 @@
 
 [简体中文](README.md) | [繁體中文](README.zh-TW.md) | English | [日本語](README.ja-JP.md)  
 
-[![star](https://gitee.com/x-extends/vxe-design/badge/star.svg?theme=gvp)](https://gitee.com/x-extends/vxe-design/stargazers)
+[![gitee star](https://gitee.com/x-extends/vxe-design/badge/star.svg)](https://gitee.com/x-extends/vxe-design/stargazers)
+[![gitcode star](https://gitcode.com/x-extends/vxe-design/star/badge.svg)](https://gitcode.com/x-extends/vxe-design/stargazers)
 [![npm version](https://img.shields.io/npm/v/vxe-design.svg?style=flat-square)](https://www.npmjs.com/package/vxe-design)
 [![NodeJS with Webpack](https://github.com/x-extends/vxe-design/actions/workflows/webpack.yml/badge.svg)](https://github.com/x-extends/vxe-design/actions/workflows/webpack.yml)
 [![npm downloads](https://img.shields.io/npm/dt/vxe-design.svg?style=flat-square)](https://npm-stat.com/charts.html?package=vxe-design)
