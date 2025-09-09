@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue'
-import { VxeUI } from 'vxe-pc-ui'
+import { VxeUI } from '@vxe-ui/core'
 import VxeListDesignComponent from './src/list-design'
 
 export const VxeListDesign = Object.assign({}, VxeListDesignComponent, {

@@ -9,6 +9,9 @@ declare global {
 
 export function install (app: VueConstructor, options?: VxeGlobalConfig): void
 
+// Vxe core
+export * from 'vxe-pc-ui/types/ui'
+
 // Vxe Design
 export * from 'vxe-pc-ui/types/components/flow-design'
 export * from 'vxe-pc-ui/types/components/flow-view'

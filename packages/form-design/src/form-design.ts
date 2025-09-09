@@ -1,10 +1,12 @@
 import { CreateElement, VNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
+import { VxeUI } from '@vxe-ui/core'
 import XEUtils from 'xe-utils'
-import { createEvent } from 'vxe-pc-ui'
 
 import type { ValueOf } from 'vxe-pc-ui'
 import type { FormDesignReactData, VxeFormDesignDefines, VxeFormDesignEmits } from '../../../types'
+
+const { createEvent } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFormDesign',

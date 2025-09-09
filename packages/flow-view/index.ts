@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue'
-import { VxeUI } from 'vxe-pc-ui'
+import { VxeUI } from '@vxe-ui/core'
 import VxeFlowViewComponent from '../flow-design/src/flow-view'
 
 export const VxeFlowView = Object.assign({}, VxeFlowViewComponent, {

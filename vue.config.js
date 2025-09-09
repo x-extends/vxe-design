@@ -11,7 +11,9 @@ process.env.VUE_APP_VXE_ENV = 'development'
 
 const externalMaps = {
   'xe-utils': 'XEUtils',
-  'vxe-pc-ui': 'VxeUI'
+  'vxe-table': 'VxeUITable',
+  'vxe-gantt': 'VxeUIGantt',
+  '@vxe-ui/core': 'VxeUI'
 }
 
 const externals = {}

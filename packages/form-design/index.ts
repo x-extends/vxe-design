@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue'
-import { VxeUI } from 'vxe-pc-ui'
+import { VxeUI } from '@vxe-ui/core'
 import VxeFormDesignComponent from './src/form-design'
 
 export const VxeFormDesign = Object.assign({}, VxeFormDesignComponent, {

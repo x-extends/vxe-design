@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue'
-import { VxeUI, setConfig, VxeGlobalConfig } from 'vxe-pc-ui'
+import VxeUI from './ui'
 
 import VxeFlowDesign from './flow-design'
 import VxeFlowView from './flow-view'
@@ -7,6 +7,10 @@ import VxeFormDesign from './form-design'
 import VxeFormView from './form-view'
 import VxeListDesign from './list-design'
 import VxeListView from './list-view'
+
+import type { VxeGlobalConfig } from 'vxe-pc-ui'
+
+const { setConfig } = VxeUI
 
 const components = [
   VxeFlowDesign,

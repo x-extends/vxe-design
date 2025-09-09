@@ -1,8 +1,8 @@
-import * as VxeUIExport from './components'
+import * as VxeUIDesignExport from './components'
 
 export * from './components'
 
 /**
  * A vue based PC component library
  */
-export default VxeUIExport
+export default VxeUIDesignExport

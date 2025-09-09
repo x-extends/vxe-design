@@ -1,7 +1,7 @@
 import XEUtils from 'xe-utils'
-import { VxeComponentSlotType } from 'vxe-pc-ui'
 
 import type { CombinedVueInstance } from 'vue/types/vue'
+import type { VxeComponentSlotType } from 'vxe-pc-ui'
 
 export function getOnName (type: string) {
   return XEUtils.kebabCase(type)

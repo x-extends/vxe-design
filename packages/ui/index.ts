@@ -1,4 +1,7 @@
-import { VxeUI, setConfig, setIcon } from 'vxe-pc-ui'
+import { VxeUI } from '@vxe-ui/core'
+import { errLog } from './src/log'
+
+const { setConfig, setIcon, checkVersion } = VxeUI
 
 VxeUI.designVersion = process.env.VUE_APP_VXE_VERSION as string
 
@@ -39,6 +42,16 @@ setIcon({
   LIST_DESIGN_LIST_SETTING_SEARCH_DELETE: iconPrefix + 'delete',
   LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE: iconPrefix + 'delete'
 })
+
+const pVersion = 3
+const sVersion = 13
+if (checkVersion) {
+  if (!checkVersion(VxeUI.tableVersion, pVersion, sVersion)) {
+    errLog('vxe.error.errorVersion', [`vxe-table@${VxeUI.tableVersion || '?'}`, `vxe-table v${pVersion}.${sVersion}+`])
+  }
+} else {
+  errLog(`Requires vxe-table v${pVersion}.${sVersion}+`)
+}
 
 export {
   VxeUI
