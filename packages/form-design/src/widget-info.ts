@@ -90,7 +90,7 @@ export class FormDesignWidgetInfo {
       }
     }
     this.id = widgetId
-    this.field = customField || `${name}${widgetId}`
+    this.field = customField || `${name}${widgetId}`.toLowerCase()
     this.name = name
   }
 }
