@@ -124,6 +124,7 @@ const ViewSubItemComponent = defineVxeComponent({
         isEdit: false,
         isHidden: false,
         fixed: null,
+        source: '',
         type: '',
         level: 1,
         visibleData: [],
