@@ -77,7 +77,7 @@ npm install vxe-pc-ui vxe-table vxe-design
 
 ```javascript
 // ...
-import VxeUIAll from 'vxe-pc-ui'
+import VxeUIBase from 'vxe-pc-ui'
 import 'vxe-pc-ui/es/style.css'
 
 import VxeUITable from 'vxe-table'
@@ -87,7 +87,7 @@ import VxeUIDesign from 'vxe-design'
 import 'vxe-design/lib/style.css'
 // ...
 
-createApp(App).use(VxeUIAll).use(VxeUITable).use(VxeUIDesign).mount('#app')
+createApp(App).use(VxeUIBase).use(VxeUITable).use(VxeUIDesign).mount('#app')
 ```
 
 ## 运行项目
