@@ -1,9 +1,11 @@
 import { VueConstructor } from 'vue'
 import { VxeUI } from '@vxe-ui/core'
+import { checkDependVersion } from '../ui/src/depend'
 import VxeListViewComponent from '../list-design/src/list-view'
 
 export const VxeListView = Object.assign(VxeListViewComponent, {
-  install: function (app: VueConstructor) {
+  install (app: VueConstructor) {
+    checkDependVersion()
     app.component(VxeListViewComponent.name as string, VxeListViewComponent)
   }
 })

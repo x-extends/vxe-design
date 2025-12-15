@@ -1,9 +1,11 @@
 import { VueConstructor } from 'vue'
 import { VxeUI } from '@vxe-ui/core'
+import { checkDependVersion } from '../ui/src/depend'
 import VxeFormDesignComponent from './src/form-design'
 
 export const VxeFormDesign = Object.assign({}, VxeFormDesignComponent, {
   install (app: VueConstructor) {
+    checkDependVersion()
     app.component(VxeFormDesignComponent.name as string, VxeFormDesignComponent)
   }
 })

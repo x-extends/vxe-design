@@ -1,9 +1,11 @@
 import { VueConstructor } from 'vue'
 import { VxeUI } from '@vxe-ui/core'
+import { checkDependVersion } from '../ui/src/depend'
 import VxeFormViewComponent from '../form-design/src/form-view'
 
 export const VxeFormView = Object.assign(VxeFormViewComponent, {
-  install: function (app: VueConstructor) {
+  install (app: VueConstructor) {
+    checkDependVersion()
     app.component(VxeFormViewComponent.name as string, VxeFormViewComponent)
   }
 })
