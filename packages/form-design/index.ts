@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import { VxeUI } from '@vxe-ui/core'
+import { checkDependVersion } from '../ui/src/depend'
 import VxeFormDesignComponent from './src/form-design'
 import { useWidgetView, useWidgetName, useSubtableView, useWidgetPropDataSource } from './src/use'
 import './render'
@@ -8,6 +9,7 @@ import type { FormDesignHandleExport } from '../../types'
 
 export const VxeFormDesign = Object.assign({}, VxeFormDesignComponent, {
   install (app: App) {
+    checkDependVersion()
     app.component(VxeFormDesignComponent.name as string, VxeFormDesignComponent)
   }
 })
