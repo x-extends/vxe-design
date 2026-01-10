@@ -360,7 +360,7 @@ export default defineVxeComponent({
           }
         }
       },
-      handleRemoveWidget (evnt: KeyboardEvent, widget: VxeFormDesignDefines.WidgetObjItem) {
+      handleRemoveWidget (evnt: Event, widget: VxeFormDesignDefines.WidgetObjItem) {
         const { widgetObjList } = reactData
         const rest = XEUtils.findTree(widgetObjList, obj => obj.id === widget.id, { children: 'children' })
         if (rest) {
