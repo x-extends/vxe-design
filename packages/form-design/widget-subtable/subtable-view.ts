@@ -86,6 +86,8 @@ const ViewSubItemComponent = defineVxeComponent({
               items.splice(index, 1)
             }
             formDesignInternalData.lastDragTime = Date.now()
+            $xeFormDesign.dispatchEvent('widget-drag', { widget: item }, evnt)
+            // drag-widget 已废弃
             $xeFormDesign.dispatchEvent('drag-widget', { widget: item }, evnt)
           }
         }
@@ -143,6 +145,11 @@ const ViewSubItemComponent = defineVxeComponent({
         'data-widget-id': widget.id,
         onDragstart: sortDragstartSubItemEvent,
         onDragenter: sortDragenterSubItemEvent,
+        onContextmenu (evnt: MouseEvent) {
+          if (widget) {
+            $xeFormDesign.handleContextmenuWidget(evnt, widget)
+          }
+        },
         onClick  (evnt: KeyboardEvent) {
           if (widget) {
             $xeFormDesign.handleClickWidget(evnt, widget)

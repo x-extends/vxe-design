@@ -75,6 +75,8 @@ export const ViewItemComponent = defineVxeComponent({
               }
               targetRest.items.splice(targetRest.index, 0, currRest.item)
               formDesignInternalData.lastDragTime = Date.now()
+              $xeFormDesign.dispatchEvent('widget-drag', { widget: currRest.item }, evnt)
+              // drag-widget 已废弃
               $xeFormDesign.dispatchEvent('drag-widget', { widget: currRest.item }, evnt)
             }
           }
@@ -113,6 +115,9 @@ export const ViewItemComponent = defineVxeComponent({
         onDragend: sortDragendEvent,
         onDragenter: sortDragenterEvent,
         // onDragover: dragoverItemEvent,
+        onContextmenu (evnt: MouseEvent) {
+          $xeFormDesign.handleContextmenuWidget(evnt, item)
+        },
         onClick (evnt: KeyboardEvent) {
           handleClickEvent(evnt, item)
         }

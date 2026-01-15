@@ -31,6 +31,8 @@ export default defineVxeComponent({
         if (!rest) {
           formDesignReactData.sortWidget = dragWidget
           widgetObjList.push(dragWidget)
+          $xeFormDesign.dispatchEvent('widget-drag', { widget: dragWidget }, evnt)
+          // drag-widget 已废弃
           $xeFormDesign.dispatchEvent('drag-widget', { widget: dragWidget }, evnt)
         }
       }
@@ -65,6 +67,8 @@ export default defineVxeComponent({
           }
           widgetObjList.unshift(item)
           lastDragTime = Date.now()
+          $xeFormDesign.dispatchEvent('widget-drag', { widget: item }, evnt)
+          // drag-widget 已废弃
           $xeFormDesign.dispatchEvent('drag-widget', { widget: item }, evnt)
         }
       }
@@ -93,6 +97,8 @@ export default defineVxeComponent({
           }
           widgetObjList.push(item)
           lastDragTime = Date.now()
+          $xeFormDesign.dispatchEvent('widget-drag', { widget: item }, evnt)
+          // drag-widget 已废弃
           $xeFormDesign.dispatchEvent('drag-widget', { widget: item }, evnt)
         }
       }

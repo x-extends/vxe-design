@@ -85,6 +85,8 @@ const ViewColItemComponent = defineVxeComponent({
             }
             evnt.preventDefault()
             formDesignInternalData.lastDragTime = Date.now()
+            $xeFormDesign.dispatchEvent('widget-drag', { widget: item }, evnt)
+            // drag-widget 已废弃
             $xeFormDesign.dispatchEvent('drag-widget', { widget: item }, evnt)
           }
         }
@@ -112,6 +114,11 @@ const ViewColItemComponent = defineVxeComponent({
             draggable: !isEmptyWidget,
             onDragstart: handleDragstartColItemEvent,
             onDragenter: sortDragenterColItemEvent,
+            onContextmenu (evnt: MouseEvent) {
+              if (widget) {
+                $xeFormDesign.handleContextmenuWidget(evnt, widget)
+              }
+            },
             onClick (evnt: KeyboardEvent) {
               if (widget) {
                 $xeFormDesign.handleClickWidget(evnt, widget)

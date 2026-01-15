@@ -1,7 +1,8 @@
-import { ref, h, PropType, reactive, provide, watch, nextTick, ComponentOptions, createCommentVNode } from 'vue'
+import { ref, h, PropType, reactive, provide, watch, nextTick, computed, ComponentOptions, createCommentVNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import { VxeUI } from '@vxe-ui/core'
 import { toCssUnit } from '../../ui/src/dom'
+import { isEnableConf } from '../../ui/src/utils'
 import { FormDesignWidgetInfo, getWidgetConfig, getWidgetConfigCustomGroup, configToWidget } from './widget-info'
 import XEUtils from 'xe-utils'
 import LayoutWidgetComponent from './layout-widget'
@@ -10,9 +11,10 @@ import LayoutSettingComponent from './layout-setting'
 import LayoutStyleComponent from './layout-style'
 import { getDefaultSettingFormData } from './default-setting-data'
 
+import type { ValueOf } from 'vxe-pc-ui'
 import type { VxeFormDesignDefines, VxeFormDesignPropTypes, VxeFormDesignEmits, FormDesignInternalData, FormDesignReactData, FormDesignPrivateRef, VxeFormDesignPrivateComputed, VxeFormDesignConstructor, VxeFormDesignPrivateMethods, FormDesignMethods, FormDesignPrivateMethods } from '../../../types'
 
-const { getConfig, getIcon, getI18n, renderer, createEvent, renderEmptyElement, useFns } = VxeUI
+const { menus, getConfig, getIcon, getI18n, renderer, createEvent, renderEmptyElement, useFns } = VxeUI
 const { useSize } = useFns
 
 export default defineVxeComponent({
@@ -43,9 +45,19 @@ export default defineVxeComponent({
       type: Boolean as PropType<VxeFormDesignPropTypes.ShowMobile>,
       default: () => getConfig().formDesign.showMobile
     },
-    formRender: Object as PropType<VxeFormDesignPropTypes.FormRender>
+    formRender: Object as PropType<VxeFormDesignPropTypes.FormRender>,
+    menuConfig: Object as PropType<VxeFormDesignPropTypes.MenuConfig>
   },
   emits: [
+    'widget-click',
+    'widget-add',
+    'widget-copy',
+    'widget-remove',
+    'widget-drag',
+    'widget-menu',
+    'menu-click',
+
+    // 已废弃
     'click-widget',
     'add-widget',
     'copy-widget',
@@ -79,6 +91,10 @@ export default defineVxeComponent({
     const refMaps: FormDesignPrivateRef = {
       refElem
     }
+
+    const computeMenuOpts = computed(() => {
+      return Object.assign({}, getConfig().calendar.menuConfig, props.menuConfig)
+    })
 
     const computeMaps: VxeFormDesignPrivateComputed = {
       computeSize
@@ -180,10 +196,12 @@ export default defineVxeComponent({
       return nextTick()
     }
 
+    const dispatchEvent = (type: ValueOf<VxeFormDesignEmits>, params: Record<string, any>, evnt: Event | null) => {
+      emit(type, createEvent(evnt, { $formDesign: $xeFormDesign }, params))
+    }
+
     const formDesignMethods: FormDesignMethods = {
-      dispatchEvent (type, params, evnt) {
-        emit(type, createEvent(evnt, { $xeFormDesign }, params))
-      },
+      dispatchEvent,
       createWidget,
       createEmptyWidget,
       getConfig () {
@@ -329,11 +347,40 @@ export default defineVxeComponent({
 
     const formDesignPrivateMethods: FormDesignPrivateMethods = {
       validWidgetUnique,
+      handleContextmenuWidget (evnt: MouseEvent, item: VxeFormDesignDefines.WidgetObjItem) {
+        const { menuConfig } = props
+        const menuOpts = computeMenuOpts.value
+        if (menuConfig ? isEnableConf(menuOpts) : menuOpts.enabled) {
+          const { options, visibleMethod } = menuOpts
+          if (!visibleMethod || visibleMethod({ $formDesign: $xeFormDesign, widget: item, options })) {
+            if (VxeUI.contextMenu) {
+              VxeUI.contextMenu.openByEvent(evnt, {
+                options,
+                events: {
+                  optionClick (eventParams) {
+                    const { option } = eventParams
+                    const gMenuOpts = menus.get(option.code)
+                    const fdmMethod = gMenuOpts ? gMenuOpts.formDesignMenuMethod : null
+                    const params = { menu: option, widget: item, $event: evnt, $formDesign: $xeFormDesign }
+                    if (fdmMethod) {
+                      fdmMethod(params, evnt)
+                    }
+                    dispatchEvent('menu-click', params, eventParams.$event)
+                  }
+                }
+              })
+            }
+          }
+        }
+        dispatchEvent('widget-menu', { widget: item }, evnt)
+      },
       handleClickWidget (evnt: KeyboardEvent, item: VxeFormDesignDefines.WidgetObjItem) {
         if (item && item.name) {
           evnt.stopPropagation()
           reactData.activeWidget = item
-          formDesignMethods.dispatchEvent('click-widget', { widget: item }, evnt)
+          dispatchEvent('widget-click', { widget: item }, evnt)
+          // click-widget 已废弃
+          dispatchEvent('click-widget', { widget: item }, evnt)
         }
       },
       handleCopyWidget (evnt: KeyboardEvent, widget: VxeFormDesignDefines.WidgetObjItem) {
@@ -356,7 +403,9 @@ export default defineVxeComponent({
             }
             reactData.activeWidget = newWidget
             reactData.widgetObjList = [...widgetObjList]
-            formDesignMethods.dispatchEvent('copy-widget', { widget, newWidget }, evnt)
+            dispatchEvent('widget-copy', { widget, newWidget }, evnt)
+            // copy-widget 已废弃
+            dispatchEvent('copy-widget', { widget: newWidget }, evnt)
           }
         }
       },
@@ -378,7 +427,9 @@ export default defineVxeComponent({
             items.splice(index, 1)
           }
           reactData.widgetObjList = [...widgetObjList]
-          formDesignMethods.dispatchEvent('remove-widget', { widget }, evnt)
+          dispatchEvent('widget-remove', { widget }, evnt)
+          // remove-widget 已废弃
+          dispatchEvent('remove-widget', { widget }, evnt)
         }
       }
     }
