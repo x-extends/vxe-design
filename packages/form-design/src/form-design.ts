@@ -45,6 +45,10 @@ export default defineVxeComponent({
       type: Boolean as PropType<VxeFormDesignPropTypes.ShowMobile>,
       default: () => getConfig().formDesign.showMobile
     },
+    showStyleSetting: {
+      type: Boolean as PropType<VxeFormDesignPropTypes.ShowStyleSetting>,
+      default: () => getConfig().formDesign.showStyleSetting
+    },
     formRender: Object as PropType<VxeFormDesignPropTypes.FormRender>,
     menuConfig: Object as PropType<VxeFormDesignPropTypes.MenuConfig>
   },
@@ -461,6 +465,7 @@ export default defineVxeComponent({
     Object.assign($xeFormDesign, formDesignMethods, formDesignPrivateMethods)
 
     const renderLayoutHeader = () => {
+      const { showStyleSetting } = props
       const titleSlot = slots.title
       const titlePrefixSlot = slots.titlePrefix || slots['title-prefix']
       const titleSuffixSlot = slots.titleSuffix || slots['title-suffix'] || slots.extra
@@ -481,17 +486,19 @@ export default defineVxeComponent({
               class: 'vxe-form-design--header-extra'
             }, titleSuffixSlot({}))
             : renderEmptyElement($xeFormDesign),
-          h('div', {
-            class: 'vxe-form-design--header-setting'
-          }, [
-            h(VxeUIButtonComponent, {
-              mode: 'text',
-              status: 'primary',
-              icon: getIcon().FORM_DESIGN_STYLE_SETTING,
-              content: getI18n('vxe.formDesign.styleSetting.btn'),
-              onClick: openStylePreviewEvent
-            })
-          ])
+          showStyleSetting
+            ? h('div', {
+              class: 'vxe-form-design--header-setting'
+            }, [
+              h(VxeUIButtonComponent, {
+                mode: 'text',
+                status: 'primary',
+                icon: getIcon().FORM_DESIGN_STYLE_SETTING,
+                content: getI18n('vxe.formDesign.styleSetting.btn'),
+                onClick: openStylePreviewEvent
+              })
+            ])
+            : renderEmptyElement($xeFormDesign)
         ])
       ])
     }

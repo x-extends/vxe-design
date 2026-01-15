@@ -8,7 +8,8 @@ setConfig({
   formDesign: {
     height: 400,
     showHeader: true,
-    showPc: true
+    showPc: true,
+    showStyleSetting: false
   },
   formView: {},
   listDesign: {
