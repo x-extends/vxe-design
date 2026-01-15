@@ -48,7 +48,7 @@ export default defineVxeComponent({
         if (renderSettingView) {
           return h('div', {
             class: 'vxe-form-design--custom-setting-form-view'
-          }, getSlotVNs(renderSettingView({}, { $formDesign: $xeFormDesign })))
+          }, getSlotVNs(renderSettingView(formRender, { formConfig: formData, $formDesign: $xeFormDesign })))
         }
       }
       return h(DefaultSettingFormComponent, {

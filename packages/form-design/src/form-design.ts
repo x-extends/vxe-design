@@ -436,17 +436,18 @@ export default defineVxeComponent({
 
     const createSettingForm = () => {
       const { formRender, showPc, showMobile } = props
-      let conf: Record<string, any> = getDefaultSettingFormData({
+      const defConf = getDefaultSettingFormData({
         pcVisible: showPc,
         mobileVisible: showMobile
       })
+      let customConf: Record<string, any> = {}
       // 如果为自定义渲染
       if (formRender) {
         const compConf = renderer.get(formRender.name)
         const createFormConfig = compConf ? compConf.createFormDesignSettingFormConfig : null
-        conf = (createFormConfig ? createFormConfig({}) : {}) || {}
+        customConf = (createFormConfig ? createFormConfig({}) : {}) || {}
       }
-      return conf as VxeFormDesignDefines.DefaultSettingFormDataObjVO
+      return Object.assign({}, defConf, customConf)
     }
 
     const initSettingForm = () => {

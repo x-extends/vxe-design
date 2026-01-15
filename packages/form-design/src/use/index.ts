@@ -1,3 +1,4 @@
+export * from './form-view'
 export * from './widget-name'
 export * from './widget-view'
 export * from './widget-subtable-view'
