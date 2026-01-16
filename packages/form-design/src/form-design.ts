@@ -469,6 +469,9 @@ export default defineVxeComponent({
       const titleSlot = slots.title
       const titlePrefixSlot = slots.titlePrefix || slots['title-prefix']
       const titleSuffixSlot = slots.titleSuffix || slots['title-suffix'] || slots.extra
+      if (!(titlePrefixSlot || titleSlot || titleSuffixSlot || showStyleSetting)) {
+        return renderEmptyElement($xeFormDesign)
+      }
       return h('div', {
         class: 'vxe-form-design--header-wrapper'
       }, [
