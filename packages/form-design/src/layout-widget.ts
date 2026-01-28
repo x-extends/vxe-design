@@ -5,7 +5,7 @@ import { getIcon, getI18n, renderer } from '@vxe-ui/core'
 import { getSlotVNs } from '../../ui/src/vn'
 import { getWidgetConfig, getWidgetConfigTitle } from './widget-info'
 
-import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeFormDesignDefines } from '../../../types'
+import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeFormDesignDefines, VxeGlobalRendererHandles, VxeComponentSlotType } from '../../../types'
 
 export default defineVxeComponent({
   props: {},
@@ -74,6 +74,25 @@ export default defineVxeComponent({
       }
     }
 
+    const renderWidgetIcon = (widgetConf: VxeGlobalRendererHandles.CreateFormDesignWidgetConfigObj) => {
+      const { icon } = widgetConf
+      let icVns: VxeComponentSlotType[] = []
+      if (icon) {
+        if (XEUtils.isFunction(icon)) {
+          icVns = getSlotVNs(icon({ widget: widgetConf }))
+        } else {
+          icVns.push(
+            h('i', {
+              class: icon
+            })
+          )
+        }
+      }
+      return h('div', {
+        class: 'vxe-form-design--widget-item-icon'
+      }, icVns)
+    }
+
     const renderWidgetList = (group: VxeFormDesignDefines.WidgetConfigGroup) => {
       const widgetVNs: VNode[] = []
       if (group.children) {
@@ -97,13 +116,11 @@ export default defineVxeComponent({
             }, renderWidgetItem
               ? getSlotVNs(renderWidgetItem({}, { $formDesign: $xeFormDesign }))
               : [
-                  h('i', {
-                    class: ['vxe-form-design--widget-item-icon', widgetConf ? (widgetConf.icon || '') : '']
-                  }),
-                  h('span', {
+                  renderWidgetIcon(widgetConf),
+                  h('div', {
                     class: 'vxe-form-design--widget-item-name'
                   }, configTitle),
-                  h('span', {
+                  h('div', {
                     class: 'vxe-form-design--widget-item-add',
                     onClick (evnt: KeyboardEvent) {
                       addNewWidget(evnt, name)
