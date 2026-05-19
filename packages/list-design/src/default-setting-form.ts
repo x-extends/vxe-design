@@ -23,9 +23,9 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
   props: {},
   emits: [],
   setup () {
-    const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
-    const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
-    const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
+    const VxeUIFormComponent = VxeUI.getComponent('VxeForm')
+    const VxeUIFormItemComponent = VxeUI.getComponent('VxeFormItem')
+    const VxeUIButtonComponent = VxeUI.getComponent('VxeButton')
 
     const $xeListDesign = inject<(VxeListDesignConstructor & VxeListDesignPrivateMethods) | null>('$xeListDesign', null)
 

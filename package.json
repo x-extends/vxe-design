@@ -1,6 +1,6 @@
 {
   "name": "vxe-design",
-  "version": "4.1.2",
+  "version": "4.1.3",
   "description": "A PC-based visual designer based on Vxe UI, used for building zero-code and low-code platforms",
   "scripts": {
     "update": "npm install --legacy-peer-deps",
@@ -59,8 +59,8 @@
     "typescript": "~4.9.5",
     "vue": "3.4.27",
     "vue-router": "~4.5.1",
-    "vxe-pc-ui": "^4.13.2",
-    "vxe-table": "^4.18.0"
+    "vxe-pc-ui": "^4.14.13",
+    "vxe-table": "^4.18.13"
   },
   "vetur": {
     "tags": "helper/vetur/tags.json",
