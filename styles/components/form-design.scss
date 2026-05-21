@@ -186,6 +186,9 @@
 }
 .vxe-form-design--widget-box {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   height: 32px;
   line-height: 32px;
   font-size: var(--vxe-ui-form-design-widget-item-font-size);
@@ -194,8 +197,6 @@
   border: 1px solid var(--vxe-ui-input-border-color);
   background-color: var(--vxe-ui-layout-background-color);
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   cursor: grabbing;
   user-select: none;
   &:hover {
@@ -207,18 +208,23 @@
   }
 }
 .vxe-form-design--widget-item-icon {
+  flex-shrink: 0;
   padding: 0 0.2em;
 }
 .vxe-form-design--widget-item-name {
-  padding-left: var(--vxe-ui-layout-padding-half);
+  padding: 0 var(--vxe-ui-layout-padding-half);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .vxe-form-design--widget-item-add {
   display: none;
   position: absolute;
   top: 0;
   right: var(--vxe-ui-layout-padding-default);
-  width: 1em;
+  width: 1.2em;
   height: 100%;
+  text-align: center;
   cursor: pointer;
   &:hover {
     color: var(--vxe-ui-font-primary-color);
