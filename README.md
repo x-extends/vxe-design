@@ -110,6 +110,39 @@ npm run serve
 npm run lib
 ```
 
+## 示例
+
+```html
+<template>
+  <div>
+    <vxe-form-design :widgets="formDesignWidgets" :height="800" />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    const formDesignWidgets = [
+      {
+        group: 'base',
+        children: [
+          'VxeInput',
+          'VxeTextarea',
+          'VxeSelect',
+          'VxeSwitch',
+          'VxeRadioGroup',
+          'VxeCheckboxGroup'
+        ]
+      }
+    ]
+    return {
+      formDesignWidgets
+    }
+  }
+}
+</script>
+```
+
 ## 贡献源码步骤
 
 1. 如果是修复 bug，必须有示例的复现链接
