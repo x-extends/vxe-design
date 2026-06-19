@@ -1,7 +1,7 @@
 import { ref, PropType, h, reactive, provide, watch, nextTick, computed } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import { VxeUI, getConfig, createEvent, getI18n, renderer, useSize, renderEmptyElement } from '@vxe-ui/core'
-import { errLog } from '../../ui/src/log'
+import { createComponentLog } from '../../ui/src/log'
 import { toCssUnit } from '../../ui/src/dom'
 import { getSlotVNs } from '../../ui/src/vn'
 import { createListDesignActionButton } from '../render/util'
@@ -10,6 +10,8 @@ import XEUtils from 'xe-utils'
 import type { ListViewReactData, ListViewPrivateRef, VxeListViewPropTypes, VxeListViewDefines, VxeListViewEmits, VxeListViewPrivateComputed, VxeListViewConstructor, VxeListDesignDefines, ListViewMethods, ListViewPrivateMethods, VxeGlobalRendererHandles, VxeListViewPrivateMethods, ValueOf } from '../../../types'
 import type { VxeButtonGroupDefines, VxeButtonGroupPropTypes } from 'vxe-pc-ui'
 import type { VxeGridInstance, VxeGridPropTypes, VxeGridProps, VxeTableDefines } from 'vxe-table'
+
+const { errLog } = createComponentLog('list-design')
 
 export default defineVxeComponent({
   name: 'VxeListView',

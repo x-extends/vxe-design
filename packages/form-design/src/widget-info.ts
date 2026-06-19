@@ -1,11 +1,13 @@
 import { ref } from 'vue'
 import { renderer } from '@vxe-ui/core'
 import { getNewWidgetId } from './util'
-import { errLog } from '../../ui/src/log'
+import { createComponentLog } from '../../ui/src/log'
 import XEUtils from 'xe-utils'
 
 import type { VxeFormPropTypes } from 'vxe-pc-ui'
 import type { VxeFormDesignConstructor, VxeFormDesignDefines, VxeGlobalRendererHandles } from '../../../types'
+
+const { errLog } = createComponentLog('form-design')
 
 // 控件原始配置信息，带响应
 const refWidgetReactConfigMaps = ref<Record<string, VxeGlobalRendererHandles.CreateFormDesignWidgetConfigObj>>({})
