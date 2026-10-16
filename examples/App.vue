@@ -55,9 +55,4 @@ const changeLanguage = () => {
 .nav {
   display: block;
 }
-.page-layout-aside {
-  ::v-deep(.vxe-layout-aside--inner) {
-    overflow-y: scroll;
-  }
-}
 </style>
