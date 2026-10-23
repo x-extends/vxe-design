@@ -1,6 +1,7 @@
 import { CreateElement, VNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import { VxeUI } from '@vxe-ui/core'
+import { handleEmitModelVal } from '../../ui/src/vn'
 import XEUtils from 'xe-utils'
 
 import type { ValueOf } from 'vxe-pc-ui'
@@ -32,12 +33,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     emitModel  (value: any) {
       const $xeFlowView = this
 
-      const { _events } = $xeFlowView as any
-      if (_events && _events.modelValue) {
-        $xeFlowView.$emit('modelValue', value)
-      } else {
-        $xeFlowView.$emit('model-value', value)
-      }
+      handleEmitModelVal($xeFlowView, value)
     },
 
     //

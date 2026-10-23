@@ -51,3 +51,12 @@ export function getEventCaseName (_vm: CombinedVueInstance<any, any, any, any, a
   const _events = _vm ? _vm._events : null
   return _events && _events[caseName] ? caseName : name
 }
+
+export function handleEmitModelVal (_vm: CombinedVueInstance<any, any, any, any, any>, value: any) {
+  const { _events } = _vm as any
+  if (_events && _events.modelValue && _events.modelValue.length) {
+    _vm.$emit('modelValue', value)
+  } else {
+    _vm.$emit('model-value', value)
+  }
+}

@@ -1,6 +1,7 @@
 import { CreateElement, VNode, PropType } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import { VxeUI } from '@vxe-ui/core'
+import { handleEmitModelVal } from '../../ui/src/vn'
 import XEUtils from 'xe-utils'
 
 import type { ValueOf } from 'vxe-pc-ui'
@@ -77,12 +78,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     emitModel  (value: any) {
       const $xeFormDesign = this
 
-      const { _events } = $xeFormDesign as any
-      if (_events && _events.modelValue) {
-        $xeFormDesign.$emit('modelValue', value)
-      } else {
-        $xeFormDesign.$emit('model-value', value)
-      }
+      handleEmitModelVal($xeFormDesign, value)
     },
 
     //

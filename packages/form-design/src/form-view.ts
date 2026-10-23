@@ -36,7 +36,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
       const $xeFormView = this
 
       const { _events } = $xeFormView as any
-      if (_events && _events.modelValue) {
+      if (_events && _events.modelValue && _events.modelValue.length) {
         $xeFormView.$emit('modelValue', value)
       } else {
         $xeFormView.$emit('model-value', value)

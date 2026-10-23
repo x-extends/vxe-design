@@ -2,6 +2,7 @@ import { CreateElement, VNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import XEUtils from 'xe-utils'
 import { VxeUI } from '@vxe-ui/core'
+import { handleEmitModelVal } from '../../ui/src/vn'
 
 import type { ValueOf } from 'vxe-pc-ui'
 import type { ListDesignReactData, VxeListDesignDefines, VxeListDesignEmits } from '../../../types'
@@ -36,12 +37,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     emitModel  (value: any) {
       const $xeListDesign = this
 
-      const { _events } = $xeListDesign as any
-      if (_events && _events.modelValue) {
-        $xeListDesign.$emit('modelValue', value)
-      } else {
-        $xeListDesign.$emit('model-value', value)
-      }
+      handleEmitModelVal($xeListDesign, value)
     },
 
     //
