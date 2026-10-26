@@ -40,25 +40,25 @@ export const WidgetSelectViewComponent = defineVxeComponent({
       const { options } = widget.options
       return options
         ? options.map((group) => {
-            if (group.options) {
-              return h(
-                'optgroup',
-                {
-                  label: group.value
-                },
-                group.options.map((item) => {
-                  return h(
-                    'option',
-                    {
-                      value: item.value
-                    },
-                    item.value
-                  )
-                })
-              )
-            }
-            return h('option', {}, group.value)
-          })
+          if (group.options) {
+            return h(
+              'optgroup',
+              {
+                label: group.value
+              },
+              group.options.map((item) => {
+                return h(
+                  'option',
+                  {
+                    value: item.value
+                  },
+                  item.value
+                )
+              })
+            )
+          }
+          return h('option', {}, group.value)
+        })
         : []
     }
 

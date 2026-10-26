@@ -87,20 +87,20 @@ export default defineVxeComponent({
         [
           isMobile
             ? h(
-                'div',
-                {
-                  class: 'vxe-form-view'
-                },
-                '暂不支持'
-              )
+              'div',
+              {
+                class: 'vxe-form-view'
+              },
+              '暂不支持'
+            )
             : h(VxeFormViewComponent, {
-                modelValue: settingFormData.value,
-                config: settingConfig.value,
-                createFormConfig: createFormViewFormConfig,
-                'onUpdate:modelValue'(val) {
-                  settingFormData.value = val
-                }
-              })
+              modelValue: settingFormData.value,
+              config: settingConfig.value,
+              createFormConfig: createFormViewFormConfig,
+              'onUpdate:modelValue'(val) {
+                settingFormData.value = val
+              }
+            })
         ]
       )
     }

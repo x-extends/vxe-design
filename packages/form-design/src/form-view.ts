@@ -304,12 +304,12 @@ export default defineVxeComponent({
         [
           topSlot
             ? h(
-                'div',
-                {
-                  class: 'vxe-form-view--top'
-                },
-                getSlotVNs(topSlot({ $formView: $xeFormView }))
-              )
+              'div',
+              {
+                class: 'vxe-form-view--top'
+              },
+              getSlotVNs(topSlot({ $formView: $xeFormView }))
+            )
             : renderEmptyElement($xeFormView),
           h(
             VxeUIFormComponent,
@@ -331,14 +331,14 @@ export default defineVxeComponent({
                 return [
                   headerSlot
                     ? h(
-                        VxeUIFormItemComponent,
-                        {},
-                        {
-                          default() {
-                            return headerSlot({})
-                          }
+                      VxeUIFormItemComponent,
+                      {},
+                      {
+                        default() {
+                          return headerSlot({})
                         }
-                      )
+                      }
+                    )
                     : renderEmptyElement($xeFormView),
                   ...widgetObjList.map((widget) => {
                     const { name } = widget
@@ -375,16 +375,16 @@ export default defineVxeComponent({
                   }),
                   footerSlot
                     ? h(
-                        VxeUIFormGroupComponent,
-                        {
-                          span: 24
-                        },
-                        {
-                          default() {
-                            return footerSlot({})
-                          }
+                      VxeUIFormGroupComponent,
+                      {
+                        span: 24
+                      },
+                      {
+                        default() {
+                          return footerSlot({})
                         }
-                      )
+                      }
+                    )
                     : renderEmptyElement($xeFormView)
                 ]
               }
@@ -392,12 +392,12 @@ export default defineVxeComponent({
           ),
           bottomSlot
             ? h(
-                'div',
-                {
-                  class: 'vxe-form-view--bottom'
-                },
-                getSlotVNs(bottomSlot({ $formView: $xeFormView }))
-              )
+              'div',
+              {
+                class: 'vxe-form-view--bottom'
+              },
+              getSlotVNs(bottomSlot({ $formView: $xeFormView }))
+            )
             : renderEmptyElement($xeFormView)
         ]
       )

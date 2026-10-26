@@ -320,9 +320,9 @@ export default defineVxeComponent({
             group: config.group,
             children: config.children
               ? config.children.map((name) => {
-                  const widthItem = createWidget(name)
-                  return widthItem
-                })
+                const widthItem = createWidget(name)
+                return widthItem
+              })
               : []
           }
         })
@@ -511,29 +511,29 @@ export default defineVxeComponent({
             [
               titleSuffixSlot
                 ? h(
-                    'div',
-                    {
-                      class: 'vxe-form-design--header-extra'
-                    },
-                    titleSuffixSlot({})
-                  )
+                  'div',
+                  {
+                    class: 'vxe-form-design--header-extra'
+                  },
+                  titleSuffixSlot({})
+                )
                 : renderEmptyElement($xeFormDesign),
               showStyleSetting
                 ? h(
-                    'div',
-                    {
-                      class: 'vxe-form-design--header-setting'
-                    },
-                    [
-                      h(VxeUIButtonComponent, {
-                        mode: 'text',
-                        status: 'primary',
-                        icon: getIcon().FORM_DESIGN_STYLE_SETTING,
-                        content: getI18n('vxe.formDesign.styleSetting.btn'),
-                        onClick: openStylePreviewEvent
-                      })
-                    ]
-                  )
+                  'div',
+                  {
+                    class: 'vxe-form-design--header-setting'
+                  },
+                  [
+                    h(VxeUIButtonComponent, {
+                      mode: 'text',
+                      status: 'primary',
+                      icon: getIcon().FORM_DESIGN_STYLE_SETTING,
+                      content: getI18n('vxe.formDesign.styleSetting.btn'),
+                      onClick: openStylePreviewEvent
+                    })
+                  ]
+                )
                 : renderEmptyElement($xeFormDesign)
             ]
           )
@@ -565,12 +565,12 @@ export default defineVxeComponent({
         [
           showHeader || headerSlot
             ? h(
-                'div',
-                {
-                  class: 'vxe-form-design--header'
-                },
-                headerSlot ? headerSlot({}) : renderLayoutHeader()
-              )
+              'div',
+              {
+                class: 'vxe-form-design--header'
+              },
+              headerSlot ? headerSlot({}) : renderLayoutHeader()
+            )
             : createCommentVNode(),
           h(
             'div',
@@ -588,12 +588,12 @@ export default defineVxeComponent({
           ),
           footerSlot
             ? h(
-                'div',
-                {
-                  class: 'vxe-form-design--footer'
-                },
-                footerSlot ? footerSlot({}) : []
-              )
+              'div',
+              {
+                class: 'vxe-form-design--footer'
+              },
+              footerSlot ? footerSlot({}) : []
+            )
             : createCommentVNode()
         ]
       )

@@ -43,5 +43,4 @@ setIcon({
   LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE: iconPrefix + 'delete'
 })
 
-export { VxeUI }
 export default VxeUI

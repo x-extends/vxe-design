@@ -165,16 +165,16 @@ export default defineVxeComponent({
                   ),
                   searchFormItems.length
                     ? h(VxeUIFormComponent, {
-                        data: searchFormData,
-                        items: formItems as VxeFormPropTypes.Items
-                      })
+                      data: searchFormData,
+                      items: formItems as VxeFormPropTypes.Items
+                    })
                     : h(
-                        'div',
-                        {
-                          class: 'vxe-list-design--field-configs-empty-data'
-                        },
-                        [h('span', {}, getI18n('vxe.listDesign.search.emptyText'))]
-                      )
+                      'div',
+                      {
+                        class: 'vxe-list-design--field-configs-empty-data'
+                      },
+                      [h('span', {}, getI18n('vxe.listDesign.search.emptyText'))]
+                    )
                 ]
               ),
               h(
@@ -192,26 +192,26 @@ export default defineVxeComponent({
                   ),
                   VxeUIGridComponent
                     ? h(VxeUIGridComponent, {
-                        ref: refGrid,
-                        columns: tableColumn,
-                        data: tableData.value,
-                        showOverflow: true,
-                        border: true,
-                        columnConfig: {
-                          minWidth: 'auto',
-                          resizable: true
-                        },
-                        rowConfig: {
-                          isHover: true
-                        },
-                        scrollX: {
-                          enabled: false
-                        },
-                        scrollY: {
-                          enabled: false
-                        },
-                        onResizableChange: updateColumnWidthEvent
-                      })
+                      ref: refGrid,
+                      columns: tableColumn,
+                      data: tableData.value,
+                      showOverflow: true,
+                      border: true,
+                      columnConfig: {
+                        minWidth: 'auto',
+                        resizable: true
+                      },
+                      rowConfig: {
+                        isHover: true
+                      },
+                      scrollX: {
+                        enabled: false
+                      },
+                      scrollY: {
+                        enabled: false
+                      },
+                      onResizableChange: updateColumnWidthEvent
+                    })
                     : createCommentVNode()
                 ]
               )

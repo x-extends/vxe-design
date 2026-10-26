@@ -1,5 +1,6 @@
 import { App } from 'vue'
-import VxeUI from './ui'
+import { VxeUI } from '@vxe-ui/core'
+import './ui'
 
 import VxeFlowDesign from './flow-design'
 import VxeFlowView from './flow-view'

@@ -51,65 +51,65 @@ export const DefaultSettingFormComponent = defineVxeComponent({
               }),
               showPc && showMobile
                 ? h(
-                    VxeUIFormItemComponent,
-                    {
-                      title: getI18n('vxe.formDesign.widgetProp.displaySetting.name')
-                    },
-                    {
-                      default() {
-                        return [
-                          h(
-                            'div',
-                            {
-                              class: 'vxe-form-design--widget-form-item-devices'
-                            },
-                            [
-                              h(
-                                'div',
-                                {
-                                  class: 'vxe-form-design--widget-form-item-pc'
-                                },
-                                [
-                                  h(VxeUITextComponent, {
-                                    icon: getIcon().FORM_DESIGN_PROPS_PC,
-                                    content: getI18n('vxe.formDesign.widgetProp.displaySetting.pc')
-                                  }),
-                                  h(VxeUISwitchComponent, {
-                                    modelValue: formData.pcVisible,
-                                    openLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.visible'),
-                                    closeLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.hidden'),
-                                    'onUpdate:modelValue'(val) {
-                                      formData.pcVisible = val as boolean
-                                    }
-                                  })
-                                ]
-                              ),
-                              h(
-                                'div',
-                                {
-                                  class: 'vxe-form-design--widget-form-item-mobile'
-                                },
-                                [
-                                  h(VxeUITextComponent, {
-                                    icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
-                                    content: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile')
-                                  }),
-                                  h(VxeUISwitchComponent, {
-                                    modelValue: formData.mobileVisible,
-                                    openLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.visible'),
-                                    closeLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.hidden'),
-                                    'onUpdate:modelValue'(val) {
-                                      formData.mobileVisible = val as boolean
-                                    }
-                                  })
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      }
+                  VxeUIFormItemComponent,
+                  {
+                    title: getI18n('vxe.formDesign.widgetProp.displaySetting.name')
+                  },
+                  {
+                    default() {
+                      return [
+                        h(
+                          'div',
+                          {
+                            class: 'vxe-form-design--widget-form-item-devices'
+                          },
+                          [
+                            h(
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-form-item-pc'
+                              },
+                              [
+                                h(VxeUITextComponent, {
+                                  icon: getIcon().FORM_DESIGN_PROPS_PC,
+                                  content: getI18n('vxe.formDesign.widgetProp.displaySetting.pc')
+                                }),
+                                h(VxeUISwitchComponent, {
+                                  modelValue: formData.pcVisible,
+                                  openLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.visible'),
+                                  closeLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.hidden'),
+                                  'onUpdate:modelValue'(val) {
+                                    formData.pcVisible = val as boolean
+                                  }
+                                })
+                              ]
+                            ),
+                            h(
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-form-item-mobile'
+                              },
+                              [
+                                h(VxeUITextComponent, {
+                                  icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
+                                  content: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile')
+                                }),
+                                h(VxeUISwitchComponent, {
+                                  modelValue: formData.mobileVisible,
+                                  openLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.visible'),
+                                  closeLabel: getI18n('vxe.formDesign.widgetProp.displaySetting.hidden'),
+                                  'onUpdate:modelValue'(val) {
+                                    formData.mobileVisible = val as boolean
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]
                     }
-                  )
+                  }
+                )
                 : createCommentVNode()
             ]
           }

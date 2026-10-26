@@ -463,22 +463,22 @@ export default defineVxeComponent({
             [
               gridSlot
                 ? h(
-                    'div',
-                    {
-                      class: 'vxe-list-view--grid-wrapper'
-                    },
-                    getSlotVNs(gridSlot({ $listView: $xeListView }))
-                  )
+                  'div',
+                  {
+                    class: 'vxe-list-view--grid-wrapper'
+                  },
+                  getSlotVNs(gridSlot({ $listView: $xeListView }))
+                )
                 : VxeUIGridComponent
                   ? h(
-                      VxeUIGridComponent,
-                      Object.assign({}, gridOptions, gridEvents, {
-                        ref: refGrid
-                      }),
-                      Object.assign({}, slots, {
-                        default: undefined
-                      })
-                    )
+                    VxeUIGridComponent,
+                    Object.assign({}, gridOptions, gridEvents, {
+                      ref: refGrid
+                    }),
+                    Object.assign({}, slots, {
+                      default: undefined
+                    })
+                  )
                   : renderEmptyElement($xeListView)
             ]
           ),

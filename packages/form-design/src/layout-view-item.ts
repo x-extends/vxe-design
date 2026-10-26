@@ -138,31 +138,31 @@ export const ViewItemComponent = defineVxeComponent({
           ),
           isActive
             ? h(
-                'div',
-                {
-                  class: 'vxe-form-design--preview-item-operate'
-                },
-                [
-                  h(VxeUIButtonComponent, {
-                    icon: getIcon().FORM_DESIGN_WIDGET_COPY,
-                    status: 'primary',
-                    size: 'mini',
-                    circle: true,
-                    onClick(params) {
-                      $xeFormDesign.handleCopyWidget(params.$event, item)
-                    }
-                  }),
-                  h(VxeUIButtonComponent, {
-                    icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-                    status: 'danger',
-                    size: 'mini',
-                    circle: true,
-                    onClick(params) {
-                      $xeFormDesign.handleRemoveWidget(params.$event, item)
-                    }
-                  })
-                ]
-              )
+              'div',
+              {
+                class: 'vxe-form-design--preview-item-operate'
+              },
+              [
+                h(VxeUIButtonComponent, {
+                  icon: getIcon().FORM_DESIGN_WIDGET_COPY,
+                  status: 'primary',
+                  size: 'mini',
+                  circle: true,
+                  onClick(params) {
+                    $xeFormDesign.handleCopyWidget(params.$event, item)
+                  }
+                }),
+                h(VxeUIButtonComponent, {
+                  icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+                  status: 'danger',
+                  size: 'mini',
+                  circle: true,
+                  onClick(params) {
+                    $xeFormDesign.handleRemoveWidget(params.$event, item)
+                  }
+                })
+              ]
+            )
             : createCommentVNode()
         ]
       )

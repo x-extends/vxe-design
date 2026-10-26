@@ -175,50 +175,50 @@ const ViewSubItemComponent = defineVxeComponent({
                 },
                 renderSubtableView
                   ? h(
-                      VxeUIFormItemComponent,
-                      {
-                        class: ['vxe-form-design--widget-render-form-item'],
-                        title: widget.title,
-                        field: widget.field,
-                        itemRender: {}
-                      },
-                      {
-                        default() {
-                          return getSlotVNs(renderSubtableView(subOpts, subParams))
-                        }
+                    VxeUIFormItemComponent,
+                    {
+                      class: ['vxe-form-design--widget-render-form-item'],
+                      title: widget.title,
+                      field: widget.field,
+                      itemRender: {}
+                    },
+                    {
+                      default() {
+                        return getSlotVNs(renderSubtableView(subOpts, subParams))
                       }
-                    )
+                    }
+                  )
                   : renderWidgetDesignView
                     ? getSlotVNs(renderWidgetDesignView(renderOpts, defParams))
                     : []
               ),
               isActive
                 ? h(
-                    'div',
-                    {
-                      class: 'vxe-form-design--preview-item-operate'
-                    },
-                    [
-                      h(VxeUIButtonComponent, {
-                        icon: getIcon().FORM_DESIGN_WIDGET_COPY,
-                        status: 'primary',
-                        size: 'mini',
-                        circle: true,
-                        onClick(params) {
-                          $xeFormDesign.handleCopyWidget(params.$event, widget)
-                        }
-                      }),
-                      h(VxeUIButtonComponent, {
-                        icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-                        status: 'danger',
-                        size: 'mini',
-                        circle: true,
-                        onClick(params) {
-                          $xeFormDesign.handleRemoveWidget(params.$event, widget)
-                        }
-                      })
-                    ]
-                  )
+                  'div',
+                  {
+                    class: 'vxe-form-design--preview-item-operate'
+                  },
+                  [
+                    h(VxeUIButtonComponent, {
+                      icon: getIcon().FORM_DESIGN_WIDGET_COPY,
+                      status: 'primary',
+                      size: 'mini',
+                      circle: true,
+                      onClick(params) {
+                        $xeFormDesign.handleCopyWidget(params.$event, widget)
+                      }
+                    }),
+                    h(VxeUIButtonComponent, {
+                      icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+                      status: 'danger',
+                      size: 'mini',
+                      circle: true,
+                      onClick(params) {
+                        $xeFormDesign.handleRemoveWidget(params.$event, widget)
+                      }
+                    })
+                  ]
+                )
                 : createCommentVNode()
             ]
           )
@@ -318,27 +318,27 @@ export const WidgetSubtableEditComponent = defineVxeComponent({
                   [
                     showCheckbox
                       ? h(
-                          'div',
-                          {
-                            class: 'vxe-form-design--widget-subtable-col'
-                          },
-                          [
-                            h(
-                              'div',
-                              {
-                                class: 'vxe-form-design--widget-subtable-head'
-                              },
-                              [h(VxeUICheckboxComponent)]
-                            ),
-                            h(
-                              'div',
-                              {
-                                class: 'vxe-form-design--widget-subtable-body'
-                              },
-                              [h(VxeUICheckboxComponent)]
-                            )
-                          ]
-                        )
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-subtable-col'
+                        },
+                        [
+                          h(
+                            'div',
+                            {
+                              class: 'vxe-form-design--widget-subtable-head'
+                            },
+                            [h(VxeUICheckboxComponent)]
+                          ),
+                          h(
+                            'div',
+                            {
+                              class: 'vxe-form-design--widget-subtable-body'
+                            },
+                            [h(VxeUICheckboxComponent)]
+                          )
+                        ]
+                      )
                       : createCommentVNode(),
                     h(
                       'div',
@@ -387,13 +387,13 @@ export const WidgetSubtableEditComponent = defineVxeComponent({
                             default: () => {
                               return children
                                 ? children.map((childWidget, childIndex) => {
-                                    return h(ViewSubItemComponent, {
-                                      key: childWidget.id,
-                                      parentWidget: widget,
-                                      widget: childWidget,
-                                      childIndex
-                                    })
+                                  return h(ViewSubItemComponent, {
+                                    key: childWidget.id,
+                                    parentWidget: widget,
+                                    widget: childWidget,
+                                    childIndex
                                   })
+                                })
                                 : []
                             }
                           }
@@ -660,26 +660,26 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
           default() {
             return VxeUIGridComponent
               ? h(
-                  VxeUIGridComponent,
-                  {
-                    ...gridOptions,
-                    ref: refGrid
-                  },
-                  {
-                    toolbarButtons() {
-                      return formReadonly
-                        ? []
-                        : [
-                            h(VxeUIButtonComponent, {
-                              content: '新增',
-                              icon: 'vxe-icon-add',
-                              status: 'primary',
-                              onClick: addSubRowEvent
-                            })
-                          ]
-                    }
+                VxeUIGridComponent,
+                {
+                  ...gridOptions,
+                  ref: refGrid
+                },
+                {
+                  toolbarButtons() {
+                    return formReadonly
+                      ? []
+                      : [
+                          h(VxeUIButtonComponent, {
+                            content: '新增',
+                            icon: 'vxe-icon-add',
+                            status: 'primary',
+                            onClick: addSubRowEvent
+                          })
+                        ]
                   }
-                )
+                }
+              )
               : createCommentVNode()
           }
         }

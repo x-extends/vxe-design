@@ -71,10 +71,10 @@ export const WidgetVxeUploadImageFormComponent = defineVxeComponent({
               }),
               options.multiple
                 ? h(VxeUIFormItemComponent, {
-                    title: getI18n('vxe.formDesign.widgetProp.uploadProp.limitImgCount'),
-                    field: 'limitCount',
-                    itemRender: { name: 'VxeNumberInput', props: { type: 'integer', min: 1, clearable: true } }
-                  })
+                  title: getI18n('vxe.formDesign.widgetProp.uploadProp.limitImgCount'),
+                  field: 'limitCount',
+                  itemRender: { name: 'VxeNumberInput', props: { type: 'integer', min: 1, clearable: true } }
+                })
                 : createCommentVNode(),
               h(VxeUIFormItemComponent, {
                 title: getI18n('vxe.formDesign.widgetProp.uploadProp.limitImgSize'),

@@ -414,60 +414,60 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
                     return [
                       searchFormItems.length
                         ? h(
-                            'div',
-                            {
-                              class: 'vxe-list-design--search-item-wrapper'
-                            },
-                            [
-                              h(
-                                'div',
-                                {
-                                  class: 'vxe-list-design--search-item-list'
-                                },
-                                searchFormItems.map((item) => {
-                                  return h(
-                                    'div',
-                                    {
-                                      key: item.field,
-                                      class: 'vxe-list-design--search-item'
-                                    },
-                                    [
-                                      h(
-                                        'div',
-                                        {
-                                          class: 'vxe-list-design--search-item-title'
-                                        },
+                          'div',
+                          {
+                            class: 'vxe-list-design--search-item-wrapper'
+                          },
+                          [
+                            h(
+                              'div',
+                              {
+                                class: 'vxe-list-design--search-item-list'
+                              },
+                              searchFormItems.map((item) => {
+                                return h(
+                                  'div',
+                                  {
+                                    key: item.field,
+                                    class: 'vxe-list-design--search-item'
+                                  },
+                                  [
+                                    h(
+                                      'div',
+                                      {
+                                        class: 'vxe-list-design--search-item-title'
+                                      },
                                         `${item.title || ''}`
-                                      ),
-                                      h(
-                                        'div',
-                                        {
-                                          class: 'vxe-list-design--search-item-btn'
-                                        },
-                                        [
-                                          h(VxeUIButtonComponent, {
-                                            icon: getIcon().LIST_DESIGN_LIST_SETTING_SEARCH_DELETE,
-                                            mode: 'text',
-                                            status: 'error',
-                                            onClick() {
-                                              removeSearchItem(item)
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                })
-                              )
-                            ]
-                          )
+                                    ),
+                                    h(
+                                      'div',
+                                      {
+                                        class: 'vxe-list-design--search-item-btn'
+                                      },
+                                      [
+                                        h(VxeUIButtonComponent, {
+                                          icon: getIcon().LIST_DESIGN_LIST_SETTING_SEARCH_DELETE,
+                                          mode: 'text',
+                                          status: 'error',
+                                          onClick() {
+                                            removeSearchItem(item)
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                )
+                              })
+                            )
+                          ]
+                        )
                         : h(
-                            'div',
-                            {
-                              class: 'vxe-list-design--field-configs-empty-data'
-                            },
-                            [h('span', {}, getI18n('vxe.listDesign.search.emptyText'))]
-                          )
+                          'div',
+                          {
+                            class: 'vxe-list-design--field-configs-empty-data'
+                          },
+                          [h('span', {}, getI18n('vxe.listDesign.search.emptyText'))]
+                        )
                     ]
                   }
                 }
@@ -705,78 +705,78 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
 
             return btnList && btnList.length
               ? h(
-                  'div',
-                  {
-                    class: 'vxe-list-design--field-configs-wrapper'
-                  },
-                  btnList.map((btnItem) => {
-                    let btnIcon = ''
-                    let btnName = ''
-                    if (btnItem.type === 'custom') {
-                      btnIcon = btnItem.icon
-                      btnName = btnItem.name
-                    } else {
-                      const btnConfig = systemConfigList.find((item) => item.code === btnItem.code)
-                      if (btnConfig) {
-                        const nameConfig = btnConfig.name
-                        btnIcon = btnConfig.icon || ''
-                        btnName = XEUtils.toValueString(XEUtils.isFunction(nameConfig) ? nameConfig({ name: btnConfig.code || '' }) : nameConfig)
-                      }
+                'div',
+                {
+                  class: 'vxe-list-design--field-configs-wrapper'
+                },
+                btnList.map((btnItem) => {
+                  let btnIcon = ''
+                  let btnName = ''
+                  if (btnItem.type === 'custom') {
+                    btnIcon = btnItem.icon
+                    btnName = btnItem.name
+                  } else {
+                    const btnConfig = systemConfigList.find((item) => item.code === btnItem.code)
+                    if (btnConfig) {
+                      const nameConfig = btnConfig.name
+                      btnIcon = btnConfig.icon || ''
+                      btnName = XEUtils.toValueString(XEUtils.isFunction(nameConfig) ? nameConfig({ name: btnConfig.code || '' }) : nameConfig)
                     }
+                  }
 
-                    return h(
-                      'div',
-                      {
-                        class: 'vxe-list-design--field-configs-item'
-                      },
-                      [
-                        btnIcon
-                          ? h(
-                              'div',
-                              {
-                                class: 'vxe-list-design--field-configs-item-icon'
-                              },
-                              [
-                                h('i', {
-                                  class: btnIcon
-                                })
-                              ]
-                            )
-                          : createCommentVNode(),
-                        h(
+                  return h(
+                    'div',
+                    {
+                      class: 'vxe-list-design--field-configs-item'
+                    },
+                    [
+                      btnIcon
+                        ? h(
                           'div',
                           {
-                            class: 'vxe-list-design--field-configs-item-title'
-                          },
-                          `${btnName || ''}`
-                        ),
-                        h(
-                          'div',
-                          {
-                            class: 'vxe-list-design--field-configs-item-btn'
+                            class: 'vxe-list-design--field-configs-item-icon'
                           },
                           [
-                            h(VxeUIButtonComponent, {
-                              icon: getIcon().LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE,
-                              mode: 'text',
-                              status: 'error',
-                              onClick() {
-                                formData.actionButtonList = btnList.filter((item) => item !== btnItem)
-                              }
+                            h('i', {
+                              class: btnIcon
                             })
                           ]
                         )
-                      ]
-                    )
-                  })
-                )
+                        : createCommentVNode(),
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-list-design--field-configs-item-title'
+                        },
+                          `${btnName || ''}`
+                      ),
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-list-design--field-configs-item-btn'
+                        },
+                        [
+                          h(VxeUIButtonComponent, {
+                            icon: getIcon().LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE,
+                            mode: 'text',
+                            status: 'error',
+                            onClick() {
+                              formData.actionButtonList = btnList.filter((item) => item !== btnItem)
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                })
+              )
               : h(
-                  'div',
-                  {
-                    class: 'vxe-list-design--field-configs-empty-data'
-                  },
-                  [h('span', {}, '无操作按钮')]
-                )
+                'div',
+                {
+                  class: 'vxe-list-design--field-configs-empty-data'
+                },
+                [h('span', {}, '无操作按钮')]
+              )
           }
         }
       )
@@ -850,63 +850,63 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
                         [
                           showPc
                             ? h(
-                                'div',
-                                {
-                                  class: 'vxe-form-design--widget-form-item-devices-item'
-                                },
-                                [
-                                  h(
-                                    'div',
-                                    {
-                                      class: 'vxe-form-design--widget-form-item-devices-left'
-                                    },
-                                    [
-                                      h(VxeUITextComponent, {
-                                        icon: getIcon().FORM_DESIGN_PROPS_PC,
-                                        content: getI18n('vxe.formDesign.widgetProp.displaySetting.pc')
-                                      })
-                                    ]
-                                  ),
-                                  h(VxeUISelectComponent, {
-                                    modelValue: formData.pcDefaultView,
-                                    className: 'vxe-form-design--widget-form-item-devices-select',
-                                    options: renderViewList.value,
-                                    'onUpdate:modelValue'(val) {
-                                      formData.pcDefaultView = val as 'list' | 'gantt' | 'chart'
-                                    }
-                                  })
-                                ]
-                              )
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-form-item-devices-item'
+                              },
+                              [
+                                h(
+                                  'div',
+                                  {
+                                    class: 'vxe-form-design--widget-form-item-devices-left'
+                                  },
+                                  [
+                                    h(VxeUITextComponent, {
+                                      icon: getIcon().FORM_DESIGN_PROPS_PC,
+                                      content: getI18n('vxe.formDesign.widgetProp.displaySetting.pc')
+                                    })
+                                  ]
+                                ),
+                                h(VxeUISelectComponent, {
+                                  modelValue: formData.pcDefaultView,
+                                  className: 'vxe-form-design--widget-form-item-devices-select',
+                                  options: renderViewList.value,
+                                  'onUpdate:modelValue'(val) {
+                                    formData.pcDefaultView = val as 'list' | 'gantt' | 'chart'
+                                  }
+                                })
+                              ]
+                            )
                             : createCommentVNode(),
                           showMobile
                             ? h(
-                                'div',
-                                {
-                                  class: 'vxe-form-design--widget-form-item-devices-item'
-                                },
-                                [
-                                  h(
-                                    'div',
-                                    {
-                                      class: 'vxe-form-design--widget-form-item-devices-left'
-                                    },
-                                    [
-                                      h(VxeUITextComponent, {
-                                        icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
-                                        content: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile')
-                                      })
-                                    ]
-                                  ),
-                                  h(VxeUISelectComponent, {
-                                    modelValue: formData.mobileDefaultView,
-                                    className: 'vxe-form-design--widget-form-item-devices-select',
-                                    options: renderViewList.value,
-                                    'onUpdate:modelValue'(val) {
-                                      formData.mobileDefaultView = val as 'list' | 'gantt' | 'chart'
-                                    }
-                                  })
-                                ]
-                              )
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-form-item-devices-item'
+                              },
+                              [
+                                h(
+                                  'div',
+                                  {
+                                    class: 'vxe-form-design--widget-form-item-devices-left'
+                                  },
+                                  [
+                                    h(VxeUITextComponent, {
+                                      icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
+                                      content: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile')
+                                    })
+                                  ]
+                                ),
+                                h(VxeUISelectComponent, {
+                                  modelValue: formData.mobileDefaultView,
+                                  className: 'vxe-form-design--widget-form-item-devices-select',
+                                  options: renderViewList.value,
+                                  'onUpdate:modelValue'(val) {
+                                    formData.mobileDefaultView = val as 'list' | 'gantt' | 'chart'
+                                  }
+                                })
+                              ]
+                            )
                             : createCommentVNode()
                         ]
                       )

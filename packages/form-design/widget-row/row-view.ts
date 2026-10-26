@@ -147,55 +147,55 @@ const ViewColItemComponent = defineVxeComponent({
                   [
                     renderWidgetDesignView
                       ? h(
-                          'div',
-                          {
-                            class: 'vxe-form-design--widget-row-view-item-wrapper'
-                          },
-                          [
-                            h(
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-row-view-item-wrapper'
+                        },
+                        [
+                          h(
+                            'div',
+                            {
+                              class: 'vxe-form-design--widget-row-view-item-box vxe-form--item-row'
+                            },
+                            getSlotVNs(renderWidgetDesignView(renderOpts, params))
+                          ),
+                          isActive
+                            ? h(
                               'div',
                               {
-                                class: 'vxe-form-design--widget-row-view-item-box vxe-form--item-row'
+                                class: 'vxe-form-design--preview-item-operate'
                               },
-                              getSlotVNs(renderWidgetDesignView(renderOpts, params))
-                            ),
-                            isActive
-                              ? h(
-                                  'div',
-                                  {
-                                    class: 'vxe-form-design--preview-item-operate'
-                                  },
-                                  [
-                                    h(VxeUIButtonComponent, {
-                                      icon: getIcon().FORM_DESIGN_WIDGET_COPY,
-                                      status: 'primary',
-                                      size: 'mini',
-                                      circle: true,
-                                      onClick(params) {
-                                        $xeFormDesign.handleCopyWidget(params.$event, widget)
-                                      }
-                                    }),
-                                    h(VxeUIButtonComponent, {
-                                      icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-                                      status: 'danger',
-                                      size: 'mini',
-                                      circle: true,
-                                      onClick(params) {
-                                        $xeFormDesign.handleRemoveWidget(params.$event, widget)
-                                      }
-                                    })
-                                  ]
-                                )
-                              : createCommentVNode()
-                          ]
-                        )
+                              [
+                                h(VxeUIButtonComponent, {
+                                  icon: getIcon().FORM_DESIGN_WIDGET_COPY,
+                                  status: 'primary',
+                                  size: 'mini',
+                                  circle: true,
+                                  onClick(params) {
+                                    $xeFormDesign.handleCopyWidget(params.$event, widget)
+                                  }
+                                }),
+                                h(VxeUIButtonComponent, {
+                                  icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+                                  status: 'danger',
+                                  size: 'mini',
+                                  circle: true,
+                                  onClick(params) {
+                                    $xeFormDesign.handleRemoveWidget(params.$event, widget)
+                                  }
+                                })
+                              ]
+                            )
+                            : createCommentVNode()
+                        ]
+                      )
                       : h(
-                          'div',
-                          {
-                            class: 'vxe-form-design--widget-row-view-empty'
-                          },
-                          '控件位置'
-                        )
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-row-view-empty'
+                        },
+                        '控件位置'
+                      )
                   ]
                 )
               ]
