@@ -8,7 +8,19 @@ import { getDefaultSettingFormData } from './default-setting-data'
 import LayoutPreviewComponent from './layout-preview'
 import LayoutSettingComponent from './layout-setting'
 
-import type { VxeListDesignDefines, VxeListDesignPropTypes, ListDesignReactData, ListDesignPrivateRef, VxeListDesignPrivateComputed, VxeListDesignConstructor, VxeListDesignPrivateMethods, ListDesignMethods, ListDesignPrivateMethods, VxeFormDesignDefines, VxeGlobalRendererHandles } from '../../../types'
+import type {
+  VxeListDesignDefines,
+  VxeListDesignPropTypes,
+  ListDesignReactData,
+  ListDesignPrivateRef,
+  VxeListDesignPrivateComputed,
+  VxeListDesignConstructor,
+  VxeListDesignPrivateMethods,
+  ListDesignMethods,
+  ListDesignPrivateMethods,
+  VxeFormDesignDefines,
+  VxeGlobalRendererHandles
+} from '../../../types'
 
 export default defineVxeComponent({
   name: 'VxeListDesign',
@@ -34,7 +46,7 @@ export default defineVxeComponent({
     formRender: Object as PropType<VxeListDesignPropTypes.FormRender>
   },
   emits: [],
-  setup (props, context) {
+  setup(props, context) {
     const { emit, slots } = context
 
     const xID = XEUtils.uniqueId()
@@ -104,18 +116,18 @@ export default defineVxeComponent({
       if (config) {
         const { widgetData } = config
         if (widgetData) {
-          widgetData.forEach(item => {
+          widgetData.forEach((item) => {
             const { name } = item
             if (name) {
               // 如果是行列
               if (name === 'row') {
-                item.children.forEach(childItem => {
+                item.children.forEach((childItem) => {
                   if (childItem.name) {
                     tableColumns.push(parseWidgetColumn(childItem))
                   }
                 })
               } else if (name === 'subtable') {
-              // 如果是子表
+                // 如果是子表
               } else {
                 tableColumns.push(parseWidgetColumn(item))
               }
@@ -126,13 +138,15 @@ export default defineVxeComponent({
       return tableColumns
     }
 
-    const configToSearchItems = (searchItems: VxeListDesignDefines.SearchItemObjItem[]): {
+    const configToSearchItems = (
+      searchItems: VxeListDesignDefines.SearchItemObjItem[]
+    ): {
       data: Record<string, any>
       items: VxeListDesignDefines.SearchItemObjItem[]
     } => {
       if (searchItems) {
         const data: Record<string, any> = {}
-        const items = searchItems.map(item => {
+        const items = searchItems.map((item) => {
           data[item.field] = null
           return {
             field: item.field,
@@ -151,7 +165,7 @@ export default defineVxeComponent({
 
     const configToListColumns = (listColumns: VxeListDesignDefines.ListColumnObjItem[]): VxeListDesignDefines.ListColumnObjItem[] => {
       if (listColumns) {
-        return listColumns.map(item => {
+        return listColumns.map((item) => {
           return {
             field: item.field,
             title: item.title,
@@ -214,14 +228,16 @@ export default defineVxeComponent({
       if (actionCodes && actionCodes.length) {
         if (!conf.actionButtonList || !conf.actionButtonList.length) {
           const defActionBtnList: VxeListDesignDefines.DefaultSettingFormActionButton[] = []
-          actionCodes.forEach(item => {
+          actionCodes.forEach((item) => {
             if (XEUtils.isObject(item) && item.default) {
-              const sysItem = systemConfigList.find(obj => obj.code === item.code)
+              const sysItem = systemConfigList.find((obj) => obj.code === item.code)
               if (sysItem) {
-                defActionBtnList.push(createListDesignActionButton({
-                  type: sysItem.type,
-                  code: sysItem.code
-                }))
+                defActionBtnList.push(
+                  createListDesignActionButton({
+                    type: sysItem.type,
+                    code: sysItem.code
+                  })
+                )
               }
             }
           })
@@ -253,29 +269,37 @@ export default defineVxeComponent({
     }
 
     const listDesignMethods: ListDesignMethods = {
-      dispatchEvent (type, params, evnt) {
+      dispatchEvent(type, params, evnt) {
         emit(type, createEvent(evnt, { $listDesign: $xeListDesign }, params))
       },
-      loadFormDesignConfig (config) {
+      loadFormDesignConfig(config) {
         const { listTableColumns } = reactData
         const oldMaps: Record<string, VxeListDesignDefines.ListColumnObjItem> = {}
-        XEUtils.eachTree(listTableColumns, item => {
-          oldMaps[item.field] = item
-        }, { children: 'children' })
+        XEUtils.eachTree(
+          listTableColumns,
+          (item) => {
+            oldMaps[item.field] = item
+          },
+          { children: 'children' }
+        )
         const columns = parseFormDesignColumns(config)
-        XEUtils.eachTree(columns, item => {
-          const oldItem = oldMaps[item.field]
-          if (oldItem) {
-            if (oldItem.width) {
-              item.width = oldItem.width
+        XEUtils.eachTree(
+          columns,
+          (item) => {
+            const oldItem = oldMaps[item.field]
+            if (oldItem) {
+              if (oldItem.width) {
+                item.width = oldItem.width
+              }
+              item.visible = oldItem.visible
             }
-            item.visible = oldItem.visible
-          }
-        }, { children: 'children' })
+          },
+          { children: 'children' }
+        )
         reactData.listTableColumns = columns
         return nextTick()
       },
-      reloadFormDesignConfig (config) {
+      reloadFormDesignConfig(config) {
         reactData.listTableColumns = parseFormDesignColumns(config)
         return nextTick()
       },
@@ -283,7 +307,7 @@ export default defineVxeComponent({
       setSearchItems,
       getListColumns,
       setListColumns,
-      getConfig () {
+      getConfig() {
         return {
           formConfig: reactData.formData,
           searchItems: getSearchItems(),
@@ -291,15 +315,14 @@ export default defineVxeComponent({
         }
       },
       loadConfig,
-      reloadConfig (config) {
+      reloadConfig(config) {
         clearConfig()
         return loadConfig(config)
       },
       clearConfig
     }
 
-    const listDesignPrivateMethods: ListDesignPrivateMethods = {
-    }
+    const listDesignPrivateMethods: ListDesignPrivateMethods = {}
 
     Object.assign($xeListDesign, listDesignMethods, listDesignPrivateMethods)
 
@@ -308,34 +331,49 @@ export default defineVxeComponent({
       const vSize = computeSize.value
       const headerSlot = slots.header
 
-      return h('div', {
-        ref: refElem,
-        class: ['vxe-list-design', {
-          [`size--${vSize}`]: vSize
-        }],
-        style: height
-          ? {
-              height: toCssUnit(height)
+      return h(
+        'div',
+        {
+          ref: refElem,
+          class: [
+            'vxe-list-design',
+            {
+              [`size--${vSize}`]: vSize
             }
-          : null
-      }, [
-        h('div', {
-          class: 'vxe-list-design--header'
-        }, headerSlot ? headerSlot({}) : []),
-        h('div', {
-          class: 'vxe-list-design--body'
-        }, [
-          h(LayoutPreviewComponent),
-          h(LayoutSettingComponent)
-        ])
-      ])
+          ],
+          style: height
+            ? {
+                height: toCssUnit(height)
+              }
+            : null
+        },
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-list-design--header'
+            },
+            headerSlot ? headerSlot({}) : []
+          ),
+          h(
+            'div',
+            {
+              class: 'vxe-list-design--body'
+            },
+            [h(LayoutPreviewComponent), h(LayoutSettingComponent)]
+          )
+        ]
+      )
     }
 
     provide('$xeListDesign', $xeListDesign)
 
-    watch(() => props.config, (value) => {
-      loadConfig(value || {})
-    })
+    watch(
+      () => props.config,
+      (value) => {
+        loadConfig(value || {})
+      }
+    )
 
     initSettingForm()
 
@@ -347,7 +385,7 @@ export default defineVxeComponent({
 
     return $xeListDesign
   },
-  render () {
+  render() {
     return this.renderVN()
   }
 })

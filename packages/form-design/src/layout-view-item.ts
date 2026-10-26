@@ -22,7 +22,7 @@ export const ViewItemComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props, { slots }) {
+  setup(props, { slots }) {
     const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
 
     const $xeFormDesign = inject<(VxeFormDesignConstructor & VxeFormDesignPrivateMethods) | null>('$xeFormDesign', null)
@@ -37,7 +37,7 @@ export const ViewItemComponent = defineVxeComponent({
       const { widgetObjList } = formDesignReactData
       const divEl = evnt.currentTarget as HTMLDivElement
       const widgetId = Number(divEl.getAttribute('data-widget-id'))
-      const currRest = XEUtils.findTree(widgetObjList, item => item && item.id === widgetId, { children: 'children' })
+      const currRest = XEUtils.findTree(widgetObjList, (item) => item && item.id === widgetId, { children: 'children' })
       if (currRest) {
         formDesignReactData.dragWidget = null
         formDesignReactData.sortWidget = currRest.item
@@ -62,9 +62,9 @@ export const ViewItemComponent = defineVxeComponent({
         evnt.preventDefault()
         const widgetId = Number(divEl.getAttribute('data-widget-id'))
         if (widgetId !== sortWidget.id) {
-          const targetRest = XEUtils.findTree(widgetObjList, item => item && item.id === widgetId, { children: 'children' })
+          const targetRest = XEUtils.findTree(widgetObjList, (item) => item && item.id === widgetId, { children: 'children' })
           if (targetRest) {
-            const currRest = XEUtils.findTree(widgetObjList, item => item && item.id === sortWidget.id, { children: 'children' })
+            const currRest = XEUtils.findTree(widgetObjList, (item) => item && item.id === sortWidget.id, { children: 'children' })
             if (currRest) {
               // 控件换位置
               if (currRest.parent && currRest.parent.name === 'row') {
@@ -102,54 +102,70 @@ export const ViewItemComponent = defineVxeComponent({
       const isActive = activeWidget && activeWidget.id === item.id
       const defaultSlot = slots.default
 
-      return h('div', {
-        key: item.id,
-        'data-widget-id': item.id,
-        draggable: true,
-        class: ['vxe-form-design--preview-item', `widget-${XEUtils.kebabCase(name)}`, {
-          'is--active': isActive,
-          'is--sort': sortWidget && sortWidget.id === item.id,
-          'is--drag': dragWidget && dragWidget.id === item.id
-        }],
-        onDragstart: sortDragstartEvent,
-        onDragend: sortDragendEvent,
-        onDragenter: sortDragenterEvent,
-        // onDragover: dragoverItemEvent,
-        onContextmenu (evnt: MouseEvent) {
-          $xeFormDesign.handleContextmenuWidget(evnt, item)
+      return h(
+        'div',
+        {
+          key: item.id,
+          'data-widget-id': item.id,
+          draggable: true,
+          class: [
+            'vxe-form-design--preview-item',
+            `widget-${XEUtils.kebabCase(name)}`,
+            {
+              'is--active': isActive,
+              'is--sort': sortWidget && sortWidget.id === item.id,
+              'is--drag': dragWidget && dragWidget.id === item.id
+            }
+          ],
+          onDragstart: sortDragstartEvent,
+          onDragend: sortDragendEvent,
+          onDragenter: sortDragenterEvent,
+          // onDragover: dragoverItemEvent,
+          onContextmenu(evnt: MouseEvent) {
+            $xeFormDesign.handleContextmenuWidget(evnt, item)
+          },
+          onClick(evnt: KeyboardEvent) {
+            handleClickEvent(evnt, item)
+          }
         },
-        onClick (evnt: KeyboardEvent) {
-          handleClickEvent(evnt, item)
-        }
-      }, [
-        h('div', {
-          class: 'vxe-form-design--preview-item-view vxe-form--item-row'
-        }, defaultSlot ? defaultSlot({}) : []),
-        isActive
-          ? h('div', {
-            class: 'vxe-form-design--preview-item-operate'
-          }, [
-            h(VxeUIButtonComponent, {
-              icon: getIcon().FORM_DESIGN_WIDGET_COPY,
-              status: 'primary',
-              size: 'mini',
-              circle: true,
-              onClick (params) {
-                $xeFormDesign.handleCopyWidget(params.$event, item)
-              }
-            }),
-            h(VxeUIButtonComponent, {
-              icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-              status: 'danger',
-              size: 'mini',
-              circle: true,
-              onClick (params) {
-                $xeFormDesign.handleRemoveWidget(params.$event, item)
-              }
-            })
-          ])
-          : createCommentVNode()
-      ])
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--preview-item-view vxe-form--item-row'
+            },
+            defaultSlot ? defaultSlot({}) : []
+          ),
+          isActive
+            ? h(
+                'div',
+                {
+                  class: 'vxe-form-design--preview-item-operate'
+                },
+                [
+                  h(VxeUIButtonComponent, {
+                    icon: getIcon().FORM_DESIGN_WIDGET_COPY,
+                    status: 'primary',
+                    size: 'mini',
+                    circle: true,
+                    onClick(params) {
+                      $xeFormDesign.handleCopyWidget(params.$event, item)
+                    }
+                  }),
+                  h(VxeUIButtonComponent, {
+                    icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+                    status: 'danger',
+                    size: 'mini',
+                    circle: true,
+                    onClick(params) {
+                      $xeFormDesign.handleRemoveWidget(params.$event, item)
+                    }
+                  })
+                ]
+              )
+            : createCommentVNode()
+        ]
+      )
     }
   }
 })

@@ -4,11 +4,11 @@ const { log } = VxeUI
 
 const designVersion = `design v${process.env.VUE_APP_VXE_VERSION}`
 
-export function createComponentLog (name: string) {
+export function createComponentLog(name: string) {
   const uiVersion = VxeUI.uiVersion ? `ui v${VxeUI.uiVersion}` : ''
   const tableVersion = VxeUI.tableVersion ? `table v${VxeUI.tableVersion}` : ''
   const ganttVersion = VxeUI.ganttVersion ? `gantt v${VxeUI.ganttVersion}` : ''
-  const versionInfo = [uiVersion, tableVersion, ganttVersion, designVersion].filter(v => v).join(' ')
+  const versionInfo = [uiVersion, tableVersion, ganttVersion, designVersion].filter((v) => v).join(' ')
   return {
     warnLog: log.create('warn', versionInfo + '] [' + name),
     errLog: log.create('error', versionInfo + '] [' + name)

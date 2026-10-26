@@ -41,30 +41,33 @@ const getWidthAutoOptions = () => {
   ]
 }
 
-const renderLayoutOption = (
-  formData: VxeFormDesignDefines.DefaultSettingFormDataObjVO,
-  field: 'pcVertical' | 'mobileVertical',
-  type: 'vertical' | 'horizontal',
-  changeEvent: () => void
-) => {
+const renderLayoutOption = (formData: VxeFormDesignDefines.DefaultSettingFormDataObjVO, field: 'pcVertical' | 'mobileVertical', type: 'vertical' | 'horizontal', changeEvent: () => void) => {
   const isVertical = type === 'vertical'
-  return h('div', {
-    class: ['vxe-form-design--widget-form-item-option', `is--${type}`, {
-      'is--active': isVertical ? formData[field] : !formData[field]
-    }],
-    onClick () {
-      formData[field] = isVertical
-      changeEvent()
-    }
-  }, [
-    h('div', {
-      class: 'vxe-form-design--widget-form-item-option-row'
-    }),
-    h('div', {
-      class: 'vxe-form-design--widget-form-item-option-row'
-    }),
-    h('div', {}, isVertical ? getI18n('vxe.formDesign.styleSetting.verticalLayout') : getI18n('vxe.formDesign.styleSetting.horizontalLayout'))
-  ])
+  return h(
+    'div',
+    {
+      class: [
+        'vxe-form-design--widget-form-item-option',
+        `is--${type}`,
+        {
+          'is--active': isVertical ? formData[field] : !formData[field]
+        }
+      ],
+      onClick() {
+        formData[field] = isVertical
+        changeEvent()
+      }
+    },
+    [
+      h('div', {
+        class: 'vxe-form-design--widget-form-item-option-row'
+      }),
+      h('div', {
+        class: 'vxe-form-design--widget-form-item-option-row'
+      }),
+      h('div', {}, isVertical ? getI18n('vxe.formDesign.styleSetting.verticalLayout') : getI18n('vxe.formDesign.styleSetting.horizontalLayout'))
+    ]
+  )
 }
 
 export const DefaultPCStyleFormComponent = defineVxeComponent({
@@ -76,7 +79,7 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUINumberInputComponent = VxeUI.getComponent('vxe-number-input')
@@ -110,133 +113,166 @@ export const DefaultPCStyleFormComponent = defineVxeComponent({
     return () => {
       const { formData } = props
 
-      return h(VxeUIFormComponent, {
-        data: formData,
-        span: 24,
-        vertical: true,
-        titleBold: true
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.styleSetting.layoutTitle'),
-              field: verticalField
-            }, {
-              default () {
-                return [
-                  h('div', {
-                    class: 'vxe-form-design--widget-form-item-layout'
-                  }, [
-                    renderLayoutOption(formData, verticalField, 'vertical', changeLayoutEvent),
-                    renderLayoutOption(formData, verticalField, 'horizontal', changeLayoutEvent)
-                  ])
-                ]
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.styleSetting.styleTitle')
-            }, {
-              default () {
-                const propVns = [
-                  h('div', {
-                    key: 'tb',
-                    class: 'vxe-form-design--widget-form-item-prop-list'
-                  }, [
-                    h('span', {}, getI18n('vxe.formDesign.styleSetting.boldTitle')),
-                    h(VxeUIRadioGroupComponent, {
-                      modelValue: formData.pcTitleBold,
-                      options: refBoldOpts.value,
-                      onChange: refreshPreview,
-                      'onUpdate:modelValue' (val) {
-                        formData.pcTitleBold = val
-                      }
-                    })
-                  ]),
-                  h('div', {
-                    key: 'tc',
-                    class: 'vxe-form-design--widget-form-item-prop-list'
-                  }, [
-                    h('span', {}, getI18n('vxe.formDesign.styleSetting.colonTitle')),
-                    h(VxeUIRadioGroupComponent, {
-                      modelValue: formData.pcTitleColon,
-                      options: refColonOpts.value,
-                      onChange: refreshPreview,
-                      'onUpdate:modelValue' (val) {
-                        formData.pcTitleColon = val
-                      }
-                    })
-                  ])
-                ]
-
-                if (formData.pcVertical) {
-                  //
-                } else {
-                  propVns.push(
-                    h('div', {
-                      key: 'ta',
-                      class: 'vxe-form-design--widget-form-item-prop-list'
-                    }, [
-                      h('span', {}, getI18n('vxe.formDesign.styleSetting.alignTitle')),
-                      h(VxeUIRadioGroupComponent, {
-                        modelValue: formData.pcTitleAlign,
-                        options: refAlignOpts.value,
-                        onChange: refreshPreview,
-                        'onUpdate:modelValue' (val) {
-                          formData.pcTitleAlign = val
-                        }
-                      })
-                    ]),
-                    h('div', {
-                      key: 'twa',
-                      class: 'vxe-form-design--widget-form-item-prop-list'
-                    }, [
-                      h('span', {}, getI18n('vxe.formDesign.styleSetting.widthTitle')),
-                      h(VxeUIRadioGroupComponent, {
-                        modelValue: formData.pcTitleAutoWidth,
-                        options: refWidthAutoOpts.value,
-                        onChange: refreshPreview,
-                        'onUpdate:modelValue' (val) {
-                          formData.pcTitleAutoWidth = val
-                        }
-                      })
-                    ])
-                  )
-                  if (!formData.pcTitleAutoWidth) {
-                    propVns.push(
-                      h('div', {
-                        key: 'tw',
-                        class: 'vxe-form-design--widget-form-item-prop-list'
-                      }, [
-                        h(VxeUINumberInputComponent, {
-                          class: 'vxe-form-design--widget-form-item-prop-width',
-                          modelValue: formData.pcTitleWidth,
-                          type: 'integer',
-                          onChange: refreshPreview,
-                          'onUpdate:modelValue' (val) {
-                            formData.pcTitleWidth = val as number
-                          }
-                        }),
-                        h(VxeUISelectComponent, {
-                          class: 'vxe-form-design--widget-form-item-prop-unit',
-                          modelValue: formData.pcTitleWidthUnit,
-                          options: refWidthUnitOpts.value,
-                          transfer: true,
-                          onChange: refreshPreview,
-                          'onUpdate:modelValue' (val) {
-                            formData.pcTitleWidthUnit = val as ''
-                          }
-                        })
-                      ])
-                    )
+      return h(
+        VxeUIFormComponent,
+        {
+          data: formData,
+          span: 24,
+          vertical: true,
+          titleBold: true
+        },
+        {
+          default() {
+            return [
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.styleSetting.layoutTitle'),
+                  field: verticalField
+                },
+                {
+                  default() {
+                    return [
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-form-item-layout'
+                        },
+                        [renderLayoutOption(formData, verticalField, 'vertical', changeLayoutEvent), renderLayoutOption(formData, verticalField, 'horizontal', changeLayoutEvent)]
+                      )
+                    ]
                   }
                 }
+              ),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.styleSetting.styleTitle')
+                },
+                {
+                  default() {
+                    const propVns = [
+                      h(
+                        'div',
+                        {
+                          key: 'tb',
+                          class: 'vxe-form-design--widget-form-item-prop-list'
+                        },
+                        [
+                          h('span', {}, getI18n('vxe.formDesign.styleSetting.boldTitle')),
+                          h(VxeUIRadioGroupComponent, {
+                            modelValue: formData.pcTitleBold,
+                            options: refBoldOpts.value,
+                            onChange: refreshPreview,
+                            'onUpdate:modelValue'(val) {
+                              formData.pcTitleBold = val
+                            }
+                          })
+                        ]
+                      ),
+                      h(
+                        'div',
+                        {
+                          key: 'tc',
+                          class: 'vxe-form-design--widget-form-item-prop-list'
+                        },
+                        [
+                          h('span', {}, getI18n('vxe.formDesign.styleSetting.colonTitle')),
+                          h(VxeUIRadioGroupComponent, {
+                            modelValue: formData.pcTitleColon,
+                            options: refColonOpts.value,
+                            onChange: refreshPreview,
+                            'onUpdate:modelValue'(val) {
+                              formData.pcTitleColon = val
+                            }
+                          })
+                        ]
+                      )
+                    ]
 
-                return propVns
-              }
-            })
-          ]
+                    if (formData.pcVertical) {
+                      //
+                    } else {
+                      propVns.push(
+                        h(
+                          'div',
+                          {
+                            key: 'ta',
+                            class: 'vxe-form-design--widget-form-item-prop-list'
+                          },
+                          [
+                            h('span', {}, getI18n('vxe.formDesign.styleSetting.alignTitle')),
+                            h(VxeUIRadioGroupComponent, {
+                              modelValue: formData.pcTitleAlign,
+                              options: refAlignOpts.value,
+                              onChange: refreshPreview,
+                              'onUpdate:modelValue'(val) {
+                                formData.pcTitleAlign = val
+                              }
+                            })
+                          ]
+                        ),
+                        h(
+                          'div',
+                          {
+                            key: 'twa',
+                            class: 'vxe-form-design--widget-form-item-prop-list'
+                          },
+                          [
+                            h('span', {}, getI18n('vxe.formDesign.styleSetting.widthTitle')),
+                            h(VxeUIRadioGroupComponent, {
+                              modelValue: formData.pcTitleAutoWidth,
+                              options: refWidthAutoOpts.value,
+                              onChange: refreshPreview,
+                              'onUpdate:modelValue'(val) {
+                                formData.pcTitleAutoWidth = val
+                              }
+                            })
+                          ]
+                        )
+                      )
+                      if (!formData.pcTitleAutoWidth) {
+                        propVns.push(
+                          h(
+                            'div',
+                            {
+                              key: 'tw',
+                              class: 'vxe-form-design--widget-form-item-prop-list'
+                            },
+                            [
+                              h(VxeUINumberInputComponent, {
+                                class: 'vxe-form-design--widget-form-item-prop-width',
+                                modelValue: formData.pcTitleWidth,
+                                type: 'integer',
+                                onChange: refreshPreview,
+                                'onUpdate:modelValue'(val) {
+                                  formData.pcTitleWidth = val as number
+                                }
+                              }),
+                              h(VxeUISelectComponent, {
+                                class: 'vxe-form-design--widget-form-item-prop-unit',
+                                modelValue: formData.pcTitleWidthUnit,
+                                options: refWidthUnitOpts.value,
+                                transfer: true,
+                                onChange: refreshPreview,
+                                'onUpdate:modelValue'(val) {
+                                  formData.pcTitleWidthUnit = val as ''
+                                }
+                              })
+                            ]
+                          )
+                        )
+                      }
+                    }
+
+                    return propVns
+                  }
+                }
+              )
+            ]
+          }
         }
-      })
+      )
     }
   }
 })
@@ -250,7 +286,7 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUINumberInputComponent = VxeUI.getComponent('vxe-number-input')
@@ -284,133 +320,166 @@ export const DefaultMobileStyleFormComponent = defineVxeComponent({
     return () => {
       const { formData } = props
 
-      return h(VxeUIFormComponent, {
-        data: formData,
-        span: 24,
-        vertical: true,
-        titleBold: true
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.styleSetting.layoutTitle'),
-              field: verticalField
-            }, {
-              default () {
-                return [
-                  h('div', {
-                    class: 'vxe-form-design--widget-form-item-layout'
-                  }, [
-                    renderLayoutOption(formData, verticalField, 'vertical', changeLayoutEvent),
-                    renderLayoutOption(formData, verticalField, 'horizontal', changeLayoutEvent)
-                  ])
-                ]
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.styleSetting.styleTitle')
-            }, {
-              default () {
-                const propVns = [
-                  h('div', {
-                    key: 'tb',
-                    class: 'vxe-form-design--widget-form-item-prop-list'
-                  }, [
-                    h('span', {}, getI18n('vxe.formDesign.styleSetting.boldTitle')),
-                    h(VxeUIRadioGroupComponent, {
-                      modelValue: formData.mobileTitleBold,
-                      options: refBoldOpts.value,
-                      onChange: refreshPreview,
-                      'onUpdate:modelValue' (val) {
-                        formData.mobileTitleBold = val
-                      }
-                    })
-                  ]),
-                  h('div', {
-                    key: 'tc',
-                    class: 'vxe-form-design--widget-form-item-prop-list'
-                  }, [
-                    h('span', {}, getI18n('vxe.formDesign.styleSetting.colonTitle')),
-                    h(VxeUIRadioGroupComponent, {
-                      modelValue: formData.mobileTitleColon,
-                      options: refColonOpts.value,
-                      onChange: refreshPreview,
-                      'onUpdate:modelValue' (val) {
-                        formData.mobileTitleColon = val
-                      }
-                    })
-                  ])
-                ]
-
-                if (formData.mobileVertical) {
-                  //
-                } else {
-                  propVns.push(
-                    h('div', {
-                      key: 'ta',
-                      class: 'vxe-form-design--widget-form-item-prop-list'
-                    }, [
-                      h('span', {}, getI18n('vxe.formDesign.styleSetting.alignTitle')),
-                      h(VxeUIRadioGroupComponent, {
-                        modelValue: formData.mobileTitleAlign,
-                        options: refAlignOpts.value,
-                        onChange: refreshPreview,
-                        'onUpdate:modelValue' (val) {
-                          formData.mobileTitleAlign = val
-                        }
-                      })
-                    ]),
-                    h('div', {
-                      key: 'twa',
-                      class: 'vxe-form-design--widget-form-item-prop-list'
-                    }, [
-                      h('span', {}, getI18n('vxe.formDesign.styleSetting.widthTitle')),
-                      h(VxeUIRadioGroupComponent, {
-                        modelValue: formData.mobileTitleAutoWidth,
-                        options: refWidthAutoOpts.value,
-                        onChange: refreshPreview,
-                        'onUpdate:modelValue' (val) {
-                          formData.mobileTitleAutoWidth = val
-                        }
-                      })
-                    ])
-                  )
-                  if (!formData.mobileTitleAutoWidth) {
-                    propVns.push(
-                      h('div', {
-                        key: 'wt',
-                        class: 'vxe-form-design--widget-form-item-prop-list'
-                      }, [
-                        h(VxeUINumberInputComponent, {
-                          class: 'vxe-form-design--widget-form-item-prop-width',
-                          modelValue: formData.mobileTitleWidth,
-                          type: 'integer',
-                          onChange: refreshPreview,
-                          'onUpdate:modelValue' (val) {
-                            formData.mobileTitleWidth = val as number
-                          }
-                        }),
-                        h(VxeUISelectComponent, {
-                          class: 'vxe-form-design--widget-form-item-prop-unit',
-                          modelValue: formData.mobileTitleWidthUnit,
-                          options: refWidthUnitOpts.value,
-                          transfer: true,
-                          onChange: refreshPreview,
-                          'onUpdate:modelValue' (val) {
-                            formData.mobileTitleWidthUnit = val as ''
-                          }
-                        })
-                      ])
-                    )
+      return h(
+        VxeUIFormComponent,
+        {
+          data: formData,
+          span: 24,
+          vertical: true,
+          titleBold: true
+        },
+        {
+          default() {
+            return [
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.styleSetting.layoutTitle'),
+                  field: verticalField
+                },
+                {
+                  default() {
+                    return [
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-form-item-layout'
+                        },
+                        [renderLayoutOption(formData, verticalField, 'vertical', changeLayoutEvent), renderLayoutOption(formData, verticalField, 'horizontal', changeLayoutEvent)]
+                      )
+                    ]
                   }
                 }
+              ),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.styleSetting.styleTitle')
+                },
+                {
+                  default() {
+                    const propVns = [
+                      h(
+                        'div',
+                        {
+                          key: 'tb',
+                          class: 'vxe-form-design--widget-form-item-prop-list'
+                        },
+                        [
+                          h('span', {}, getI18n('vxe.formDesign.styleSetting.boldTitle')),
+                          h(VxeUIRadioGroupComponent, {
+                            modelValue: formData.mobileTitleBold,
+                            options: refBoldOpts.value,
+                            onChange: refreshPreview,
+                            'onUpdate:modelValue'(val) {
+                              formData.mobileTitleBold = val
+                            }
+                          })
+                        ]
+                      ),
+                      h(
+                        'div',
+                        {
+                          key: 'tc',
+                          class: 'vxe-form-design--widget-form-item-prop-list'
+                        },
+                        [
+                          h('span', {}, getI18n('vxe.formDesign.styleSetting.colonTitle')),
+                          h(VxeUIRadioGroupComponent, {
+                            modelValue: formData.mobileTitleColon,
+                            options: refColonOpts.value,
+                            onChange: refreshPreview,
+                            'onUpdate:modelValue'(val) {
+                              formData.mobileTitleColon = val
+                            }
+                          })
+                        ]
+                      )
+                    ]
 
-                return propVns
-              }
-            })
-          ]
+                    if (formData.mobileVertical) {
+                      //
+                    } else {
+                      propVns.push(
+                        h(
+                          'div',
+                          {
+                            key: 'ta',
+                            class: 'vxe-form-design--widget-form-item-prop-list'
+                          },
+                          [
+                            h('span', {}, getI18n('vxe.formDesign.styleSetting.alignTitle')),
+                            h(VxeUIRadioGroupComponent, {
+                              modelValue: formData.mobileTitleAlign,
+                              options: refAlignOpts.value,
+                              onChange: refreshPreview,
+                              'onUpdate:modelValue'(val) {
+                                formData.mobileTitleAlign = val
+                              }
+                            })
+                          ]
+                        ),
+                        h(
+                          'div',
+                          {
+                            key: 'twa',
+                            class: 'vxe-form-design--widget-form-item-prop-list'
+                          },
+                          [
+                            h('span', {}, getI18n('vxe.formDesign.styleSetting.widthTitle')),
+                            h(VxeUIRadioGroupComponent, {
+                              modelValue: formData.mobileTitleAutoWidth,
+                              options: refWidthAutoOpts.value,
+                              onChange: refreshPreview,
+                              'onUpdate:modelValue'(val) {
+                                formData.mobileTitleAutoWidth = val
+                              }
+                            })
+                          ]
+                        )
+                      )
+                      if (!formData.mobileTitleAutoWidth) {
+                        propVns.push(
+                          h(
+                            'div',
+                            {
+                              key: 'wt',
+                              class: 'vxe-form-design--widget-form-item-prop-list'
+                            },
+                            [
+                              h(VxeUINumberInputComponent, {
+                                class: 'vxe-form-design--widget-form-item-prop-width',
+                                modelValue: formData.mobileTitleWidth,
+                                type: 'integer',
+                                onChange: refreshPreview,
+                                'onUpdate:modelValue'(val) {
+                                  formData.mobileTitleWidth = val as number
+                                }
+                              }),
+                              h(VxeUISelectComponent, {
+                                class: 'vxe-form-design--widget-form-item-prop-unit',
+                                modelValue: formData.mobileTitleWidthUnit,
+                                options: refWidthUnitOpts.value,
+                                transfer: true,
+                                onChange: refreshPreview,
+                                'onUpdate:modelValue'(val) {
+                                  formData.mobileTitleWidthUnit = val as ''
+                                }
+                              })
+                            ]
+                          )
+                        )
+                      }
+                    }
+
+                    return propVns
+                  }
+                }
+              )
+            ]
+          }
         }
-      })
+      )
     }
   }
 })

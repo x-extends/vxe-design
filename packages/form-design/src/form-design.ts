@@ -68,7 +68,7 @@ export default defineVxeComponent({
     'remove-widget',
     'drag-widget'
   ] as VxeFormDesignEmits,
-  setup (props, context) {
+  setup(props, context) {
     const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
 
     const { emit, slots } = context
@@ -89,8 +89,7 @@ export default defineVxeComponent({
       activeWidget: null
     })
 
-    const internalData = reactive<FormDesignInternalData>({
-    })
+    const internalData = reactive<FormDesignInternalData>({})
 
     const refMaps: FormDesignPrivateRef = {
       refElem
@@ -135,7 +134,7 @@ export default defineVxeComponent({
       }
       const { activeWidget, widgetObjList } = reactData
       if (activeWidget) {
-        const rest = XEUtils.findTree(widgetObjList, item => item.id === activeWidget.id, { children: 'children' })
+        const rest = XEUtils.findTree(widgetObjList, (item) => item.id === activeWidget.id, { children: 'children' })
         if (rest) {
           reactData.activeWidget = rest.item
         } else {
@@ -165,7 +164,7 @@ export default defineVxeComponent({
       const { widgetObjList } = reactData
       if (id) {
         const widgetId = XEUtils.toNumber(id)
-        const rest = XEUtils.findTree(widgetObjList, item => item && item.id === widgetId, { children: 'children' })
+        const rest = XEUtils.findTree(widgetObjList, (item) => item && item.id === widgetId, { children: 'children' })
         if (rest) {
           return rest.item
         }
@@ -175,14 +174,18 @@ export default defineVxeComponent({
 
     const getWidgetData = (): VxeFormDesignDefines.WidgetObjItem[] => {
       const objList = XEUtils.clone(reactData.widgetObjList, true)
-      XEUtils.eachTree(objList, item => {
-        item.model.value = null
-      }, { children: 'children' })
+      XEUtils.eachTree(
+        objList,
+        (item) => {
+          item.model.value = null
+        },
+        { children: 'children' }
+      )
       return objList
     }
 
     const loadWidgetData = (widgetData: VxeFormDesignDefines.WidgetObjItem[]) => {
-      reactData.widgetObjList = (widgetData || []).map(item => configToWidget(item))
+      reactData.widgetObjList = (widgetData || []).map((item) => configToWidget(item))
       return nextTick()
     }
 
@@ -208,7 +211,7 @@ export default defineVxeComponent({
       dispatchEvent,
       createWidget,
       createEmptyWidget,
-      getConfig () {
+      getConfig() {
         return {
           formConfig: getFormConfig(),
           widgetData: getWidgetData()
@@ -220,17 +223,21 @@ export default defineVxeComponent({
       getFormConfig,
       loadFormConfig,
       getWidgetById,
-      getFormData () {
+      getFormData() {
         const { widgetObjList } = reactData
         const formData: Record<string, any> = {}
-        XEUtils.eachTree(widgetObjList, widget => {
-          formData[widget.field] = null
-        }, { children: 'children' })
+        XEUtils.eachTree(
+          widgetObjList,
+          (widget) => {
+            formData[widget.field] = null
+          },
+          { children: 'children' }
+        )
         return formData
       },
       getWidgetData,
       loadWidgetData,
-      refreshPreviewView () {
+      refreshPreviewView() {
         const $layoutStyle = refLayoutStyle.value
         if ($layoutStyle) {
           $layoutStyle.updatePreviewView()
@@ -256,7 +263,7 @@ export default defineVxeComponent({
           const widgetCustomGroup = getWidgetConfigCustomGroup(name, $xeFormDesign)
           // 如果自定义组
           if (widgetCustomGroup) {
-            const cusGroup = customGroups.find(item => item.title === widgetCustomGroup)
+            const cusGroup = customGroups.find((item) => item.title === widgetCustomGroup)
             if (cusGroup) {
               cusGroup.children.push(widthItem)
             } else {
@@ -307,15 +314,15 @@ export default defineVxeComponent({
       }
 
       if (widgets && widgets.length) {
-        reactData.widgetConfigs = props.widgets.map(config => {
+        reactData.widgetConfigs = props.widgets.map((config) => {
           return {
             title: config.customGroup,
             group: config.group,
             children: config.children
-              ? config.children.map(name => {
-                const widthItem = createWidget(name)
-                return widthItem
-              })
+              ? config.children.map((name) => {
+                  const widthItem = createWidget(name)
+                  return widthItem
+                })
               : []
           }
         })
@@ -329,11 +336,15 @@ export default defineVxeComponent({
       const widgetConf = getWidgetConfig(widgetName)
       if (widgetConf.unique) {
         const existWidgetList: VxeFormDesignDefines.WidgetObjItem[] = []
-        XEUtils.eachTree(widgetObjList, obj => {
-          if (obj.name === widgetName) {
-            existWidgetList.push(obj)
-          }
-        }, { children: 'children' })
+        XEUtils.eachTree(
+          widgetObjList,
+          (obj) => {
+            if (obj.name === widgetName) {
+              existWidgetList.push(obj)
+            }
+          },
+          { children: 'children' }
+        )
         const status = existWidgetList.length < 1
         if (!status) {
           if (VxeUI.modal) {
@@ -351,7 +362,7 @@ export default defineVxeComponent({
 
     const formDesignPrivateMethods: FormDesignPrivateMethods = {
       validWidgetUnique,
-      handleContextmenuWidget (evnt: MouseEvent, item: VxeFormDesignDefines.WidgetObjItem) {
+      handleContextmenuWidget(evnt: MouseEvent, item: VxeFormDesignDefines.WidgetObjItem) {
         const { menuConfig } = props
         const menuOpts = computeMenuOpts.value
         if (menuConfig ? isEnableConf(menuOpts) : menuOpts.enabled) {
@@ -361,7 +372,7 @@ export default defineVxeComponent({
               VxeUI.contextMenu.openByEvent(evnt, {
                 options,
                 events: {
-                  optionClick (eventParams) {
+                  optionClick(eventParams) {
                     const { option } = eventParams
                     const gMenuOpts = menus.get(option.code)
                     const fdmMethod = gMenuOpts ? gMenuOpts.formDesignMenuMethod : null
@@ -378,7 +389,7 @@ export default defineVxeComponent({
         }
         dispatchEvent('widget-menu', { widget: item }, evnt)
       },
-      handleClickWidget (evnt: KeyboardEvent, item: VxeFormDesignDefines.WidgetObjItem) {
+      handleClickWidget(evnt: KeyboardEvent, item: VxeFormDesignDefines.WidgetObjItem) {
         if (item && item.name) {
           evnt.stopPropagation()
           reactData.activeWidget = item
@@ -387,9 +398,9 @@ export default defineVxeComponent({
           dispatchEvent('click-widget', { widget: item }, evnt)
         }
       },
-      handleCopyWidget (evnt: KeyboardEvent, widget: VxeFormDesignDefines.WidgetObjItem) {
+      handleCopyWidget(evnt: KeyboardEvent, widget: VxeFormDesignDefines.WidgetObjItem) {
         const { widgetObjList } = reactData
-        const rest = XEUtils.findTree(widgetObjList, obj => obj.id === widget.id, { children: 'children' })
+        const rest = XEUtils.findTree(widgetObjList, (obj) => obj.id === widget.id, { children: 'children' })
         if (rest) {
           evnt.stopPropagation()
           if (validWidgetUnique(widget.name)) {
@@ -413,9 +424,9 @@ export default defineVxeComponent({
           }
         }
       },
-      handleRemoveWidget (evnt: Event, widget: VxeFormDesignDefines.WidgetObjItem) {
+      handleRemoveWidget(evnt: Event, widget: VxeFormDesignDefines.WidgetObjItem) {
         const { widgetObjList } = reactData
-        const rest = XEUtils.findTree(widgetObjList, obj => obj.id === widget.id, { children: 'children' })
+        const rest = XEUtils.findTree(widgetObjList, (obj) => obj.id === widget.id, { children: 'children' })
         if (rest) {
           const { index, parent, items } = rest
           evnt.stopPropagation()
@@ -472,38 +483,62 @@ export default defineVxeComponent({
       if (!(titlePrefixSlot || titleSlot || titleSuffixSlot || showStyleSetting)) {
         return renderEmptyElement($xeFormDesign)
       }
-      return h('div', {
-        class: 'vxe-form-design--header-wrapper'
-      }, [
-        h('div', {
-          class: 'vxe-form-design--header-left'
-        }, titlePrefixSlot ? titlePrefixSlot({}) : []),
-        h('div', {
-          class: 'vxe-form-design--header-middle'
-        }, titleSlot ? titleSlot({}) : []),
-        h('div', {
-          class: 'vxe-form-design--header-right'
-        }, [
-          titleSuffixSlot
-            ? h('div', {
-              class: 'vxe-form-design--header-extra'
-            }, titleSuffixSlot({}))
-            : renderEmptyElement($xeFormDesign),
-          showStyleSetting
-            ? h('div', {
-              class: 'vxe-form-design--header-setting'
-            }, [
-              h(VxeUIButtonComponent, {
-                mode: 'text',
-                status: 'primary',
-                icon: getIcon().FORM_DESIGN_STYLE_SETTING,
-                content: getI18n('vxe.formDesign.styleSetting.btn'),
-                onClick: openStylePreviewEvent
-              })
-            ])
-            : renderEmptyElement($xeFormDesign)
-        ])
-      ])
+      return h(
+        'div',
+        {
+          class: 'vxe-form-design--header-wrapper'
+        },
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--header-left'
+            },
+            titlePrefixSlot ? titlePrefixSlot({}) : []
+          ),
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--header-middle'
+            },
+            titleSlot ? titleSlot({}) : []
+          ),
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--header-right'
+            },
+            [
+              titleSuffixSlot
+                ? h(
+                    'div',
+                    {
+                      class: 'vxe-form-design--header-extra'
+                    },
+                    titleSuffixSlot({})
+                  )
+                : renderEmptyElement($xeFormDesign),
+              showStyleSetting
+                ? h(
+                    'div',
+                    {
+                      class: 'vxe-form-design--header-setting'
+                    },
+                    [
+                      h(VxeUIButtonComponent, {
+                        mode: 'text',
+                        status: 'primary',
+                        icon: getIcon().FORM_DESIGN_STYLE_SETTING,
+                        content: getI18n('vxe.formDesign.styleSetting.btn'),
+                        onClick: openStylePreviewEvent
+                      })
+                    ]
+                  )
+                : renderEmptyElement($xeFormDesign)
+            ]
+          )
+        ]
+      )
     }
 
     const renderVN = () => {
@@ -511,53 +546,81 @@ export default defineVxeComponent({
       const vSize = computeSize.value
       const headerSlot = slots.header
       const footerSlot = slots.footer
-      return h('div', {
-        ref: refElem,
-        class: ['vxe-form-design', {
-          [`size--${vSize}`]: vSize
-        }],
-        style: height
-          ? {
-              height: toCssUnit(height)
+      return h(
+        'div',
+        {
+          ref: refElem,
+          class: [
+            'vxe-form-design',
+            {
+              [`size--${vSize}`]: vSize
             }
-          : null
-      }, [
-        showHeader || headerSlot
-          ? h('div', {
-            class: 'vxe-form-design--header'
-          }, headerSlot ? headerSlot({}) : renderLayoutHeader())
-          : createCommentVNode(),
-        h('div', {
-          class: 'vxe-form-design--body'
-        }, [
-          h(LayoutWidgetComponent),
-          h(LayoutPreviewComponent),
-          h(LayoutSettingComponent),
-          h(LayoutStyleComponent as ComponentOptions, {
-            ref: refLayoutStyle
-          })
-        ]),
-        footerSlot
-          ? h('div', {
-            class: 'vxe-form-design--footer'
-          }, footerSlot ? footerSlot({}) : [])
-          : createCommentVNode()
-      ])
+          ],
+          style: height
+            ? {
+                height: toCssUnit(height)
+              }
+            : null
+        },
+        [
+          showHeader || headerSlot
+            ? h(
+                'div',
+                {
+                  class: 'vxe-form-design--header'
+                },
+                headerSlot ? headerSlot({}) : renderLayoutHeader()
+              )
+            : createCommentVNode(),
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--body'
+            },
+            [
+              h(LayoutWidgetComponent),
+              h(LayoutPreviewComponent),
+              h(LayoutSettingComponent),
+              h(LayoutStyleComponent as ComponentOptions, {
+                ref: refLayoutStyle
+              })
+            ]
+          ),
+          footerSlot
+            ? h(
+                'div',
+                {
+                  class: 'vxe-form-design--footer'
+                },
+                footerSlot ? footerSlot({}) : []
+              )
+            : createCommentVNode()
+        ]
+      )
     }
 
     $xeFormDesign.renderVN = renderVN
 
-    watch(() => props.widgets, () => {
-      updateWidgetConfigs()
-    })
+    watch(
+      () => props.widgets,
+      () => {
+        updateWidgetConfigs()
+      }
+    )
 
-    watch(() => props.widgets, () => {
-      updateWidgetConfigs()
-    })
+    watch(
+      () => props.widgets,
+      () => {
+        updateWidgetConfigs()
+      }
+    )
 
-    watch(() => props.config, (value) => {
-      loadConfig(value || {})
-    })
+    watch(
+      () => props.config,
+      (value) => {
+        loadConfig(value || {})
+      }
+    )
 
     initSettingForm()
     updateWidgetConfigs()
@@ -570,7 +633,7 @@ export default defineVxeComponent({
 
     return $xeFormDesign
   },
-  render () {
+  render() {
     return this.renderVN()
   }
 })

@@ -17,7 +17,7 @@ export const getWidgetConfig = (name: string) => {
   return widgetReactConfigMaps[name] || {}
 }
 
-export function getWidgetConfigTitle (name: string, $xeFormDesign: VxeFormDesignConstructor | null) {
+export function getWidgetConfigTitle(name: string, $xeFormDesign: VxeFormDesignConstructor | null) {
   const widgetConf = getWidgetConfig(name)
   if (widgetConf) {
     const configTitle = widgetConf.title
@@ -27,7 +27,7 @@ export function getWidgetConfigTitle (name: string, $xeFormDesign: VxeFormDesign
   return name
 }
 
-export function getWidgetConfigCustomGroup (name: string, $xeFormDesign: VxeFormDesignConstructor | null) {
+export function getWidgetConfigCustomGroup(name: string, $xeFormDesign: VxeFormDesignConstructor | null) {
   const widgetConf = getWidgetConfig(name)
   if (widgetConf) {
     const configCustomGroup = widgetConf.customGroup
@@ -38,7 +38,7 @@ export function getWidgetConfigCustomGroup (name: string, $xeFormDesign: VxeForm
 }
 
 const validWidgetUniqueField = (field: string, widgetObjList: VxeFormDesignDefines.WidgetObjItem<any>[]) => {
-  return !XEUtils.findTree(widgetObjList, item => item.field === field, { children: 'children' })
+  return !XEUtils.findTree(widgetObjList, (item) => item.field === field, { children: 'children' })
 }
 
 export class FormDesignWidgetInfo {
@@ -55,7 +55,7 @@ export class FormDesignWidgetInfo {
     value: ''
   }
 
-  constructor ($xeFormDesign: VxeFormDesignConstructor | null, name: string, widgetObjList: VxeFormDesignDefines.WidgetObjItem<any>[]) {
+  constructor($xeFormDesign: VxeFormDesignConstructor | null, name: string, widgetObjList: VxeFormDesignDefines.WidgetObjItem<any>[]) {
     let customField = ''
     if (name) {
       const compConf = renderer.get(name) || {}
@@ -97,16 +97,7 @@ export class FormDesignWidgetInfo {
   }
 }
 
-export function configToWidget (conf: {
-  name: string
-  id: number
-  field: string
-  title: string
-  required: boolean
-  hidden: boolean
-  options?: any
-  children?: VxeFormDesignDefines.WidgetObjItem[]
-}) {
+export function configToWidget(conf: { name: string; id: number; field: string; title: string; required: boolean; hidden: boolean; options?: any; children?: VxeFormDesignDefines.WidgetObjItem[] }) {
   const widget = new FormDesignWidgetInfo(null, conf.name, [])
   widget.id = conf.id
   widget.title = conf.title || ''
@@ -114,6 +105,6 @@ export function configToWidget (conf: {
   widget.required = conf.required || false
   widget.hidden = conf.hidden || false
   widget.options = Object.assign({}, widget.options, conf.options)
-  widget.children = conf.children ? conf.children.map(item => configToWidget(item)) : []
+  widget.children = conf.children ? conf.children.map((item) => configToWidget(item)) : []
   return widget
 }

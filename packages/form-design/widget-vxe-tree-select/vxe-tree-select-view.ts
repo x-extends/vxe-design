@@ -18,7 +18,7 @@ export const WidgetVxeTreeSelectViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUITreeSelectComponent = VxeUI.getComponent('vxe-tree-select')
 
@@ -41,27 +41,31 @@ export const WidgetVxeTreeSelectViewComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        title: widget.title,
-        field: widget.field,
-        itemRender: {}
-      }, {
-        default () {
-          return h(VxeUITreeSelectComponent, {
-            modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            placeholder: options.placeholder || getI18n('vxe.base.pleaseSelect'),
-            options: options.options,
-            optionProps: { label: 'value', value: 'value' },
-            onChange: changeEvent,
-            'onUpdate:modelValue' (val) {
-              if ($xeFormView) {
-                $xeFormView.setItemValue(widget, val)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          title: widget.title,
+          field: widget.field,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h(VxeUITreeSelectComponent, {
+              modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+              placeholder: options.placeholder || getI18n('vxe.base.pleaseSelect'),
+              options: options.options,
+              optionProps: { label: 'value', value: 'value' },
+              onChange: changeEvent,
+              'onUpdate:modelValue'(val) {
+                if ($xeFormView) {
+                  $xeFormView.setItemValue(widget, val)
+                }
               }
-            }
-          })
+            })
+          }
         }
-      })
+      )
     }
   }
 })

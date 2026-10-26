@@ -10,7 +10,7 @@ import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeFormDesi
 export default defineVxeComponent({
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const $xeFormDesign = inject<(VxeFormDesignConstructor & VxeFormDesignPrivateMethods) | null>('$xeFormDesign', null)
 
     if (!$xeFormDesign) {
@@ -51,8 +51,8 @@ export default defineVxeComponent({
     const cancelDragoverItem = (evnt: DragEvent, group: VxeFormDesignDefines.WidgetConfigGroup) => {
       const { widgetObjList, dragWidget } = formDesignReactData
       if (dragWidget) {
-        if (group.children.some(widget => widget.name === dragWidget.name)) {
-          const rest = XEUtils.findTree(widgetObjList, item => item && item.id === dragWidget.id, { children: 'children' })
+        if (group.children.some((widget) => widget.name === dragWidget.name)) {
+          const rest = XEUtils.findTree(widgetObjList, (item) => item && item.id === dragWidget.id, { children: 'children' })
           if (rest) {
             rest.items.splice(rest.index, 1)
           }
@@ -88,9 +88,13 @@ export default defineVxeComponent({
           )
         }
       }
-      return h('div', {
-        class: 'vxe-form-design--widget-item-icon'
-      }, icVns)
+      return h(
+        'div',
+        {
+          class: 'vxe-form-design--widget-item-icon'
+        },
+        icVns
+      )
     }
 
     const renderWidgetList = (group: VxeFormDesignDefines.WidgetConfigGroup) => {
@@ -103,34 +107,50 @@ export default defineVxeComponent({
           const widgetConf = getWidgetConfig(name)
           const renderWidgetItem = compConf.renderFormDesignWidgetItem
           widgetVNs.push(
-            h('div', {
-              key: index,
-              class: 'vxe-form-design--widget-item'
-            }, h('div', {
-              class: 'vxe-form-design--widget-box',
-              'data-widget-name': name,
-              title: configTitle,
-              draggable: true,
-              onDragstart: dragstartEvent,
-              onDragend: dragendEvent
-            }, renderWidgetItem
-              ? getSlotVNs(renderWidgetItem({}, { $formDesign: $xeFormDesign }))
-              : [
-                  renderWidgetIcon(widgetConf),
-                  h('div', {
-                    class: 'vxe-form-design--widget-item-name'
-                  }, configTitle),
-                  h('div', {
-                    class: 'vxe-form-design--widget-item-add',
-                    onClick (evnt: KeyboardEvent) {
-                      addNewWidget(evnt, name)
-                    }
-                  }, [
-                    h('i', {
-                      class: getIcon().FORM_DESIGN_WIDGET_ADD
-                    })
-                  ])
-                ]))
+            h(
+              'div',
+              {
+                key: index,
+                class: 'vxe-form-design--widget-item'
+              },
+              h(
+                'div',
+                {
+                  class: 'vxe-form-design--widget-box',
+                  'data-widget-name': name,
+                  title: configTitle,
+                  draggable: true,
+                  onDragstart: dragstartEvent,
+                  onDragend: dragendEvent
+                },
+                renderWidgetItem
+                  ? getSlotVNs(renderWidgetItem({}, { $formDesign: $xeFormDesign }))
+                  : [
+                      renderWidgetIcon(widgetConf),
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-item-name'
+                        },
+                        configTitle
+                      ),
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-item-add',
+                          onClick(evnt: KeyboardEvent) {
+                            addNewWidget(evnt, name)
+                          }
+                        },
+                        [
+                          h('i', {
+                            class: getIcon().FORM_DESIGN_WIDGET_ADD
+                          })
+                        ]
+                      )
+                    ]
+              )
+            )
           )
         })
       }
@@ -141,27 +161,43 @@ export default defineVxeComponent({
       const { widgetConfigs } = formDesignReactData
       return widgetConfigs.map((config, gIndex) => {
         const { title, group } = config
-        return h('div', {
-          key: gIndex,
-          class: 'vxe-form-design--widget-group'
-        }, [
-          h('div', {
-            class: 'vxe-form-design--widget-title'
-          }, group ? getI18n(`vxe.formDesign.widget.group.${group}`) : `${title || ''}`),
-          h('div', {
-            class: 'vxe-form-design--widget-list',
-            onDragover (evnt: DragEvent) {
-              cancelDragoverItem(evnt, config)
-            }
-          }, renderWidgetList(config))
-        ])
+        return h(
+          'div',
+          {
+            key: gIndex,
+            class: 'vxe-form-design--widget-group'
+          },
+          [
+            h(
+              'div',
+              {
+                class: 'vxe-form-design--widget-title'
+              },
+              group ? getI18n(`vxe.formDesign.widget.group.${group}`) : `${title || ''}`
+            ),
+            h(
+              'div',
+              {
+                class: 'vxe-form-design--widget-list',
+                onDragover(evnt: DragEvent) {
+                  cancelDragoverItem(evnt, config)
+                }
+              },
+              renderWidgetList(config)
+            )
+          ]
+        )
       })
     }
 
     return () => {
-      return h('div', {
-        class: 'vxe-form-design--widget'
-      }, renderWidgetGroups())
+      return h(
+        'div',
+        {
+          class: 'vxe-form-design--widget'
+        },
+        renderWidgetGroups()
+      )
     }
   }
 })

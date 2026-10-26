@@ -18,7 +18,7 @@ export const WidgetInputViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
 
     const $xeFormView = inject<(VxeFormViewConstructor & VxeFormViewPrivateMethods) | null>('$xeFormView', null)
@@ -40,27 +40,31 @@ export const WidgetInputViewComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        field: widget.field,
-        title: widget.title,
-        itemRender: {}
-      }, {
-        default () {
-          return h('input', {
-            class: 'vxe-default-input',
-            type: 'text',
-            placeholder: options.placeholder || getI18n('vxe.base.pleaseInput'),
-            value: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            onChange: changeEvent,
-            onInput (evnt: InputEvent & { target: HTMLInputElement }) {
-              if ($xeFormView) {
-                $xeFormView.setItemValue(widget, evnt.target.value)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          field: widget.field,
+          title: widget.title,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h('input', {
+              class: 'vxe-default-input',
+              type: 'text',
+              placeholder: options.placeholder || getI18n('vxe.base.pleaseInput'),
+              value: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+              onChange: changeEvent,
+              onInput(evnt: InputEvent & { target: HTMLInputElement }) {
+                if ($xeFormView) {
+                  $xeFormView.setItemValue(widget, evnt.target.value)
+                }
               }
-            }
-          })
+            })
+          }
         }
-      })
+      )
     }
   }
 })

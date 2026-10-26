@@ -26,7 +26,7 @@ const ViewColItemComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
 
@@ -62,7 +62,7 @@ const ViewColItemComponent = defineVxeComponent({
           return
         }
         if (!hasFormDesignLayoutType(targetWidget)) {
-          const currRest = XEUtils.findTree(widgetObjList, item => item && item.id === sortWidget.id, { children: 'children' })
+          const currRest = XEUtils.findTree(widgetObjList, (item) => item && item.id === sortWidget.id, { children: 'children' })
           if (currRest) {
             const { item, index, items, parent } = currRest
             // 如果数据异常，动态修复
@@ -96,82 +96,113 @@ const ViewColItemComponent = defineVxeComponent({
     return () => {
       const { widget, span } = props
       const { dragWidget, activeWidget, sortWidget } = formDesignReactData
-      return h(VxeUIFormItemComponent, {
-        span,
-        padding: false
-      }, {
-        default () {
-          const name = widget ? widget.name : ''
-          const compConf = renderer.get(name) || {}
-          const renderWidgetDesignView = compConf.renderFormDesignWidgetEdit || compConf.renderFormDesignWidgetView
-          const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = widget || { name }
-          const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget, readonly: false, disabled: false, isEditMode: true, isViewMode: false, $formDesign: $xeFormDesign, $formView: null }
-          const isActive = activeWidget && widget && activeWidget.id === widget.id
-          const isEmptyWidget = !renderWidgetDesignView
-          return h('div', {
-            class: 'vxe-form-design--widget-row-view',
-            'data-widget-id': widget.id,
-            draggable: !isEmptyWidget,
-            onDragstart: handleDragstartColItemEvent,
-            onDragenter: sortDragenterColItemEvent,
-            onContextmenu (evnt: MouseEvent) {
-              if (widget) {
-                $xeFormDesign.handleContextmenuWidget(evnt, widget)
-              }
-            },
-            onClick (evnt: KeyboardEvent) {
-              if (widget) {
-                $xeFormDesign.handleClickWidget(evnt, widget)
-              }
-            }
-          }, [
-            h('div', {
-              class: ['vxe-form-design--widget-row-view-item-inner', {
-                'is--empty': isEmptyWidget,
-                'is--active': isActive,
-                'is--sort': sortWidget && widget && sortWidget.id === widget.id,
-                'is--drag': dragWidget && widget && dragWidget.id === widget.id
-              }]
-            }, [
-              renderWidgetDesignView
-                ? h('div', {
-                  class: 'vxe-form-design--widget-row-view-item-wrapper'
-                }, [
-                  h('div', {
-                    class: 'vxe-form-design--widget-row-view-item-box vxe-form--item-row'
-                  }, getSlotVNs(renderWidgetDesignView(renderOpts, params))),
-                  isActive
-                    ? h('div', {
-                      class: 'vxe-form-design--preview-item-operate'
-                    }, [
-                      h(VxeUIButtonComponent, {
-                        icon: getIcon().FORM_DESIGN_WIDGET_COPY,
-                        status: 'primary',
-                        size: 'mini',
-                        circle: true,
-                        onClick (params) {
-                          $xeFormDesign.handleCopyWidget(params.$event, widget)
-                        }
-                      }),
-                      h(VxeUIButtonComponent, {
-                        icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-                        status: 'danger',
-                        size: 'mini',
-                        circle: true,
-                        onClick (params) {
-                          $xeFormDesign.handleRemoveWidget(params.$event, widget)
-                        }
-                      })
-                    ])
-                    : createCommentVNode()
-                ])
-                : h('div', {
-                  class: 'vxe-form-design--widget-row-view-empty'
-                }, '控件位置')
-            ])
-          ])
+      return h(
+        VxeUIFormItemComponent,
+        {
+          span,
+          padding: false
+        },
+        {
+          default() {
+            const name = widget ? widget.name : ''
+            const compConf = renderer.get(name) || {}
+            const renderWidgetDesignView = compConf.renderFormDesignWidgetEdit || compConf.renderFormDesignWidgetView
+            const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = widget || { name }
+            const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget, readonly: false, disabled: false, isEditMode: true, isViewMode: false, $formDesign: $xeFormDesign, $formView: null }
+            const isActive = activeWidget && widget && activeWidget.id === widget.id
+            const isEmptyWidget = !renderWidgetDesignView
+            return h(
+              'div',
+              {
+                class: 'vxe-form-design--widget-row-view',
+                'data-widget-id': widget.id,
+                draggable: !isEmptyWidget,
+                onDragstart: handleDragstartColItemEvent,
+                onDragenter: sortDragenterColItemEvent,
+                onContextmenu(evnt: MouseEvent) {
+                  if (widget) {
+                    $xeFormDesign.handleContextmenuWidget(evnt, widget)
+                  }
+                },
+                onClick(evnt: KeyboardEvent) {
+                  if (widget) {
+                    $xeFormDesign.handleClickWidget(evnt, widget)
+                  }
+                }
+              },
+              [
+                h(
+                  'div',
+                  {
+                    class: [
+                      'vxe-form-design--widget-row-view-item-inner',
+                      {
+                        'is--empty': isEmptyWidget,
+                        'is--active': isActive,
+                        'is--sort': sortWidget && widget && sortWidget.id === widget.id,
+                        'is--drag': dragWidget && widget && dragWidget.id === widget.id
+                      }
+                    ]
+                  },
+                  [
+                    renderWidgetDesignView
+                      ? h(
+                          'div',
+                          {
+                            class: 'vxe-form-design--widget-row-view-item-wrapper'
+                          },
+                          [
+                            h(
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-row-view-item-box vxe-form--item-row'
+                              },
+                              getSlotVNs(renderWidgetDesignView(renderOpts, params))
+                            ),
+                            isActive
+                              ? h(
+                                  'div',
+                                  {
+                                    class: 'vxe-form-design--preview-item-operate'
+                                  },
+                                  [
+                                    h(VxeUIButtonComponent, {
+                                      icon: getIcon().FORM_DESIGN_WIDGET_COPY,
+                                      status: 'primary',
+                                      size: 'mini',
+                                      circle: true,
+                                      onClick(params) {
+                                        $xeFormDesign.handleCopyWidget(params.$event, widget)
+                                      }
+                                    }),
+                                    h(VxeUIButtonComponent, {
+                                      icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+                                      status: 'danger',
+                                      size: 'mini',
+                                      circle: true,
+                                      onClick(params) {
+                                        $xeFormDesign.handleRemoveWidget(params.$event, widget)
+                                      }
+                                    })
+                                  ]
+                                )
+                              : createCommentVNode()
+                          ]
+                        )
+                      : h(
+                          'div',
+                          {
+                            class: 'vxe-form-design--widget-row-view-empty'
+                          },
+                          '控件位置'
+                        )
+                  ]
+                )
+              ]
+            )
+          }
         }
-      })
+      )
     }
   }
 })
@@ -189,7 +220,7 @@ export const WidgetRowEditComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormGroupComponent = VxeUI.getComponent('vxe-form-group')
 
     const computedColObjList = computed(() => {
@@ -205,22 +236,26 @@ export const WidgetRowEditComponent = defineVxeComponent({
     return () => {
       const { renderParams } = props
       const { widget } = renderParams
-      return h(VxeUIFormGroupComponent, {
-        field: widget.field
-      }, {
-        default () {
-          const colObjList = computedColObjList.value
-          return colObjList.map((span, colItemIndex) => {
-            return h(ViewColItemComponent, {
-              key: colItemIndex,
-              parentWidget: widget,
-              widget: widget.children[colItemIndex],
-              span,
-              colItemIndex
+      return h(
+        VxeUIFormGroupComponent,
+        {
+          field: widget.field
+        },
+        {
+          default() {
+            const colObjList = computedColObjList.value
+            return colObjList.map((span, colItemIndex) => {
+              return h(ViewColItemComponent, {
+                key: colItemIndex,
+                parentWidget: widget,
+                widget: widget.children[colItemIndex],
+                span,
+                colItemIndex
+              })
             })
-          })
+          }
         }
-      })
+      )
     }
   }
 })
@@ -238,7 +273,7 @@ export const WidgetRowViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIRowComponent = VxeUI.getComponent('vxe-row')
     const VxeUIColComponent = VxeUI.getComponent('vxe-col')
 
@@ -259,33 +294,41 @@ export const WidgetRowViewComponent = defineVxeComponent({
       const { renderParams } = props
       const { widget } = renderParams
       const colObjList = computedColObjList.value
-      return h(VxeUIRowComponent, {}, {
-        default () {
-          return colObjList.map((span, colItemIndex) => {
-            return h(VxeUIColComponent, {
-              key: colItemIndex,
-              class: 'vxe-form--item-row',
-              span
-            }, {
-              default () {
-                const subWidget = widget.children[colItemIndex]
-                if (subWidget) {
-                  const { name } = subWidget
-                  const compConf = renderer.get(name) || {}
-                  const renderWidgetDesignView = compConf.renderFormDesignWidgetView
-                  const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = subWidget
-                  const isEditMode = !!$xeFormDesign
-                  const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget: subWidget, readonly: false, disabled: false, isEditMode, isViewMode: !isEditMode, $formDesign: $xeFormDesign, $formView: $xeFormView }
-                  if (renderWidgetDesignView) {
-                    return getSlotVNs(renderWidgetDesignView(renderOpts, params))
+      return h(
+        VxeUIRowComponent,
+        {},
+        {
+          default() {
+            return colObjList.map((span, colItemIndex) => {
+              return h(
+                VxeUIColComponent,
+                {
+                  key: colItemIndex,
+                  class: 'vxe-form--item-row',
+                  span
+                },
+                {
+                  default() {
+                    const subWidget = widget.children[colItemIndex]
+                    if (subWidget) {
+                      const { name } = subWidget
+                      const compConf = renderer.get(name) || {}
+                      const renderWidgetDesignView = compConf.renderFormDesignWidgetView
+                      const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = subWidget
+                      const isEditMode = !!$xeFormDesign
+                      const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget: subWidget, readonly: false, disabled: false, isEditMode, isViewMode: !isEditMode, $formDesign: $xeFormDesign, $formView: $xeFormView }
+                      if (renderWidgetDesignView) {
+                        return getSlotVNs(renderWidgetDesignView(renderOpts, params))
+                      }
+                    }
+                    return createCommentVNode()
                   }
                 }
-                return createCommentVNode()
-              }
+              )
             })
-          })
+          }
         }
-      })
+      )
     }
   }
 })

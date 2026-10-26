@@ -8,7 +8,22 @@ import { configToWidget } from './widget-info'
 import { warnLog } from '../../ui/src/log'
 
 import type { VxeFormPropTypes, VxeFormInstance, VxeFormProps, VxeFormEvents } from 'vxe-pc-ui'
-import type { VxeGlobalRendererHandles, VxeFormViewPropTypes, FormViewReactData, ValueOf, FormViewPrivateRef, FormViewMethods, FormViewPrivateMethods, VxeFormViewEmits, VxeFormViewPrivateComputed, VxeFormDesignDefines, VxeFormViewConstructor, VxeFormViewPrivateMethods, VxeFormViewDefines, VxeFormDesignLayoutStyle } from '../../../types'
+import type {
+  VxeGlobalRendererHandles,
+  VxeFormViewPropTypes,
+  FormViewReactData,
+  ValueOf,
+  FormViewPrivateRef,
+  FormViewMethods,
+  FormViewPrivateMethods,
+  VxeFormViewEmits,
+  VxeFormViewPrivateComputed,
+  VxeFormDesignDefines,
+  VxeFormViewConstructor,
+  VxeFormViewPrivateMethods,
+  VxeFormViewDefines,
+  VxeFormDesignLayoutStyle
+} from '../../../types'
 
 export default defineVxeComponent({
   name: 'VxeFormView',
@@ -25,12 +40,8 @@ export default defineVxeComponent({
       default: () => getConfig().formView.size || getConfig().size
     }
   },
-  emits: [
-    'update:modelValue',
-    'submit',
-    'reset'
-  ] as VxeFormViewEmits,
-  setup (props, context) {
+  emits: ['update:modelValue', 'submit', 'reset'] as VxeFormViewEmits,
+  setup(props, context) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormGroupComponent = VxeUI.getComponent('vxe-form-group')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
@@ -116,21 +127,25 @@ export default defineVxeComponent({
     const parseForm = (widgetObjList: VxeFormDesignDefines.WidgetObjItem[]) => {
       const formData: VxeFormPropTypes.Data = {}
       const formRules: VxeFormPropTypes.Rules = {}
-      XEUtils.eachTree(widgetObjList, widget => {
-        const { name, field, required } = widget
-        const compConf = renderer.get(name) || {}
-        const createWidgetFieldValue = compConf.createFormDesignWidgetFieldValue
-        const createWidgetFieldRules = compConf.createFormDesignWidgetFieldRules
-        formData[field] = createWidgetFieldValue ? createWidgetFieldValue({ widget, $formView: $xeFormView }) : getWidgetDefaultValue(widget)
-        if (createWidgetFieldRules) {
-          const rules = createWidgetFieldRules({ widget, $formView: $xeFormView })
-          if (rules && rules.length) {
-            formRules[field] = rules
+      XEUtils.eachTree(
+        widgetObjList,
+        (widget) => {
+          const { name, field, required } = widget
+          const compConf = renderer.get(name) || {}
+          const createWidgetFieldValue = compConf.createFormDesignWidgetFieldValue
+          const createWidgetFieldRules = compConf.createFormDesignWidgetFieldRules
+          formData[field] = createWidgetFieldValue ? createWidgetFieldValue({ widget, $formView: $xeFormView }) : getWidgetDefaultValue(widget)
+          if (createWidgetFieldRules) {
+            const rules = createWidgetFieldRules({ widget, $formView: $xeFormView })
+            if (rules && rules.length) {
+              formRules[field] = rules
+            }
+          } else if (required) {
+            formRules[field] = getWidgetDefaultRule()
           }
-        } else if (required) {
-          formRules[field] = getWidgetDefaultRule()
-        }
-      }, { children: 'children' })
+        },
+        { children: 'children' }
+      )
       return {
         formData,
         formRules
@@ -138,7 +153,7 @@ export default defineVxeComponent({
     }
 
     const parseWidgetData = (widgetData: VxeFormDesignDefines.WidgetObjItem[]) => {
-      return (widgetData || []).map(item => configToWidget(item))
+      return (widgetData || []).map((item) => configToWidget(item))
     }
 
     const loadWidgetData = (widgetData: VxeFormDesignDefines.WidgetObjItem[]) => {
@@ -159,9 +174,7 @@ export default defineVxeComponent({
     }
 
     const getWidgetDefaultRule = () => {
-      return [
-        { required: true, content: '该填写该字段！' }
-      ]
+      return [{ required: true, content: '该填写该字段！' }]
     }
 
     const updateWidgetStatus = (widget: VxeFormDesignDefines.WidgetObjItem, value: any) => {
@@ -201,7 +214,7 @@ export default defineVxeComponent({
     const toWidgetFields = (widget?: VxeFormDesignDefines.WidgetObjItem<any> | VxeFormDesignDefines.WidgetObjItem<any>[]) => {
       if (widget) {
         if (XEUtils.isArray(widget)) {
-          return widget.map(item => item.name)
+          return widget.map((item) => item.name)
         } else {
           return [widget.name]
         }
@@ -219,28 +232,28 @@ export default defineVxeComponent({
       updateWidgetStatus,
       setItemValue,
       getItemValue,
-      validate () {
+      validate() {
         const $form = formRef.value
         if ($form) {
           return $form.validate()
         }
         return nextTick()
       },
-      validateWidget (widget) {
+      validateWidget(widget) {
         const $form = formRef.value
         if ($form) {
           return $form.validateField(toWidgetFields(widget))
         }
         return nextTick()
       },
-      clearValidate (widget) {
+      clearValidate(widget) {
         const $form = formRef.value
         if ($form) {
           return $form.clearValidate(toWidgetFields(widget))
         }
         return nextTick()
       },
-      reset () {
+      reset() {
         const { widgetObjList } = reactData
         const { formData } = parseForm(widgetObjList)
         emit('update:modelValue', Object.assign({}, formData))
@@ -250,7 +263,7 @@ export default defineVxeComponent({
        * 已废弃
        * @deprecated
        */
-      updateItemStatus (widget, value) {
+      updateItemStatus(widget, value) {
         warnLog('vxe.error.delFunc', ['updateItemStatus', 'updateWidgetStatus'])
         return updateWidgetStatus(widget, value)
       }
@@ -264,8 +277,7 @@ export default defineVxeComponent({
       dispatchEvent('reset', params, params.$event)
     }
 
-    const formViewPrivateMethods: FormViewPrivateMethods = {
-    }
+    const formViewPrivateMethods: FormViewPrivateMethods = {}
 
     Object.assign($xeFormView, formViewMethods, formViewPrivateMethods)
 
@@ -278,93 +290,127 @@ export default defineVxeComponent({
       const headerSlot = slots.header
       const footerSlot = slots.footer
 
-      return h('div', {
-        ref: refElem,
-        class: ['vxe-form-view', {
-          [`size--${vSize}`]: vSize
-        }]
-      }, [
-        topSlot
-          ? h('div', {
-            class: 'vxe-form-view--top'
-          }, getSlotVNs(topSlot({ $formView: $xeFormView })))
-          : renderEmptyElement($xeFormView),
-        h(VxeUIFormComponent, {
-          ref: formRef,
-          ...formConfig,
-          data: modelValue,
-          customLayout: true,
-          readonly,
-          disabled,
-          span: 24,
-          rules: formRules,
-          onSubmit: handleSubmit,
-          onReset: handleReset
-        }, {
-          default () {
-            const { readonly, disabled } = props
-            return [
-              headerSlot
-                ? h(VxeUIFormItemComponent, {}, {
-                  default () {
-                    return headerSlot({})
-                  }
-                })
-                : renderEmptyElement($xeFormView),
-              ...widgetObjList.map(widget => {
-                const { name } = widget
-                const compConf = renderer.get(name) || {}
-                const renderWidgetDesignView = compConf.renderFormDesignWidgetView
-                const renderWidgetDesignPreview = compConf.renderFormDesignWidgetPreview
-                const renderWidgetDesignMobilePreview = compConf.renderFormDesignWidgetMobilePreview
-                const isEditMode = !!$xeFormDesignLayoutStyle
-                const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = widget
-                const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget, readonly: !!readonly, disabled: !!disabled, isEditMode, isViewMode: !isEditMode, $formDesign: null, $formView: $xeFormView }
-                return h(VxeUIFormGroupComponent, {
-                  key: widget.id
-                }, {
-                  default () {
-                    // 如果处于表单设计器-样式设置-预览模式下
-                    if ($xeFormDesignLayoutStyle) {
-                      if ($xeFormDesignLayoutStyle.reactData.activeTab === 2) {
-                        if (renderWidgetDesignMobilePreview) {
-                          return getSlotVNs(renderWidgetDesignMobilePreview(renderOpts, params))
+      return h(
+        'div',
+        {
+          ref: refElem,
+          class: [
+            'vxe-form-view',
+            {
+              [`size--${vSize}`]: vSize
+            }
+          ]
+        },
+        [
+          topSlot
+            ? h(
+                'div',
+                {
+                  class: 'vxe-form-view--top'
+                },
+                getSlotVNs(topSlot({ $formView: $xeFormView }))
+              )
+            : renderEmptyElement($xeFormView),
+          h(
+            VxeUIFormComponent,
+            {
+              ref: formRef,
+              ...formConfig,
+              data: modelValue,
+              customLayout: true,
+              readonly,
+              disabled,
+              span: 24,
+              rules: formRules,
+              onSubmit: handleSubmit,
+              onReset: handleReset
+            },
+            {
+              default() {
+                const { readonly, disabled } = props
+                return [
+                  headerSlot
+                    ? h(
+                        VxeUIFormItemComponent,
+                        {},
+                        {
+                          default() {
+                            return headerSlot({})
+                          }
                         }
-                      } else {
-                        if (renderWidgetDesignPreview) {
-                          return getSlotVNs(renderWidgetDesignPreview(renderOpts, params))
+                      )
+                    : renderEmptyElement($xeFormView),
+                  ...widgetObjList.map((widget) => {
+                    const { name } = widget
+                    const compConf = renderer.get(name) || {}
+                    const renderWidgetDesignView = compConf.renderFormDesignWidgetView
+                    const renderWidgetDesignPreview = compConf.renderFormDesignWidgetPreview
+                    const renderWidgetDesignMobilePreview = compConf.renderFormDesignWidgetMobilePreview
+                    const isEditMode = !!$xeFormDesignLayoutStyle
+                    const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = widget
+                    const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget, readonly: !!readonly, disabled: !!disabled, isEditMode, isViewMode: !isEditMode, $formDesign: null, $formView: $xeFormView }
+                    return h(
+                      VxeUIFormGroupComponent,
+                      {
+                        key: widget.id
+                      },
+                      {
+                        default() {
+                          // 如果处于表单设计器-样式设置-预览模式下
+                          if ($xeFormDesignLayoutStyle) {
+                            if ($xeFormDesignLayoutStyle.reactData.activeTab === 2) {
+                              if (renderWidgetDesignMobilePreview) {
+                                return getSlotVNs(renderWidgetDesignMobilePreview(renderOpts, params))
+                              }
+                            } else {
+                              if (renderWidgetDesignPreview) {
+                                return getSlotVNs(renderWidgetDesignPreview(renderOpts, params))
+                              }
+                            }
+                          }
+                          return renderWidgetDesignView ? getSlotVNs(renderWidgetDesignView(renderOpts, params)) : []
                         }
                       }
-                    }
-                    return renderWidgetDesignView ? getSlotVNs(renderWidgetDesignView(renderOpts, params)) : []
-                  }
-                })
-              }),
-              footerSlot
-                ? h(VxeUIFormGroupComponent, {
-                  span: 24
-                }, {
-                  default () {
-                    return footerSlot({})
-                  }
-                })
-                : renderEmptyElement($xeFormView)
-            ]
-          }
-        }),
-        bottomSlot
-          ? h('div', {
-            class: 'vxe-form-view--bottom'
-          }, getSlotVNs(bottomSlot({ $formView: $xeFormView })))
-          : renderEmptyElement($xeFormView)
-      ])
+                    )
+                  }),
+                  footerSlot
+                    ? h(
+                        VxeUIFormGroupComponent,
+                        {
+                          span: 24
+                        },
+                        {
+                          default() {
+                            return footerSlot({})
+                          }
+                        }
+                      )
+                    : renderEmptyElement($xeFormView)
+                ]
+              }
+            }
+          ),
+          bottomSlot
+            ? h(
+                'div',
+                {
+                  class: 'vxe-form-view--bottom'
+                },
+                getSlotVNs(bottomSlot({ $formView: $xeFormView }))
+              )
+            : renderEmptyElement($xeFormView)
+        ]
+      )
     }
 
     $xeFormView.renderVN = renderVN
 
-    watch(() => props.config, (value) => {
-      loadConfig(value || {})
-    })
+    watch(
+      () => props.config,
+      (value) => {
+        loadConfig(value || {})
+      }
+    )
 
     if (props.config) {
       loadConfig(props.config)
@@ -374,7 +420,7 @@ export default defineVxeComponent({
 
     return $xeFormView
   },
-  render () {
+  render() {
     return this.renderVN()
   }
 })

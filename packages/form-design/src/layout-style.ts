@@ -12,7 +12,7 @@ export default defineVxeComponent({
   name: 'FormDesignLayoutStyle',
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const VxeUIModalComponent = VxeUI.getComponent('vxe-modal')
     const VxeUITabsComponent = VxeUI.getComponent('vxe-tabs')
     const VxeUITabPaneComponent = VxeUI.getComponent('vxe-tab-pane')
@@ -26,7 +26,7 @@ export default defineVxeComponent({
     const $xeFormDesignLayoutStyle: VxeFormDesignLayoutStyle = {
       reactData,
 
-      renderVN () {
+      renderVN() {
         return []
       }
     }
@@ -66,7 +66,7 @@ export default defineVxeComponent({
 
     const formDesignLayoutStyleMethod = {
       updatePreviewView,
-      openStylePreview () {
+      openStylePreview() {
         const { showPc } = formDesignProps
         updatePreviewView()
         reactData.activeTab = showPc ? 1 : 2
@@ -79,22 +79,30 @@ export default defineVxeComponent({
     const renderStylePreview = () => {
       const { activeTab } = reactData
       const isMobile = activeTab === 2
-      return h('div', {
-        class: ['vxe-form-design--layout-style-preview', `is--${isMobile ? 'mobile' : 'pc'}`]
-      }, [
-        isMobile
-          ? h('div', {
-            class: 'vxe-form-view'
-          }, '暂不支持')
-          : h(VxeFormViewComponent, {
-            modelValue: settingFormData.value,
-            config: settingConfig.value,
-            createFormConfig: createFormViewFormConfig,
-            'onUpdate:modelValue' (val) {
-              settingFormData.value = val
-            }
-          })
-      ])
+      return h(
+        'div',
+        {
+          class: ['vxe-form-design--layout-style-preview', `is--${isMobile ? 'mobile' : 'pc'}`]
+        },
+        [
+          isMobile
+            ? h(
+                'div',
+                {
+                  class: 'vxe-form-view'
+                },
+                '暂不支持'
+              )
+            : h(VxeFormViewComponent, {
+                modelValue: settingFormData.value,
+                config: settingConfig.value,
+                createFormConfig: createFormViewFormConfig,
+                'onUpdate:modelValue'(val) {
+                  settingFormData.value = val
+                }
+              })
+        ]
+      )
     }
 
     const renderMobileStyle = () => {
@@ -104,9 +112,13 @@ export default defineVxeComponent({
         const compConf = renderer.get(formRender.name)
         const renderSettingMobileFormView = compConf ? compConf.renderFormDesignMobileStyleFormView : null
         if (renderSettingMobileFormView) {
-          return h('div', {
-            class: 'vxe-form-design--custom-setting-mobile-form-view'
-          }, getSlotVNs(renderSettingMobileFormView({ }, { $formDesign: $xeFormDesign, formConfig: formData })))
+          return h(
+            'div',
+            {
+              class: 'vxe-form-design--custom-setting-mobile-form-view'
+            },
+            getSlotVNs(renderSettingMobileFormView({}, { $formDesign: $xeFormDesign, formConfig: formData }))
+          )
         }
       }
       return h(DefaultMobileStyleFormComponent, {
@@ -121,9 +133,13 @@ export default defineVxeComponent({
         const compConf = renderer.get(formRender.name)
         const renderStylePCFormView = compConf ? compConf.renderFormDesignStyleFormView : null
         if (renderStylePCFormView) {
-          return h('div', {
-            class: 'vxe-form-design--custom-setting-pc-form-view'
-          }, getSlotVNs(renderStylePCFormView({ }, { $formDesign: $xeFormDesign, formConfig: formData })))
+          return h(
+            'div',
+            {
+              class: 'vxe-form-design--custom-setting-pc-form-view'
+            },
+            getSlotVNs(renderStylePCFormView({}, { $formDesign: $xeFormDesign, formConfig: formData }))
+          )
         }
       }
       return h(DefaultPCStyleFormComponent, {
@@ -134,80 +150,101 @@ export default defineVxeComponent({
     const renderStyleSetting = () => {
       const { showPc, showMobile } = formDesignProps
       const { activeTab } = reactData
-      return h('div', {
-        class: 'vxe-form-design--layout-style-setting'
-      }, [
-        h(VxeUITabsComponent, {
-          modelValue: activeTab,
-          titleWidth: showPc && showMobile ? '50%' : '100%',
-          titleAlign: 'center',
-          padding: true,
-          onChange: updatePreviewView,
-          'onUpdate:modelValue' (val) {
-            reactData.activeTab = val as number
-          }
-        }, {
-          default () {
-            const tabVNs: VNode[] = []
-            if (showPc) {
-              tabVNs.push(
-                h(VxeUITabPaneComponent, {
-                  title: getI18n('vxe.formDesign.widgetProp.displaySetting.pc'),
-                  icon: getIcon().FORM_DESIGN_PROPS_PC,
-                  k: 1,
-                  name: 1
-                }, {
-                  default () {
-                    return renderPCStyle()
-                  }
-                })
-              )
+      return h(
+        'div',
+        {
+          class: 'vxe-form-design--layout-style-setting'
+        },
+        [
+          h(
+            VxeUITabsComponent,
+            {
+              modelValue: activeTab,
+              titleWidth: showPc && showMobile ? '50%' : '100%',
+              titleAlign: 'center',
+              padding: true,
+              onChange: updatePreviewView,
+              'onUpdate:modelValue'(val) {
+                reactData.activeTab = val as number
+              }
+            },
+            {
+              default() {
+                const tabVNs: VNode[] = []
+                if (showPc) {
+                  tabVNs.push(
+                    h(
+                      VxeUITabPaneComponent,
+                      {
+                        title: getI18n('vxe.formDesign.widgetProp.displaySetting.pc'),
+                        icon: getIcon().FORM_DESIGN_PROPS_PC,
+                        k: 1,
+                        name: 1
+                      },
+                      {
+                        default() {
+                          return renderPCStyle()
+                        }
+                      }
+                    )
+                  )
+                }
+                if (showMobile) {
+                  tabVNs.push(
+                    h(
+                      VxeUITabPaneComponent,
+                      {
+                        title: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile'),
+                        icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
+                        key: 2,
+                        name: 2
+                      },
+                      {
+                        default() {
+                          return renderMobileStyle()
+                        }
+                      }
+                    )
+                  )
+                }
+                return tabVNs
+              }
             }
-            if (showMobile) {
-              tabVNs.push(
-                h(VxeUITabPaneComponent, {
-                  title: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile'),
-                  icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
-                  key: 2,
-                  name: 2
-                }, {
-                  default () {
-                    return renderMobileStyle()
-                  }
-                })
-              )
-            }
-            return tabVNs
-          }
-        })
-      ])
+          )
+        ]
+      )
     }
 
     const renderVN = () => {
       const { showPc, showMobile } = formDesignProps
-      return h(VxeUIModalComponent, {
-        modelValue: settingVisible.value,
-        title: getI18n('vxe.formDesign.styleSetting.title'),
-        height: '90vh',
-        width: '90vw',
-        escClosable: true,
-        maskClosable: true,
-        destroyOnClose: true,
-        showMaximize: true,
-        transfer: true,
-        'onUpdate:modelValue' (val) {
-          settingVisible.value = val
+      return h(
+        VxeUIModalComponent,
+        {
+          modelValue: settingVisible.value,
+          title: getI18n('vxe.formDesign.styleSetting.title'),
+          height: '90vh',
+          width: '90vw',
+          escClosable: true,
+          maskClosable: true,
+          destroyOnClose: true,
+          showMaximize: true,
+          transfer: true,
+          'onUpdate:modelValue'(val) {
+            settingVisible.value = val
+          }
+        },
+        {
+          default() {
+            return h(
+              'div',
+              {
+                class: 'vxe-form-design--layout-style'
+              },
+              [renderStylePreview(), showPc || showMobile ? renderStyleSetting() : createCommentVNode()]
+            )
+          }
         }
-      }, {
-        default () {
-          return h('div', {
-            class: 'vxe-form-design--layout-style'
-          }, [
-            renderStylePreview(),
-            showPc || showMobile ? renderStyleSetting() : createCommentVNode()
-          ])
-        }
-      })
+      )
     }
 
     $xeFormDesignLayoutStyle.renderVN = renderVN
@@ -216,7 +253,7 @@ export default defineVxeComponent({
 
     return $xeFormDesignLayoutStyle
   },
-  render () {
+  render() {
     return this.renderVN()
   }
 })

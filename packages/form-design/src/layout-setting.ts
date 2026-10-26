@@ -10,7 +10,7 @@ export default defineVxeComponent({
   name: 'FormDesignLayoutSetting',
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const VxeUITabsComponent = VxeUI.getComponent('vxe-tabs')
     const VxeUITabPaneComponent = VxeUI.getComponent('vxe-tab-pane')
 
@@ -31,9 +31,13 @@ export default defineVxeComponent({
         const renderWidgetFormView = compConf ? compConf.renderFormDesignWidgetFormView : null
         if (renderWidgetFormView) {
           const isEditMode = true
-          return h('div', {
-            class: 'vxe-form-design--custom-widget-form-view'
-          }, getSlotVNs(renderWidgetFormView(activeWidget, { isEditMode, isViewMode: !isEditMode, widget: activeWidget, $formDesign: $xeFormDesign, $formView: null })))
+          return h(
+            'div',
+            {
+              class: 'vxe-form-design--custom-widget-form-view'
+            },
+            getSlotVNs(renderWidgetFormView(activeWidget, { isEditMode, isViewMode: !isEditMode, widget: activeWidget, $formDesign: $xeFormDesign, $formView: null }))
+          )
         }
       }
       return createCommentVNode()
@@ -46,9 +50,13 @@ export default defineVxeComponent({
         const compConf = renderer.get(formRender.name)
         const renderSettingView = compConf ? compConf.renderFormDesignSettingFormView : null
         if (renderSettingView) {
-          return h('div', {
-            class: 'vxe-form-design--custom-setting-form-view'
-          }, getSlotVNs(renderSettingView(formRender, { formConfig: formData, $formDesign: $xeFormDesign })))
+          return h(
+            'div',
+            {
+              class: 'vxe-form-design--custom-setting-form-view'
+            },
+            getSlotVNs(renderSettingView(formRender, { formConfig: formData, $formDesign: $xeFormDesign }))
+          )
         }
       }
       return h(DefaultSettingFormComponent, {
@@ -56,50 +64,73 @@ export default defineVxeComponent({
       })
     }
 
-    watch(() => formDesignReactData.activeWidget, () => {
-      activeTab.value = 1
-    })
+    watch(
+      () => formDesignReactData.activeWidget,
+      () => {
+        activeTab.value = 1
+      }
+    )
 
     return () => {
-      return h('div', {
-        class: 'vxe-form-design--setting'
-      }, [
-        h('div', {
-          class: 'vxe-form-design--setting-form'
-        }, [
-          h(VxeUITabsComponent, {
-            modelValue: activeTab.value,
-            titleWidth: '50%',
-            titleAlign: 'center',
-            padding: true,
-            class: 'vxe-form-design--setting-form-tabs',
-            'onUpdate:modelValue' (val) {
-              activeTab.value = val as number
-            }
-          }, {
-            default () {
-              return [
-                h(VxeUITabPaneComponent, {
-                  title: getI18n('vxe.formDesign.widgetPropTab'),
-                  name: 1
-                }, {
-                  default () {
-                    return renderSettingWidgetForm()
+      return h(
+        'div',
+        {
+          class: 'vxe-form-design--setting'
+        },
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--setting-form'
+            },
+            [
+              h(
+                VxeUITabsComponent,
+                {
+                  modelValue: activeTab.value,
+                  titleWidth: '50%',
+                  titleAlign: 'center',
+                  padding: true,
+                  class: 'vxe-form-design--setting-form-tabs',
+                  'onUpdate:modelValue'(val) {
+                    activeTab.value = val as number
                   }
-                }),
-                h(VxeUITabPaneComponent, {
-                  title: getI18n('vxe.formDesign.widgetFormTab'),
-                  name: 2
-                }, {
-                  default () {
-                    return renderSettingConfigForm()
+                },
+                {
+                  default() {
+                    return [
+                      h(
+                        VxeUITabPaneComponent,
+                        {
+                          title: getI18n('vxe.formDesign.widgetPropTab'),
+                          name: 1
+                        },
+                        {
+                          default() {
+                            return renderSettingWidgetForm()
+                          }
+                        }
+                      ),
+                      h(
+                        VxeUITabPaneComponent,
+                        {
+                          title: getI18n('vxe.formDesign.widgetFormTab'),
+                          name: 2
+                        },
+                        {
+                          default() {
+                            return renderSettingConfigForm()
+                          }
+                        }
+                      )
+                    ]
                   }
-                })
-              ]
-            }
-          })
-        ])
-      ])
+                }
+              )
+            ]
+          )
+        ]
+      )
     }
   }
 })

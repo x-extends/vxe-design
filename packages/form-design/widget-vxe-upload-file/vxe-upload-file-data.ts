@@ -3,15 +3,11 @@ import { handleGetFormDesignWidgetName } from '../render/util'
 import type { VxeUploadPropTypes } from 'vxe-pc-ui'
 import type { VxeGlobalRendererHandles } from '../../../types'
 
-export function getLimitSizeOptions () {
-  const sizeOpts: { label: string, value: VxeUploadPropTypes.LimitSize }[] = [
-    { label: '无限制', value: '' }
-  ]
+export function getLimitSizeOptions() {
+  const sizeOpts: { label: string; value: VxeUploadPropTypes.LimitSize }[] = [{ label: '无限制', value: '' }]
   const sizeList = [1, 2, 5, 10, 20, 50, 100, 200, 500]
-  sizeList.forEach(num => {
-    sizeOpts.push(
-      { label: `${num}M`, value: num }
-    )
+  sizeList.forEach((num) => {
+    sizeOpts.push({ label: `${num}M`, value: num })
   })
   return sizeOpts
 }

@@ -7,14 +7,13 @@ import './render'
 import type { ListDesignHandleExport } from '../../types'
 
 export const VxeListDesign = Object.assign({}, VxeListDesignComponent, {
-  install (app: App) {
+  install(app: App) {
     checkDependVersion()
     app.component(VxeListDesignComponent.name as string, VxeListDesignComponent)
   }
 })
 
-const listDesignHandle: ListDesignHandleExport = {
-}
+const listDesignHandle: ListDesignHandleExport = {}
 
 if (VxeUI.dynamicApp) {
   VxeUI.dynamicApp.use(VxeListDesign)

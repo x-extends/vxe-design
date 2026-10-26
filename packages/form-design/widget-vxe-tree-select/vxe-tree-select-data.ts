@@ -8,7 +8,7 @@ import type { VxeGlobalRendererHandles } from '../../../types'
 
 export interface WidgetVxeTreeSelectFormObjVO {
   placeholder: string
-  options: WidgetDataSourceOptionObjVO[],
+  options: WidgetDataSourceOptionObjVO[]
   multiple: VxeTreeSelectPropTypes.Multiple
 }
 

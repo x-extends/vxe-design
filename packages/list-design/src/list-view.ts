@@ -7,7 +7,21 @@ import { getSlotVNs } from '../../ui/src/vn'
 import { createListDesignActionButton } from '../render/util'
 import XEUtils from 'xe-utils'
 
-import type { ListViewReactData, ListViewPrivateRef, VxeListViewPropTypes, VxeListViewDefines, VxeListViewEmits, VxeListViewPrivateComputed, VxeListViewConstructor, VxeListDesignDefines, ListViewMethods, ListViewPrivateMethods, VxeGlobalRendererHandles, VxeListViewPrivateMethods, ValueOf } from '../../../types'
+import type {
+  ListViewReactData,
+  ListViewPrivateRef,
+  VxeListViewPropTypes,
+  VxeListViewDefines,
+  VxeListViewEmits,
+  VxeListViewPrivateComputed,
+  VxeListViewConstructor,
+  VxeListDesignDefines,
+  ListViewMethods,
+  ListViewPrivateMethods,
+  VxeGlobalRendererHandles,
+  VxeListViewPrivateMethods,
+  ValueOf
+} from '../../../types'
 import type { VxeButtonGroupDefines, VxeButtonGroupPropTypes } from 'vxe-pc-ui'
 import type { VxeGridInstance, VxeGridPropTypes, VxeGridProps, VxeTableDefines } from 'vxe-table'
 
@@ -32,12 +46,8 @@ export default defineVxeComponent({
     gridEvents: Object as PropType<VxeListViewPropTypes.GridEvents>,
     viewRender: Object as PropType<VxeListViewPropTypes.ViewRender>
   },
-  emits: [
-    'cell-action',
-    'update:formData',
-    'update:actionButtons'
-  ] as VxeListViewEmits,
-  setup (props, context) {
+  emits: ['cell-action', 'update:formData', 'update:actionButtons'] as VxeListViewEmits,
+  setup(props, context) {
     const VxeUIGridComponent = VxeUI.getComponent('vxe-grid')
     const VxeUILoadingComponent = VxeUI.getComponent('vxe-loading')
 
@@ -66,9 +76,12 @@ export default defineVxeComponent({
       const { formConfig, tableColumns, searchFormData, searchFormItems, footerData } = reactData
       const { showStatistics } = formConfig
       const gridOpts = gridOptions || {}
-      const columnOpts = Object.assign({
-        minWidth: 120
-      }, gridOpts.columnConfig)
+      const columnOpts = Object.assign(
+        {
+          minWidth: 120
+        },
+        gridOpts.columnConfig
+      )
       let proxyOpts: VxeGridPropTypes.ProxyConfig | undefined
       if (gridOpts.proxyConfig) {
         proxyOpts = Object.assign({ autoLoad: false }, gridOpts.proxyConfig)
@@ -129,13 +142,15 @@ export default defineVxeComponent({
       }
     })
 
-    const configToSearchItems = (searchItems: VxeListDesignDefines.SearchItemObjItem[]): {
+    const configToSearchItems = (
+      searchItems: VxeListDesignDefines.SearchItemObjItem[]
+    ): {
       data: Record<string, any>
       items: VxeListDesignDefines.SearchItemObjItem[]
     } => {
       if (searchItems && searchItems.length) {
         const data: Record<string, any> = {}
-        const items: VxeListDesignDefines.SearchItemObjItem[] = searchItems.map(item => {
+        const items: VxeListDesignDefines.SearchItemObjItem[] = searchItems.map((item) => {
           data[item.field] = null
           return {
             field: item.field,
@@ -148,7 +163,7 @@ export default defineVxeComponent({
           field: 'active',
           title: '',
           folding: false,
-          collapseNode: searchItems.some(item => item.folding),
+          collapseNode: searchItems.some((item) => item.folding),
           itemRender: {
             name: 'VxeButtonGroup',
             options: [
@@ -167,7 +182,7 @@ export default defineVxeComponent({
 
     const configToListColumns = (listColumns: VxeListDesignDefines.ListColumnObjItem[]): VxeListDesignDefines.ListColumnObjItem[] => {
       if (listColumns) {
-        return listColumns.map(item => {
+        return listColumns.map((item) => {
           return {
             field: item.field,
             title: item.title,
@@ -198,7 +213,7 @@ export default defineVxeComponent({
     const loadConfig = (config: Partial<VxeListDesignDefines.ListDesignConfig> | null) => {
       if (config) {
         const { formConfig, searchItems, listColumns } = config
-        reactData.formConfig = formConfig || {} as VxeListDesignDefines.DefaultSettingFormDataObjVO
+        reactData.formConfig = formConfig || ({} as VxeListDesignDefines.DefaultSettingFormDataObjVO)
         setSearchItems(searchItems || [])
         loadListColumns(listColumns || [])
       }
@@ -226,7 +241,7 @@ export default defineVxeComponent({
         })
       }
 
-      configToListColumns(listColumns || []).forEach(conf => {
+      configToListColumns(listColumns || []).forEach((conf) => {
         const columnConf: VxeTableDefines.ColumnOptions = { ...conf }
         if (formOpts.showStatistics && footerCellSlot) {
           columnConf.slots = {
@@ -250,7 +265,7 @@ export default defineVxeComponent({
         }
 
         const btnOptions: VxeButtonGroupPropTypes.Options = []
-        actionButtonList.forEach(btnItem => {
+        actionButtonList.forEach((btnItem) => {
           if (btnItem.type === 'custom') {
             return {
               content: btnItem.name,
@@ -258,7 +273,7 @@ export default defineVxeComponent({
               icon: btnItem.icon
             }
           }
-          const btnConfig = systemConfigList.find(item => item.code === btnItem.code)
+          const btnConfig = systemConfigList.find((item) => item.code === btnItem.code)
           let btnName = btnItem.name
           let btnIcon = btnItem.icon
           let btnStatus = btnItem.status
@@ -285,7 +300,7 @@ export default defineVxeComponent({
 
         if (cellActionSlot) {
           actionColumn.slots = {
-            default (params) {
+            default(params) {
               return cellActionSlot({ ...params, buttons: btnOptions })
             }
           }
@@ -297,7 +312,7 @@ export default defineVxeComponent({
             },
             options: btnOptions,
             events: {
-              click (params, btnParams: VxeButtonGroupDefines.ClickEventParams) {
+              click(params, btnParams: VxeButtonGroupDefines.ClickEventParams) {
                 const { option } = btnParams
                 dispatchEvent('cell-action', { ...params, button: option }, btnParams.$event)
               }
@@ -346,7 +361,7 @@ export default defineVxeComponent({
       if (!$grid) {
         return rest
       }
-      searchFormItems.forEach(item => {
+      searchFormItems.forEach((item) => {
         const { field } = item
         const itemValue = searchFormData[field]
         if (itemValue) {
@@ -411,8 +426,7 @@ export default defineVxeComponent({
       commitProxy
     }
 
-    const listViewPrivateMethods: ListViewPrivateMethods = {
-    }
+    const listViewPrivateMethods: ListViewPrivateMethods = {}
 
     Object.assign($xeListView, listViewMethods, listViewPrivateMethods)
 
@@ -423,46 +437,68 @@ export default defineVxeComponent({
       const gridOptions = computeGridOptions.value
       const gridEvents = computeGridEvents.value
 
-      return h('div', {
-        ref: refElem,
-        class: ['vxe-list-view', {
-          [`size--${vSize}`]: vSize,
-          'is--loading': loading
-        }],
-        style: height
-          ? {
-              height: toCssUnit(height)
+      return h(
+        'div',
+        {
+          ref: refElem,
+          class: [
+            'vxe-list-view',
+            {
+              [`size--${vSize}`]: vSize,
+              'is--loading': loading
             }
-          : null
-      }, [
-        h('div', {
-          class: 'vxe-list-view--body'
-        }, [
-          gridSlot
-            ? h('div', {
-              class: 'vxe-list-view--grid-wrapper'
-            }, getSlotVNs(gridSlot({ $listView: $xeListView })))
-            : (VxeUIGridComponent
-                ? h(VxeUIGridComponent, Object.assign({}, gridOptions, gridEvents, {
-                  ref: refGrid
-                }), Object.assign({}, slots, {
-                  default: undefined
-                }))
-                : renderEmptyElement($xeListView))
-        ]),
-        /**
-         * 加载中
-         */
-        h(VxeUILoadingComponent, {
-          class: 'vxe-list-view--loading',
-          modelValue: loading
-        })
-      ])
+          ],
+          style: height
+            ? {
+                height: toCssUnit(height)
+              }
+            : null
+        },
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-list-view--body'
+            },
+            [
+              gridSlot
+                ? h(
+                    'div',
+                    {
+                      class: 'vxe-list-view--grid-wrapper'
+                    },
+                    getSlotVNs(gridSlot({ $listView: $xeListView }))
+                  )
+                : VxeUIGridComponent
+                  ? h(
+                      VxeUIGridComponent,
+                      Object.assign({}, gridOptions, gridEvents, {
+                        ref: refGrid
+                      }),
+                      Object.assign({}, slots, {
+                        default: undefined
+                      })
+                    )
+                  : renderEmptyElement($xeListView)
+            ]
+          ),
+          /**
+           * 加载中
+           */
+          h(VxeUILoadingComponent, {
+            class: 'vxe-list-view--loading',
+            modelValue: loading
+          })
+        ]
+      )
     }
 
-    watch(() => props.config, (value) => {
-      loadConfig(value || {})
-    })
+    watch(
+      () => props.config,
+      (value) => {
+        loadConfig(value || {})
+      }
+    )
 
     if (props.config) {
       loadConfig(props.config)
@@ -480,7 +516,7 @@ export default defineVxeComponent({
 
     return $xeListView
   },
-  render () {
+  render() {
     return this.renderVN()
   }
 })

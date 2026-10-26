@@ -18,7 +18,7 @@ export const WidgetSelectViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
 
     const $xeFormView = inject<(VxeFormViewConstructor & VxeFormViewPrivateMethods) | null>('$xeFormView', null)
@@ -39,18 +39,26 @@ export const WidgetSelectViewComponent = defineVxeComponent({
       const { widget } = renderParams
       const { options } = widget.options
       return options
-        ? options.map(group => {
-          if (group.options) {
-            return h('optgroup', {
-              label: group.value
-            }, group.options.map(item => {
-              return h('option', {
-                value: item.value
-              }, item.value)
-            }))
-          }
-          return h('option', {}, group.value)
-        })
+        ? options.map((group) => {
+            if (group.options) {
+              return h(
+                'optgroup',
+                {
+                  label: group.value
+                },
+                group.options.map((item) => {
+                  return h(
+                    'option',
+                    {
+                      value: item.value
+                    },
+                    item.value
+                  )
+                })
+              )
+            }
+            return h('option', {}, group.value)
+          })
         : []
     }
 
@@ -59,20 +67,28 @@ export const WidgetSelectViewComponent = defineVxeComponent({
       const { widget, isViewMode } = renderParams
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        field: widget.field,
-        title: widget.title,
-        itemRender: {}
-      }, {
-        default () {
-          return h('select', {
-            class: 'vxe-default-select',
-            value: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            onChange: changeEvent
-          }, isViewMode ? renderOptions() : [])
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          field: widget.field,
+          title: widget.title,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h(
+              'select',
+              {
+                class: 'vxe-default-select',
+                value: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+                onChange: changeEvent
+              },
+              isViewMode ? renderOptions() : []
+            )
+          }
         }
-      })
+      )
     }
   }
 })

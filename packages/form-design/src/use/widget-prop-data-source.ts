@@ -4,22 +4,25 @@ import { VxeUI, getIcon, getI18n } from '@vxe-ui/core'
 import type { VxeGlobalRendererHandles } from '../../../../types'
 
 export interface WidgetDataSourceOptionSubObjVO {
-  value: string,
+  value: string
 }
 
 export interface WidgetDataSourceOptionObjVO {
-  value: string,
+  value: string
   options?: WidgetDataSourceOptionSubObjVO[]
 }
 
-export function useWidgetPropDataSource (props: {
-  readonly renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewOptions
-  readonly renderParams: VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewParams<{
-    options: WidgetDataSourceOptionObjVO[]
-  }>
-}, renderConfig?: {
-  isSubOption?: boolean
-}) {
+export function useWidgetPropDataSource(
+  props: {
+    readonly renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewOptions
+    readonly renderParams: VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewParams<{
+      options: WidgetDataSourceOptionObjVO[]
+    }>
+  },
+  renderConfig?: {
+    isSubOption?: boolean
+  }
+) {
   const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
   const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
   const VxeUITextareaComponent = VxeUI.getComponent('vxe-textarea')
@@ -63,7 +66,7 @@ export function useWidgetPropDataSource (props: {
 
   const toggleExpandOption = (item: WidgetDataSourceOptionSubObjVO, gIndex: number) => {
     if (expandIndexList.value.includes(gIndex)) {
-      expandIndexList.value = expandIndexList.value.filter(num => num !== gIndex)
+      expandIndexList.value = expandIndexList.value.filter((num) => num !== gIndex)
     } else {
       expandIndexList.value.push(gIndex)
     }
@@ -75,10 +78,10 @@ export function useWidgetPropDataSource (props: {
     const { options } = widget
     if (group) {
       if (group.options) {
-        group.options = group.options.filter(obj => obj !== item)
+        group.options = group.options.filter((obj) => obj !== item)
       }
     } else {
-      options.options = options.options.filter(obj => obj !== item)
+      options.options = options.options.filter((obj) => obj !== item)
     }
   }
 
@@ -130,9 +133,9 @@ export function useWidgetPropDataSource (props: {
     const { widget } = renderParams
 
     const contList: string[] = []
-    widget.options.options?.forEach(group => {
+    widget.options.options?.forEach((group) => {
       contList.push(group.value)
-      group.options?.forEach(item => {
+      group.options?.forEach((item) => {
         contList.push(`\t${item.value}`)
       })
     })
@@ -150,23 +153,27 @@ export function useWidgetPropDataSource (props: {
       confirmButtonText: getI18n('vxe.formDesign.widgetProp.dataSource.buildOption'),
       onConfirm: confirmBatchAddOptionEvent,
       slots: {
-        default () {
-          return h('div', {
-            class: 'vxe-form-design--widget-form-item-data-source-popup'
-          }, [
-            h(VxeUITipComponent, {
-              status: 'primary',
-              title: '',
-              content: getI18n(`vxe.formDesign.widgetProp.dataSource.${isSubOption ? 'batchEditSubTip' : 'batchEditTip'}`)
-            }),
-            h(VxeUITextareaComponent, {
-              resize: 'none',
-              modelValue: optionsContent.value,
-              'onUpdate:modelValue' (val) {
-                optionsContent.value = val as string
-              }
-            })
-          ])
+        default() {
+          return h(
+            'div',
+            {
+              class: 'vxe-form-design--widget-form-item-data-source-popup'
+            },
+            [
+              h(VxeUITipComponent, {
+                status: 'primary',
+                title: '',
+                content: getI18n(`vxe.formDesign.widgetProp.dataSource.${isSubOption ? 'batchEditSubTip' : 'batchEditTip'}`)
+              }),
+              h(VxeUITextareaComponent, {
+                resize: 'none',
+                modelValue: optionsContent.value,
+                'onUpdate:modelValue'(val) {
+                  optionsContent.value = val as string
+                }
+              })
+            ]
+          )
         }
       }
     })
@@ -174,40 +181,51 @@ export function useWidgetPropDataSource (props: {
 
   const renderOption = (item: WidgetDataSourceOptionSubObjVO, group: WidgetDataSourceOptionObjVO | null, isExpand: boolean, gIndex: number, hasSub: boolean, isFirst: boolean, isLast: boolean) => {
     const hasFirstLevel = !group
-    return h('div', {
-      class: ['vxe-form-design--widget-form-item-data-source-option', {
-        'is--first': isFirst,
-        'is--last': isLast
-      }]
-    }, [
-      h('div', {
-        class: 'vxe-form-design--widget-expand-btn'
-      }, hasFirstLevel && hasSub
-        ? [
-            h('i', {
-              class: isExpand ? getIcon().FORM_DESIGN_WIDGET_OPTION_EXPAND_CLOSE : getIcon().FORM_DESIGN_WIDGET_OPTION_EXPAND_OPEN,
-              onClick () {
-                toggleExpandOption(item, gIndex)
-              }
-            })
-          ]
-        : []),
-      h('input', {
-        class: 'vxe-default-input',
-        value: item.value,
-        onInput (evnt: InputEvent & { target: HTMLInputElement }) {
-          item.value = evnt.target.value
-        }
-      }),
-      h(VxeUIButtonComponent, {
-        status: 'danger',
-        mode: 'text',
-        icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-        onClick () {
-          removeOptionEvent(item, group)
-        }
-      })
-    ])
+    return h(
+      'div',
+      {
+        class: [
+          'vxe-form-design--widget-form-item-data-source-option',
+          {
+            'is--first': isFirst,
+            'is--last': isLast
+          }
+        ]
+      },
+      [
+        h(
+          'div',
+          {
+            class: 'vxe-form-design--widget-expand-btn'
+          },
+          hasFirstLevel && hasSub
+            ? [
+                h('i', {
+                  class: isExpand ? getIcon().FORM_DESIGN_WIDGET_OPTION_EXPAND_CLOSE : getIcon().FORM_DESIGN_WIDGET_OPTION_EXPAND_OPEN,
+                  onClick() {
+                    toggleExpandOption(item, gIndex)
+                  }
+                })
+              ]
+            : []
+        ),
+        h('input', {
+          class: 'vxe-default-input',
+          value: item.value,
+          onInput(evnt: InputEvent & { target: HTMLInputElement }) {
+            item.value = evnt.target.value
+          }
+        }),
+        h(VxeUIButtonComponent, {
+          status: 'danger',
+          mode: 'text',
+          icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+          onClick() {
+            removeOptionEvent(item, group)
+          }
+        })
+      ]
+    )
   }
 
   const renderOptions = () => {
@@ -224,9 +242,13 @@ export function useWidgetPropDataSource (props: {
           optVNs.push(renderOption(group, null, isExpand, gIndex, true, gIndex === 0, gIndex === groups.length - 1))
           if (isExpand) {
             optVNs.push(
-              h('div', {
-                class: 'vxe-form-design--widget-form-item-data-source-sub-option'
-              }, options.map(item => renderOption(item, group, isExpand, 0, false, false, false)))
+              h(
+                'div',
+                {
+                  class: 'vxe-form-design--widget-form-item-data-source-sub-option'
+                },
+                options.map((item) => renderOption(item, group, isExpand, 0, false, false, false))
+              )
             )
           }
         } else {
@@ -237,9 +259,12 @@ export function useWidgetPropDataSource (props: {
     return optVNs
   }
 
-  watch(() => props.renderParams.widget, () => {
-    expandAllOption()
-  })
+  watch(
+    () => props.renderParams.widget,
+    () => {
+      expandAllOption()
+    }
+  )
 
   onMounted(() => {
     expandAllOption()
@@ -261,22 +286,30 @@ export function useWidgetPropDataSource (props: {
           onClick: openPopupEditEvent
         })
       ]),
-      h('div', {
-        class: 'vxe-form-design--widget-form-item-data-source-wrapper'
-      }, renderOptions())
+      h(
+        'div',
+        {
+          class: 'vxe-form-design--widget-form-item-data-source-wrapper'
+        },
+        renderOptions()
+      )
     ]
   }
 
   return {
-    renderDataSourceFormItem () {
-      return h(VxeUIFormItemComponent, {
-        title: getI18n('vxe.formDesign.widgetProp.dataSource.name'),
-        field: 'options'
-      }, {
-        default () {
-          return renderDataSourceFormItemContent()
+    renderDataSourceFormItem() {
+      return h(
+        VxeUIFormItemComponent,
+        {
+          title: getI18n('vxe.formDesign.widgetProp.dataSource.name'),
+          field: 'options'
+        },
+        {
+          default() {
+            return renderDataSourceFormItemContent()
+          }
         }
-      })
+      )
     },
     renderDataSourceFormItemContent
   }

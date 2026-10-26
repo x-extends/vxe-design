@@ -4,10 +4,7 @@ import XEUtils from 'xe-utils'
 import type { VxeGlobalRendererHandles, VxeFormDesignDefines } from '../../../../types'
 import type { VxeTableDefines } from 'vxe-table'
 
-export function useSubtableView <D = any, P = Record<string, any>> (props: {
-  renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetSubtableEditViewOptions
-  renderParams: VxeGlobalRendererHandles.RenderFormDesignWidgetSubtableEditViewParams
-}) {
+export function useSubtableView<D = any, P = Record<string, any>>(props: { renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetSubtableEditViewOptions; renderParams: VxeGlobalRendererHandles.RenderFormDesignWidgetSubtableEditViewParams }) {
   const currWidget = computed<VxeFormDesignDefines.WidgetObjItem<P>>(() => {
     const { renderParams } = props
     return renderParams.widget
@@ -30,12 +27,12 @@ export function useSubtableView <D = any, P = Record<string, any>> (props: {
   })
 
   const cellModel = computed({
-    get () {
+    get() {
       const { renderParams } = props
       const { row, column } = renderParams
       return XEUtils.get(row, column.field)
     },
-    set (value) {
+    set(value) {
       const { renderParams } = props
       const { row, column } = renderParams
       return XEUtils.set(row, column.field, value)

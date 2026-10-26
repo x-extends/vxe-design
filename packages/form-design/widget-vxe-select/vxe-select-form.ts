@@ -18,7 +18,7 @@ export const WidgetVxeSelectFormComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIInputComponent = VxeUI.getComponent('vxe-input')
@@ -35,54 +35,66 @@ export const WidgetVxeSelectFormComponent = defineVxeComponent({
       const { widget } = renderParams
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormComponent, {
-        class: ['vxe-form-design--widget-render-form-wrapper', `widget-${kebabCaseName}`],
-        vertical: true,
-        span: 24,
-        titleBold: true,
-        titleOverflow: true,
-        data: widget.options
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.name')
-            }, {
-              default () {
-                return h(VxeUIInputComponent, {
-                  modelValue: widget.title,
-                  'onUpdate:modelValue' (val) {
-                    widget.title = val as string
+      return h(
+        VxeUIFormComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-wrapper', `widget-${kebabCaseName}`],
+          vertical: true,
+          span: 24,
+          titleBold: true,
+          titleOverflow: true,
+          data: widget.options
+        },
+        {
+          default() {
+            return [
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.widgetProp.name')
+                },
+                {
+                  default() {
+                    return h(VxeUIInputComponent, {
+                      modelValue: widget.title,
+                      'onUpdate:modelValue'(val) {
+                        widget.title = val as string
+                      }
+                    })
                   }
-                })
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.placeholder'),
-              field: 'placeholder',
-              itemRender: { name: 'VxeInput' }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.multiple'),
-              field: 'multiple',
-              itemRender: { name: 'VxeSwitch' }
-            }),
-            renderDataSourceFormItem(),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.required')
-            }, {
-              default () {
-                return h(VxeUISwitchComponent, {
-                  modelValue: widget.required,
-                  'onUpdate:modelValue' (val) {
-                    widget.required = val as boolean
+                }
+              ),
+              h(VxeUIFormItemComponent, {
+                title: getI18n('vxe.formDesign.widgetProp.placeholder'),
+                field: 'placeholder',
+                itemRender: { name: 'VxeInput' }
+              }),
+              h(VxeUIFormItemComponent, {
+                title: getI18n('vxe.formDesign.widgetProp.multiple'),
+                field: 'multiple',
+                itemRender: { name: 'VxeSwitch' }
+              }),
+              renderDataSourceFormItem(),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.widgetProp.required')
+                },
+                {
+                  default() {
+                    return h(VxeUISwitchComponent, {
+                      modelValue: widget.required,
+                      'onUpdate:modelValue'(val) {
+                        widget.required = val as boolean
+                      }
+                    })
                   }
-                })
-              }
-            })
-          ]
+                }
+              )
+            ]
+          }
         }
-      })
+      )
     }
   }
 })

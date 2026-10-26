@@ -8,7 +8,7 @@ export interface WidgetDefaultValueObjVO<V = any> {
   value: V
 }
 
-export function useWidgetPropDefaultValue (props: {
+export function useWidgetPropDefaultValue(props: {
   readonly renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewOptions
   readonly renderParams: VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewParams<{
     defaultValue: WidgetDefaultValueObjVO
@@ -24,31 +24,35 @@ export function useWidgetPropDefaultValue (props: {
   ])
 
   return {
-    renderDefaultValueFormItem () {
+    renderDefaultValueFormItem() {
       const { renderParams } = props
       const { widget } = renderParams
       const { defaultValue } = widget.options
-      return h(VxeUIFormItemComponent, {
-        title: '默认值'
-      }, {
-        default () {
-          return [
-            h(VxeUISelectComponent, {
-              modelValue: defaultValue.type,
-              options: defValOptions.value,
-              'onUpdate:modelValue' (val) {
-                defaultValue.type = val as string
-              }
-            }),
-            h(VxeUIInputComponent, {
-              modelValue: defaultValue.value,
-              'onUpdate:modelValue' (val) {
-                defaultValue.value = val
-              }
-            })
-          ]
+      return h(
+        VxeUIFormItemComponent,
+        {
+          title: '默认值'
+        },
+        {
+          default() {
+            return [
+              h(VxeUISelectComponent, {
+                modelValue: defaultValue.type,
+                options: defValOptions.value,
+                'onUpdate:modelValue'(val) {
+                  defaultValue.type = val as string
+                }
+              }),
+              h(VxeUIInputComponent, {
+                modelValue: defaultValue.value,
+                'onUpdate:modelValue'(val) {
+                  defaultValue.value = val
+                }
+              })
+            ]
+          }
         }
-      })
+      )
     }
   }
 }

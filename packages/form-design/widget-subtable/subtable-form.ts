@@ -18,7 +18,7 @@ export const WidgetSubtableFormComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIInputComponent = VxeUI.getComponent('vxe-input')
@@ -38,44 +38,56 @@ export const WidgetSubtableFormComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormComponent, {
-        class: `vxe-form-design--widget-${kebabCaseName}-form`,
-        vertical: true,
-        span: 24,
-        titleBold: true,
-        titleOverflow: true,
-        data: options
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.name')
-            }, {
-              default () {
-                return h(VxeUIInputComponent, {
-                  modelValue: widget.title,
-                  'onUpdate:modelValue' (val) {
-                    widget.title = val as string
+      return h(
+        VxeUIFormComponent,
+        {
+          class: `vxe-form-design--widget-${kebabCaseName}-form`,
+          vertical: true,
+          span: 24,
+          titleBold: true,
+          titleOverflow: true,
+          data: options
+        },
+        {
+          default() {
+            return [
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.widgetProp.name')
+                },
+                {
+                  default() {
+                    return h(VxeUIInputComponent, {
+                      modelValue: widget.title,
+                      'onUpdate:modelValue'(val) {
+                        widget.title = val as string
+                      }
+                    })
                   }
-                })
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.subtableProp.showCheckbox'),
-              field: 'showCheckbox'
-            }, {
-              default () {
-                return h(VxeUISwitchComponent, {
-                  modelValue: options.showCheckbox,
-                  'onUpdate:modelValue' (val) {
-                    options.showCheckbox = val as boolean
+                }
+              ),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.widgetProp.subtableProp.showCheckbox'),
+                  field: 'showCheckbox'
+                },
+                {
+                  default() {
+                    return h(VxeUISwitchComponent, {
+                      modelValue: options.showCheckbox,
+                      'onUpdate:modelValue'(val) {
+                        options.showCheckbox = val as boolean
+                      }
+                    })
                   }
-                })
-              }
-            })
-          ]
+                }
+              )
+            ]
+          }
         }
-      })
+      )
     }
   }
 })

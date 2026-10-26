@@ -22,7 +22,7 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
   name: 'DefaultFieldSettingForm',
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const VxeUIFormComponent = VxeUI.getComponent('VxeForm')
     const VxeUIFormItemComponent = VxeUI.getComponent('VxeFormItem')
     const VxeUIButtonComponent = VxeUI.getComponent('VxeButton')
@@ -45,7 +45,7 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
 
     const removeSearchItem = (item: VxeListDesignDefines.SearchItemObjItem) => {
       const { searchFormItems } = listDesignReactData
-      listDesignReactData.searchFormItems = searchFormItems.filter(obj => obj.field !== item.field)
+      listDesignReactData.searchFormItems = searchFormItems.filter((obj) => obj.field !== item.field)
     }
 
     const addSearchEvent = () => {
@@ -53,10 +53,10 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
       const widgetReactConfigMaps = refWidgetReactConfigMaps.value
       const allFormItemList: SearchConfigObjItem[] = []
 
-      listTableColumns.forEach(item => {
+      listTableColumns.forEach((item) => {
         const { cellRender } = item
         if (cellRender) {
-          const conf = searchFormItems.find(conf => conf.field === item.field)
+          const conf = searchFormItems.find((conf) => conf.field === item.field)
           const name = cellRender.name || ''
           let widgetConfig: VxeGlobalRendererHandles.CreateFormDesignWidgetConfigObj = widgetReactConfigMaps[name]
           if (!widgetConfig) {
@@ -97,7 +97,7 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
 
       const handleOptionCheck = (item: SearchConfigObjItem) => {
         const allFormItemList = refAllFormItemList.value
-        const matchObj = XEUtils.findTree(allFormItemList, obj => obj === item)
+        const matchObj = XEUtils.findTree(allFormItemList, (obj) => obj === item)
         if (matchObj && matchObj.parent) {
           const { parent } = matchObj
           if (parent.children && parent.children.length) {
@@ -132,7 +132,7 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
       const confirmEvent = () => {
         const allFormItemList = refAllFormItemList.value
         const searchItems: VxeListDesignDefines.SearchItemObjItem[] = []
-        allFormItemList.forEach(item => {
+        allFormItemList.forEach((item) => {
           if (item.checked) {
             searchItems.push({
               field: item.field,
@@ -158,89 +158,123 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
         resize: true,
         onConfirm: confirmEvent,
         slots: {
-          default () {
+          default() {
             const isAllChecked = refIsAllChecked.value
             const isAllIndeterminate = refIsAllIndeterminate.value
             const allFormItemList = refAllFormItemList.value
 
-            return h('div', {
-              class: 'vxe-list-design--field-search-popup'
-            }, [
-              h('table', {}, [
-                h('colgroup', {}, [
-                  h('col', {
-                    style: {
-                      width: '80px'
-                    }
-                  }),
-                  h('col')
-                  // h('col', {
-                  //   style: {
-                  //     width: '140px'
-                  //   }
-                  // })
-                ]),
-                h('thead', {}, [
-                  h('th', {}, [
-                    h('div', {
-                      class: ['vxe-list-design--field-search-checkbox-option', {
-                        'is--checked': isAllChecked,
-                        'is--indeterminate': isAllIndeterminate
-                      }],
-                      title: getI18n('vxe.table.allTitle'),
-                      onClick: allOptionEvent
-                    }, [
-                      h('span', {
-                        class: ['vxe-checkbox--icon', isAllIndeterminate ? getIcon().CHECKBOX_INDETERMINATE : (isAllChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED)]
-                      }),
-                      h('span', {
-                        class: 'vxe-checkbox--label'
-                      }, getI18n('vxe.toolbar.customAll'))
-                    ])
+            return h(
+              'div',
+              {
+                class: 'vxe-list-design--field-search-popup'
+              },
+              [
+                h('table', {}, [
+                  h('colgroup', {}, [
+                    h('col', {
+                      style: {
+                        width: '80px'
+                      }
+                    }),
+                    h('col')
+                    // h('col', {
+                    //   style: {
+                    //     width: '140px'
+                    //   }
+                    // })
                   ]),
-                  h('th', {}, getI18n('vxe.listDesign.searchPopup.colTitle'))
-                  // h('th', {}, '展开/折叠')
-                ]),
-                h('tbody', {}, allFormItemList.map(item => {
-                  const isChecked = item.checked
-                  const isIndeterminate = item.isHalf
-                  return h('tr', {}, [
-                    h('td', {
-                      class: 'vxe-list-design--field-search-option-item col--visible'
-                    }, [
-                      h('div', {
-                        class: ['vxe-list-design--field-search-checkbox-option', {
-                          'is--checked': isChecked,
-                          'is--indeterminate': isIndeterminate
-                        }],
-                        title: getI18n('vxe.custom.setting.colVisible'),
-                        onClick: () => {
-                          changeCheckboxOption(item)
-                        }
-                      }, [
-                        h('span', {
-                          class: ['vxe-checkbox--icon', isIndeterminate ? getIcon().CHECKBOX_INDETERMINATE : (isChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED)]
-                        })
-                      ])
+                  h('thead', {}, [
+                    h('th', {}, [
+                      h(
+                        'div',
+                        {
+                          class: [
+                            'vxe-list-design--field-search-checkbox-option',
+                            {
+                              'is--checked': isAllChecked,
+                              'is--indeterminate': isAllIndeterminate
+                            }
+                          ],
+                          title: getI18n('vxe.table.allTitle'),
+                          onClick: allOptionEvent
+                        },
+                        [
+                          h('span', {
+                            class: ['vxe-checkbox--icon', isAllIndeterminate ? getIcon().CHECKBOX_INDETERMINATE : isAllChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED]
+                          }),
+                          h(
+                            'span',
+                            {
+                              class: 'vxe-checkbox--label'
+                            },
+                            getI18n('vxe.toolbar.customAll')
+                          )
+                        ]
+                      )
                     ]),
-                    h('td', {
-                      class: 'vxe-list-design--field-search-option-item'
-                    }, `${item.title || ''}`)
-                    // h('td', {}, [
-                    //   h(VxeRadioGroupComponent, {
-                    //     modelValue: item.folding,
-                    //     type: 'button',
-                    //     options: foldOptions.value,
-                    //     size: 'mini',
-                    //     'onUpdate:modelValue' (val) {
-                    //       item.folding = val
-                    //     }
-                    //   })
-                    // ])
-                  ])
-                }))
-              ])
-            ])
+                    h('th', {}, getI18n('vxe.listDesign.searchPopup.colTitle'))
+                    // h('th', {}, '展开/折叠')
+                  ]),
+                  h(
+                    'tbody',
+                    {},
+                    allFormItemList.map((item) => {
+                      const isChecked = item.checked
+                      const isIndeterminate = item.isHalf
+                      return h('tr', {}, [
+                        h(
+                          'td',
+                          {
+                            class: 'vxe-list-design--field-search-option-item col--visible'
+                          },
+                          [
+                            h(
+                              'div',
+                              {
+                                class: [
+                                  'vxe-list-design--field-search-checkbox-option',
+                                  {
+                                    'is--checked': isChecked,
+                                    'is--indeterminate': isIndeterminate
+                                  }
+                                ],
+                                title: getI18n('vxe.custom.setting.colVisible'),
+                                onClick: () => {
+                                  changeCheckboxOption(item)
+                                }
+                              },
+                              [
+                                h('span', {
+                                  class: ['vxe-checkbox--icon', isIndeterminate ? getIcon().CHECKBOX_INDETERMINATE : isChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED]
+                                })
+                              ]
+                            )
+                          ]
+                        ),
+                        h(
+                          'td',
+                          {
+                            class: 'vxe-list-design--field-search-option-item'
+                          },
+                          `${item.title || ''}`
+                        )
+                        // h('td', {}, [
+                        //   h(VxeRadioGroupComponent, {
+                        //     modelValue: item.folding,
+                        //     type: 'button',
+                        //     options: foldOptions.value,
+                        //     size: 'mini',
+                        //     'onUpdate:modelValue' (val) {
+                        //       item.folding = val
+                        //     }
+                        //   })
+                        // ])
+                      ])
+                    })
+                  )
+                ])
+              ]
+            )
           }
         }
       })
@@ -249,138 +283,210 @@ export const DefaultFieldSettingFormComponent = defineVxeComponent({
     const renderChildOptions = (item: VxeTableDefines.ColumnOptions) => {
       const { children } = item
       if (children && children.length) {
-        return h('div', {
-          class: 'vxe-list-design--field-option-inner'
-        }, [
-          h('div', {
-            class: 'vxe-list-design--field-sub-option',
-            onClick () {
-              changeVisible(item)
-            }
-          }, children.map(child => {
-            const { title, visible: isChecked } = child
-            return h('div', {
-              class: ['vxe-list-design--field-checkbox-option', {
-                'is--checked': isChecked
-              }],
-              onClick () {
-                changeVisible(child)
-              }
-            }, [
-              h('span', {
-                class: ['vxe-checkbox--icon', isChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED]
-              }),
-              h('span', {
-                class: 'vxe-checkbox--label'
-              }, `${title}`)
-            ])
-          }))
-        ])
+        return h(
+          'div',
+          {
+            class: 'vxe-list-design--field-option-inner'
+          },
+          [
+            h(
+              'div',
+              {
+                class: 'vxe-list-design--field-sub-option',
+                onClick() {
+                  changeVisible(item)
+                }
+              },
+              children.map((child) => {
+                const { title, visible: isChecked } = child
+                return h(
+                  'div',
+                  {
+                    class: [
+                      'vxe-list-design--field-checkbox-option',
+                      {
+                        'is--checked': isChecked
+                      }
+                    ],
+                    onClick() {
+                      changeVisible(child)
+                    }
+                  },
+                  [
+                    h('span', {
+                      class: ['vxe-checkbox--icon', isChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED]
+                    }),
+                    h(
+                      'span',
+                      {
+                        class: 'vxe-checkbox--label'
+                      },
+                      `${title}`
+                    )
+                  ]
+                )
+              })
+            )
+          ]
+        )
       }
       return createCommentVNode()
     }
 
     const renderFieldOptions = () => {
       const { listTableColumns } = listDesignReactData
-      return listTableColumns.map(item => {
+      return listTableColumns.map((item) => {
         const { title, visible: isChecked } = item
-        return h('div', {
-          class: 'vxe-list-design--field-option'
-        }, [
-          h('div', {
-            class: 'vxe-list-design--field-option-inner'
-          }, [
-            h('div', {
-              class: ['vxe-list-design--field-checkbox-option', {
-                'is--checked': isChecked
-              }],
-              onClick () {
-                changeVisible(item)
-              }
-            }, [
-              h('span', {
-                class: ['vxe-checkbox--icon', isChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED]
-              }),
-              h('span', {
-                class: 'vxe-checkbox--label'
-              }, `${title}`)
-            ])
-          ]),
-          renderChildOptions(item)
-        ])
+        return h(
+          'div',
+          {
+            class: 'vxe-list-design--field-option'
+          },
+          [
+            h(
+              'div',
+              {
+                class: 'vxe-list-design--field-option-inner'
+              },
+              [
+                h(
+                  'div',
+                  {
+                    class: [
+                      'vxe-list-design--field-checkbox-option',
+                      {
+                        'is--checked': isChecked
+                      }
+                    ],
+                    onClick() {
+                      changeVisible(item)
+                    }
+                  },
+                  [
+                    h('span', {
+                      class: ['vxe-checkbox--icon', isChecked ? getIcon().CHECKBOX_CHECKED : getIcon().CHECKBOX_UNCHECKED]
+                    }),
+                    h(
+                      'span',
+                      {
+                        class: 'vxe-checkbox--label'
+                      },
+                      `${title}`
+                    )
+                  ]
+                )
+              ]
+            ),
+            renderChildOptions(item)
+          ]
+        )
       })
     }
 
     return () => {
-      return h(VxeUIFormComponent, {
-        span: 24,
-        vertical: true,
-        titleBold: true
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.listDesign.searchField')
-            }, {
-              extra () {
-                return h(VxeUIButtonComponent, {
-                  mode: 'text',
-                  status: 'primary',
-                  icon: getIcon().FORM_DESIGN_PROPS_EDIT,
-                  content: getI18n('vxe.listDesign.search.addBtn'),
-                  onClick: addSearchEvent
-                })
-              },
-              default () {
-                const { searchFormItems } = listDesignReactData
-                return [
-                  searchFormItems.length
-                    ? h('div', {
-                      class: 'vxe-list-design--search-item-wrapper'
-                    }, [
-                      h('div', {
-                        class: 'vxe-list-design--search-item-list'
-                      }, searchFormItems.map((item) => {
-                        return h('div', {
-                          key: item.field,
-                          class: 'vxe-list-design--search-item'
-                        }, [
-                          h('div', {
-                            class: 'vxe-list-design--search-item-title'
-                          }, `${item.title || ''}`),
-                          h('div', {
-                            class: 'vxe-list-design--search-item-btn'
-                          }, [
-                            h(VxeUIButtonComponent, {
-                              icon: getIcon().LIST_DESIGN_LIST_SETTING_SEARCH_DELETE,
-                              mode: 'text',
-                              status: 'error',
-                              onClick () {
-                                removeSearchItem(item)
-                              }
-                            })
-                          ])
-                        ])
-                      }))
-                    ])
-                    : h('div', {
-                      class: 'vxe-list-design--field-configs-empty-data'
-                    }, [
-                      h('span', {}, getI18n('vxe.listDesign.search.emptyText'))
-                    ])
-                ]
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.listDesign.listField')
-            }, {
-              default () {
-                return renderFieldOptions()
-              }
-            })
-          ]
+      return h(
+        VxeUIFormComponent,
+        {
+          span: 24,
+          vertical: true,
+          titleBold: true
+        },
+        {
+          default() {
+            return [
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.listDesign.searchField')
+                },
+                {
+                  extra() {
+                    return h(VxeUIButtonComponent, {
+                      mode: 'text',
+                      status: 'primary',
+                      icon: getIcon().FORM_DESIGN_PROPS_EDIT,
+                      content: getI18n('vxe.listDesign.search.addBtn'),
+                      onClick: addSearchEvent
+                    })
+                  },
+                  default() {
+                    const { searchFormItems } = listDesignReactData
+                    return [
+                      searchFormItems.length
+                        ? h(
+                            'div',
+                            {
+                              class: 'vxe-list-design--search-item-wrapper'
+                            },
+                            [
+                              h(
+                                'div',
+                                {
+                                  class: 'vxe-list-design--search-item-list'
+                                },
+                                searchFormItems.map((item) => {
+                                  return h(
+                                    'div',
+                                    {
+                                      key: item.field,
+                                      class: 'vxe-list-design--search-item'
+                                    },
+                                    [
+                                      h(
+                                        'div',
+                                        {
+                                          class: 'vxe-list-design--search-item-title'
+                                        },
+                                        `${item.title || ''}`
+                                      ),
+                                      h(
+                                        'div',
+                                        {
+                                          class: 'vxe-list-design--search-item-btn'
+                                        },
+                                        [
+                                          h(VxeUIButtonComponent, {
+                                            icon: getIcon().LIST_DESIGN_LIST_SETTING_SEARCH_DELETE,
+                                            mode: 'text',
+                                            status: 'error',
+                                            onClick() {
+                                              removeSearchItem(item)
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                })
+                              )
+                            ]
+                          )
+                        : h(
+                            'div',
+                            {
+                              class: 'vxe-list-design--field-configs-empty-data'
+                            },
+                            [h('span', {}, getI18n('vxe.listDesign.search.emptyText'))]
+                          )
+                    ]
+                  }
+                }
+              ),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.listDesign.listField')
+                },
+                {
+                  default() {
+                    return renderFieldOptions()
+                  }
+                }
+              )
+            ]
+          }
         }
-      })
+      )
     }
   }
 })
@@ -389,7 +495,7 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
   name: 'DefaultListSettingTabComponent',
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUITextComponent = VxeUI.getComponent('vxe-text')
@@ -421,9 +527,7 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
       }
     })
 
-    const renderViewList = ref([
-      { label: '列表视图', value: 'list', isExpand: false }
-    ])
+    const renderViewList = ref([{ label: '列表视图', value: 'list', isExpand: false }])
 
     // const refFoldOpts = ref([
     //   { label: '显示', value: true },
@@ -443,7 +547,7 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
 
     const disableView = computed(() => {
       const { formData } = listDesignReactData
-      return [formData.listView.enabled, formData.ganttView.enabled, formData.chartView.enabled].filter(enabled => enabled).length <= 1
+      return [formData.listView.enabled, formData.ganttView.enabled, formData.chartView.enabled].filter((enabled) => enabled).length <= 1
     })
 
     const openActiveBtnPopup = (activeBtnObj?: VxeListDesignDefines.DefaultSettingFormActionButton) => {
@@ -456,36 +560,32 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
       }
 
       const activeBtnItem = reactive(createListDesignActionButton(activeBtnObj))
-      const systemBtnList = systemConfigList.filter(item => {
+      const systemBtnList = systemConfigList.filter((item) => {
         if (actionCodes && actionCodes.length) {
-          if (!actionCodes.some(conf => XEUtils.isString(conf) ? item.code === conf : conf.code === item.code)) {
+          if (!actionCodes.some((conf) => (XEUtils.isString(conf) ? item.code === conf : conf.code === item.code))) {
             return false
           }
         }
-        return !btnList.some(obj => obj.code === item.code)
+        return !btnList.some((obj) => obj.code === item.code)
       })
-      const customBtnList = customConfigList.filter(item => !btnList.some(obj => obj.code === item.code))
+      const customBtnList = customConfigList.filter((item) => !btnList.some((obj) => obj.code === item.code))
 
       const btOptions: VxeSelectPropTypes.Options = []
       if (systemBtnList.length) {
         if (!activeBtnItem.type) {
           activeBtnItem.type = ''
         }
-        btOptions.push(
-          { value: '', label: '系统按钮' }
-        )
+        btOptions.push({ value: '', label: '系统按钮' })
       }
       if (customBtnList.length) {
         if (!activeBtnItem.type) {
           activeBtnItem.type = 'custom'
         }
-        btOptions.push(
-          { value: 'custom', label: '自定义按钮' }
-        )
+        btOptions.push({ value: 'custom', label: '自定义按钮' })
       }
 
       const refSystemConfigOptions = computed(() => {
-        return systemBtnList.map(item => {
+        return systemBtnList.map((item) => {
           const nameConfig = item.name
           return {
             label: XEUtils.toValueString(XEUtils.isFunction(nameConfig) ? nameConfig({ name: item.code || '' }) : nameConfig),
@@ -503,7 +603,7 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
         showCancelButton: true,
         showConfirmButton: true,
         confirmButtonText: '保存',
-        onConfirm () {
+        onConfirm() {
           if (activeBtnItem.type === 'custom') {
             btnList.push(activeBtnItem)
           } else {
@@ -512,303 +612,397 @@ export const DefaultParameterSettingFormComponent = defineVxeComponent({
           formData.actionButtonList = [...btnList]
         },
         slots: {
-          default () {
-            return h(VxeUIFormComponent, {
-              vertical: true,
-              titleBold: true
-            }, {
-              default () {
-                return [
-                  h(VxeUIFormItemComponent, {
-                    title: '按钮类型',
-                    span: 24
-                  }, {
-                    default () {
-                      return h(VxeUISelectComponent, {
-                        modelValue: activeBtnItem.type,
-                        options: refBtnTypeOptions.value,
-                        'onUpdate:modelValue' (val) {
-                          activeBtnItem.type = val as '' | 'custom'
+          default() {
+            return h(
+              VxeUIFormComponent,
+              {
+                vertical: true,
+                titleBold: true
+              },
+              {
+                default() {
+                  return [
+                    h(
+                      VxeUIFormItemComponent,
+                      {
+                        title: '按钮类型',
+                        span: 24
+                      },
+                      {
+                        default() {
+                          return h(VxeUISelectComponent, {
+                            modelValue: activeBtnItem.type,
+                            options: refBtnTypeOptions.value,
+                            'onUpdate:modelValue'(val) {
+                              activeBtnItem.type = val as '' | 'custom'
+                            }
+                          })
                         }
-                      })
-                    }
-                  }),
-                  h(VxeUIFormItemComponent, {
-                    title: '选择系统按钮',
-                    span: 24
-                  }, {
-                    default () {
-                      return h(VxeUISelectComponent, {
-                        modelValue: activeBtnItem.code,
-                        options: refSystemConfigOptions.value,
-                        'onUpdate:modelValue' (val) {
-                          activeBtnItem.code = val as string
+                      }
+                    ),
+                    h(
+                      VxeUIFormItemComponent,
+                      {
+                        title: '选择系统按钮',
+                        span: 24
+                      },
+                      {
+                        default() {
+                          return h(VxeUISelectComponent, {
+                            modelValue: activeBtnItem.code,
+                            options: refSystemConfigOptions.value,
+                            'onUpdate:modelValue'(val) {
+                              activeBtnItem.code = val as string
+                            }
+                          })
                         }
-                      })
-                    }
-                  })
-                  // h(VxeFormItemComponent, {
-                  //   title: '按钮位置',
-                  //   span: 24
-                  // }, {
-                  //   default () {
-                  //     return h(VxeSelectComponent, {
-                  //       modelValue: activeBtnItem.classify,
-                  //       options: refBtnClassifyOptions.value,
-                  //       'onUpdate:modelValue' (val) {
-                  //         activeBtnItem.classify = val
-                  //       }
-                  //     })
-                  //   }
-                  // })
-                ]
+                      }
+                    )
+                    // h(VxeFormItemComponent, {
+                    //   title: '按钮位置',
+                    //   span: 24
+                    // }, {
+                    //   default () {
+                    //     return h(VxeSelectComponent, {
+                    //       modelValue: activeBtnItem.classify,
+                    //       options: refBtnClassifyOptions.value,
+                    //       'onUpdate:modelValue' (val) {
+                    //         activeBtnItem.classify = val
+                    //       }
+                    //     })
+                    //   }
+                    // })
+                  ]
+                }
               }
-            })
+            )
           }
         }
       })
     }
 
     const renderDefaultCellActionButton = () => {
-      return h(VxeUIFormItemComponent, {
-        title: '功能按钮'
-      }, {
-        extra () {
-          return h(VxeUIButtonComponent, {
-            mode: 'text',
-            status: 'primary',
-            icon: getIcon().FORM_DESIGN_PROPS_ADD,
-            content: '新增',
-            onClick () {
-              openActiveBtnPopup()
-            }
-          })
+      return h(
+        VxeUIFormItemComponent,
+        {
+          title: '功能按钮'
         },
-        default () {
-          const { formData } = listDesignReactData
-          const btnList = formData.actionButtonList
-
-          return btnList && btnList.length
-            ? h('div', {
-              class: 'vxe-list-design--field-configs-wrapper'
-            }, btnList.map(btnItem => {
-              let btnIcon = ''
-              let btnName = ''
-              if (btnItem.type === 'custom') {
-                btnIcon = btnItem.icon
-                btnName = btnItem.name
-              } else {
-                const btnConfig = systemConfigList.find(item => item.code === btnItem.code)
-                if (btnConfig) {
-                  const nameConfig = btnConfig.name
-                  btnIcon = btnConfig.icon || ''
-                  btnName = XEUtils.toValueString(XEUtils.isFunction(nameConfig) ? nameConfig({ name: btnConfig.code || '' }) : nameConfig)
-                }
+        {
+          extra() {
+            return h(VxeUIButtonComponent, {
+              mode: 'text',
+              status: 'primary',
+              icon: getIcon().FORM_DESIGN_PROPS_ADD,
+              content: '新增',
+              onClick() {
+                openActiveBtnPopup()
               }
+            })
+          },
+          default() {
+            const { formData } = listDesignReactData
+            const btnList = formData.actionButtonList
 
-              return h('div', {
-                class: 'vxe-list-design--field-configs-item'
-              }, [
-                btnIcon
-                  ? h('div', {
-                    class: 'vxe-list-design--field-configs-item-icon'
-                  }, [
-                    h('i', {
-                      class: btnIcon
-                    })
-                  ])
-                  : createCommentVNode(),
-                h('div', {
-                  class: 'vxe-list-design--field-configs-item-title'
-                }, `${btnName || ''}`),
-                h('div', {
-                  class: 'vxe-list-design--field-configs-item-btn'
-                }, [
-                  h(VxeUIButtonComponent, {
-                    icon: getIcon().LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE,
-                    mode: 'text',
-                    status: 'error',
-                    onClick () {
-                      formData.actionButtonList = btnList.filter(item => item !== btnItem)
+            return btnList && btnList.length
+              ? h(
+                  'div',
+                  {
+                    class: 'vxe-list-design--field-configs-wrapper'
+                  },
+                  btnList.map((btnItem) => {
+                    let btnIcon = ''
+                    let btnName = ''
+                    if (btnItem.type === 'custom') {
+                      btnIcon = btnItem.icon
+                      btnName = btnItem.name
+                    } else {
+                      const btnConfig = systemConfigList.find((item) => item.code === btnItem.code)
+                      if (btnConfig) {
+                        const nameConfig = btnConfig.name
+                        btnIcon = btnConfig.icon || ''
+                        btnName = XEUtils.toValueString(XEUtils.isFunction(nameConfig) ? nameConfig({ name: btnConfig.code || '' }) : nameConfig)
+                      }
                     }
+
+                    return h(
+                      'div',
+                      {
+                        class: 'vxe-list-design--field-configs-item'
+                      },
+                      [
+                        btnIcon
+                          ? h(
+                              'div',
+                              {
+                                class: 'vxe-list-design--field-configs-item-icon'
+                              },
+                              [
+                                h('i', {
+                                  class: btnIcon
+                                })
+                              ]
+                            )
+                          : createCommentVNode(),
+                        h(
+                          'div',
+                          {
+                            class: 'vxe-list-design--field-configs-item-title'
+                          },
+                          `${btnName || ''}`
+                        ),
+                        h(
+                          'div',
+                          {
+                            class: 'vxe-list-design--field-configs-item-btn'
+                          },
+                          [
+                            h(VxeUIButtonComponent, {
+                              icon: getIcon().LIST_DESIGN_LIST_SETTING_ACTIVE_DELETE,
+                              mode: 'text',
+                              status: 'error',
+                              onClick() {
+                                formData.actionButtonList = btnList.filter((item) => item !== btnItem)
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
                   })
-                ])
-              ])
-            }))
-            : h('div', {
-              class: 'vxe-list-design--field-configs-empty-data'
-            }, [
-              h('span', {}, '无操作按钮')
-            ])
+                )
+              : h(
+                  'div',
+                  {
+                    class: 'vxe-list-design--field-configs-empty-data'
+                  },
+                  [h('span', {}, '无操作按钮')]
+                )
+          }
         }
-      })
+      )
     }
 
     return () => {
       const { showPc, showMobile } = listDesignProps
       const { formData } = listDesignReactData
 
-      return h(VxeUIFormComponent, {
-        span: 24,
-        vertical: true,
-        titleBold: true
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: '视图配置'
-            }, {
-              default () {
-                return h('div', {
-                  class: 'vxe-form-design--widget-form-item-render-view'
-                }, renderViewList.value.map(item => {
-                  return h('div', {
-                    key: item.value,
-                    class: 'vxe-form-design--widget-form-item-render-view-item'
-                  }, [
-                    h(VxeUISwitchComponent, {
-                      modelValue: formData.listView.enabled,
-                      disabled: disableView.value,
-                      'onUpdate:modelValue' (val) {
-                        formData.listView.enabled = val as boolean
-                      }
-                    }),
-                    h(VxeUITextComponent, {
-                      content: item.label,
-                      icon: 'vxe-icon-table'
-                    })
-                  ])
-                }))
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: '默认视图'
-            }, {
-              default () {
-                return [
-                  h('div', {
-                    class: 'vxe-form-design--widget-form-item-devices'
-                  }, [
-                    showPc
-                      ? h('div', {
-                        class: 'vxe-form-design--widget-form-item-devices-item'
-                      }, [
-                        h('div', {
-                          class: 'vxe-form-design--widget-form-item-devices-left'
-                        }, [
-                          h(VxeUITextComponent, {
-                            icon: getIcon().FORM_DESIGN_PROPS_PC,
-                            content: getI18n('vxe.formDesign.widgetProp.displaySetting.pc')
-                          })
-                        ]),
-                        h(VxeUISelectComponent, {
-                          modelValue: formData.pcDefaultView,
-                          className: 'vxe-form-design--widget-form-item-devices-select',
-                          options: renderViewList.value,
-                          'onUpdate:modelValue' (val) {
-                            formData.pcDefaultView = val as 'list' | 'gantt' | 'chart'
-                          }
-                        })
-                      ])
-                      : createCommentVNode(),
-                    showMobile
-                      ? h('div', {
-                        class: 'vxe-form-design--widget-form-item-devices-item'
-                      }, [
-                        h('div', {
-                          class: 'vxe-form-design--widget-form-item-devices-left'
-                        }, [
-                          h(VxeUITextComponent, {
-                            icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
-                            content: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile')
-                          })
-                        ]),
-                        h(VxeUISelectComponent, {
-                          modelValue: formData.mobileDefaultView,
-                          className: 'vxe-form-design--widget-form-item-devices-select',
-                          options: renderViewList.value,
-                          'onUpdate:modelValue' (val) {
-                            formData.mobileDefaultView = val as 'list' | 'gantt' | 'chart'
-                          }
-                        })
-                      ])
-                      : createCommentVNode()
-                  ])
-                ]
-              }
-            }),
-            // h(VxeFormItemComponent, {
-            //   title: '查询配置'
-            // }, {
-            //   default () {
-            //     const { formData } = listDesignReactData
-            //     return [
-            //       h('div', {
-            //         class: 'vxe-list-design--widget-form-item-prop-list'
-            //       }, [
-            //         h('span', {}, '折叠字段'),
-            //         h(VxeRadioGroupComponent, {
-            //           modelValue: formData.autoFoldFilter,
-            //           options: refFoldOpts.value,
-            //           'onUpdate:modelValue' (val) {
-            //             formData.autoFoldFilter = val
-            //           }
-            //         })
-            //       ])
-            //     ]
-            //   }
-            // }),
-            h(VxeUIFormItemComponent, {
-              title: '列配置'
-            }, {
-              default () {
-                const { formData } = listDesignReactData
-                return [
-                  h('div', {
-                    class: 'vxe-list-design--widget-form-item-prop-list'
-                  }, [
-                    h('span', {}, '显示序号'),
-                    h(VxeUIRadioGroupComponent, {
-                      modelValue: formData.showSeq,
-                      options: refSeqOpts.value,
-                      'onUpdate:modelValue' (val) {
-                        formData.showSeq = val
-                      }
-                    })
-                  ]),
-                  h('div', {
-                    class: 'vxe-list-design--widget-form-item-prop-list'
-                  }, [
-                    h('span', {}, '表尾统计'),
-                    h(VxeUIRadioGroupComponent, {
-                      modelValue: formData.showStatistics,
-                      options: refSeqOpts.value,
-                      'onUpdate:modelValue' (val) {
-                        formData.showStatistics = val
-                      }
-                    })
-                  ])
-                ]
-              }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: '批量操作'
-            }, {
-              default () {
-                const { formData } = listDesignReactData
-                return h(VxeUIRadioGroupComponent, {
-                  modelValue: formData.showCheckbox,
-                  options: refCheckboxOpts.value,
-                  'onUpdate:modelValue' (val) {
-                    formData.showCheckbox = val
+      return h(
+        VxeUIFormComponent,
+        {
+          span: 24,
+          vertical: true,
+          titleBold: true
+        },
+        {
+          default() {
+            return [
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: '视图配置'
+                },
+                {
+                  default() {
+                    return h(
+                      'div',
+                      {
+                        class: 'vxe-form-design--widget-form-item-render-view'
+                      },
+                      renderViewList.value.map((item) => {
+                        return h(
+                          'div',
+                          {
+                            key: item.value,
+                            class: 'vxe-form-design--widget-form-item-render-view-item'
+                          },
+                          [
+                            h(VxeUISwitchComponent, {
+                              modelValue: formData.listView.enabled,
+                              disabled: disableView.value,
+                              'onUpdate:modelValue'(val) {
+                                formData.listView.enabled = val as boolean
+                              }
+                            }),
+                            h(VxeUITextComponent, {
+                              content: item.label,
+                              icon: 'vxe-icon-table'
+                            })
+                          ]
+                        )
+                      })
+                    )
                   }
-                })
-              }
-            }),
-            systemConfigList.length || customConfigList.length ? renderDefaultCellActionButton() : createCommentVNode()
-          ]
+                }
+              ),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: '默认视图'
+                },
+                {
+                  default() {
+                    return [
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-form-design--widget-form-item-devices'
+                        },
+                        [
+                          showPc
+                            ? h(
+                                'div',
+                                {
+                                  class: 'vxe-form-design--widget-form-item-devices-item'
+                                },
+                                [
+                                  h(
+                                    'div',
+                                    {
+                                      class: 'vxe-form-design--widget-form-item-devices-left'
+                                    },
+                                    [
+                                      h(VxeUITextComponent, {
+                                        icon: getIcon().FORM_DESIGN_PROPS_PC,
+                                        content: getI18n('vxe.formDesign.widgetProp.displaySetting.pc')
+                                      })
+                                    ]
+                                  ),
+                                  h(VxeUISelectComponent, {
+                                    modelValue: formData.pcDefaultView,
+                                    className: 'vxe-form-design--widget-form-item-devices-select',
+                                    options: renderViewList.value,
+                                    'onUpdate:modelValue'(val) {
+                                      formData.pcDefaultView = val as 'list' | 'gantt' | 'chart'
+                                    }
+                                  })
+                                ]
+                              )
+                            : createCommentVNode(),
+                          showMobile
+                            ? h(
+                                'div',
+                                {
+                                  class: 'vxe-form-design--widget-form-item-devices-item'
+                                },
+                                [
+                                  h(
+                                    'div',
+                                    {
+                                      class: 'vxe-form-design--widget-form-item-devices-left'
+                                    },
+                                    [
+                                      h(VxeUITextComponent, {
+                                        icon: getIcon().FORM_DESIGN_PROPS_MOBILE,
+                                        content: getI18n('vxe.formDesign.widgetProp.displaySetting.mobile')
+                                      })
+                                    ]
+                                  ),
+                                  h(VxeUISelectComponent, {
+                                    modelValue: formData.mobileDefaultView,
+                                    className: 'vxe-form-design--widget-form-item-devices-select',
+                                    options: renderViewList.value,
+                                    'onUpdate:modelValue'(val) {
+                                      formData.mobileDefaultView = val as 'list' | 'gantt' | 'chart'
+                                    }
+                                  })
+                                ]
+                              )
+                            : createCommentVNode()
+                        ]
+                      )
+                    ]
+                  }
+                }
+              ),
+              // h(VxeFormItemComponent, {
+              //   title: '查询配置'
+              // }, {
+              //   default () {
+              //     const { formData } = listDesignReactData
+              //     return [
+              //       h('div', {
+              //         class: 'vxe-list-design--widget-form-item-prop-list'
+              //       }, [
+              //         h('span', {}, '折叠字段'),
+              //         h(VxeRadioGroupComponent, {
+              //           modelValue: formData.autoFoldFilter,
+              //           options: refFoldOpts.value,
+              //           'onUpdate:modelValue' (val) {
+              //             formData.autoFoldFilter = val
+              //           }
+              //         })
+              //       ])
+              //     ]
+              //   }
+              // }),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: '列配置'
+                },
+                {
+                  default() {
+                    const { formData } = listDesignReactData
+                    return [
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-list-design--widget-form-item-prop-list'
+                        },
+                        [
+                          h('span', {}, '显示序号'),
+                          h(VxeUIRadioGroupComponent, {
+                            modelValue: formData.showSeq,
+                            options: refSeqOpts.value,
+                            'onUpdate:modelValue'(val) {
+                              formData.showSeq = val
+                            }
+                          })
+                        ]
+                      ),
+                      h(
+                        'div',
+                        {
+                          class: 'vxe-list-design--widget-form-item-prop-list'
+                        },
+                        [
+                          h('span', {}, '表尾统计'),
+                          h(VxeUIRadioGroupComponent, {
+                            modelValue: formData.showStatistics,
+                            options: refSeqOpts.value,
+                            'onUpdate:modelValue'(val) {
+                              formData.showStatistics = val
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  }
+                }
+              ),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: '批量操作'
+                },
+                {
+                  default() {
+                    const { formData } = listDesignReactData
+                    return h(VxeUIRadioGroupComponent, {
+                      modelValue: formData.showCheckbox,
+                      options: refCheckboxOpts.value,
+                      'onUpdate:modelValue'(val) {
+                        formData.showCheckbox = val
+                      }
+                    })
+                  }
+                }
+              ),
+              systemConfigList.length || customConfigList.length ? renderDefaultCellActionButton() : createCommentVNode()
+            ]
+          }
         }
-      })
+      )
     }
   }
 })

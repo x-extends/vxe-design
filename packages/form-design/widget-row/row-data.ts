@@ -21,8 +21,8 @@ export const getWidgetRowConfig = (params: VxeGlobalRendererHandles.CreateFormDe
     },
     children: $formDesign
       ? XEUtils.range(0, defaultColSize).map(() => {
-        return $formDesign.createEmptyWidget()
-      })
+          return $formDesign.createEmptyWidget()
+        })
       : []
   }
 }

@@ -4,7 +4,7 @@ import { checkDependVersion } from '../ui/src/depend'
 import VxeFormViewComponent from '../form-design/src/form-view'
 
 export const VxeFormView = Object.assign(VxeFormViewComponent, {
-  install (app: App) {
+  install(app: App) {
     checkDependVersion()
     app.component(VxeFormViewComponent.name as string, VxeFormViewComponent)
   }

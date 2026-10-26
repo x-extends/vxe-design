@@ -18,7 +18,7 @@ export const WidgetVxeRateViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIRateComponent = VxeUI.getComponent('vxe-rate')
 
@@ -40,24 +40,28 @@ export const WidgetVxeRateViewComponent = defineVxeComponent({
       const { widget } = renderParams
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        field: widget.field,
-        title: widget.title,
-        itemRender: {}
-      }, {
-        default () {
-          return h(VxeUIRateComponent, {
-            modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            onChange: changeEvent,
-            'onUpdate:modelValue' (val) {
-              if ($xeFormView) {
-                $xeFormView.setItemValue(widget, val)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          field: widget.field,
+          title: widget.title,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h(VxeUIRateComponent, {
+              modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+              onChange: changeEvent,
+              'onUpdate:modelValue'(val) {
+                if ($xeFormView) {
+                  $xeFormView.setItemValue(widget, val)
+                }
               }
-            }
-          })
+            })
+          }
         }
-      })
+      )
     }
   }
 })

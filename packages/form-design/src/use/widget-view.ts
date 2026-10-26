@@ -2,7 +2,7 @@ import { computed } from 'vue'
 
 import type { VxeGlobalRendererHandles, VxeFormDesignDefines } from '../../../../types'
 
-export function useWidgetView <P = any> (props: {
+export function useWidgetView<P = any>(props: {
   renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions | VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewOptions
   renderParams: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams | VxeGlobalRendererHandles.RenderFormDesignWidgetFormViewParams
 }) {
@@ -28,12 +28,12 @@ export function useWidgetView <P = any> (props: {
   })
 
   const widgetModel = computed({
-    get () {
+    get() {
       const { renderParams } = props
       const { $formView, widget } = renderParams
       return $formView ? $formView.getItemValue(widget) : null
     },
-    set (value) {
+    set(value) {
       const { renderParams } = props
       const { $formView, widget } = renderParams
       if ($formView) {

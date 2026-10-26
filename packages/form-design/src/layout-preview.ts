@@ -12,7 +12,7 @@ export default defineVxeComponent({
   name: 'FormDesignLayoutPreview',
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
 
     const $xeFormDesign = inject<(VxeFormDesignConstructor & VxeFormDesignPrivateMethods) | null>('$xeFormDesign', null)
@@ -27,7 +27,7 @@ export default defineVxeComponent({
       const { widgetObjList, dragWidget } = formDesignReactData
       if (dragWidget) {
         evnt.preventDefault()
-        const rest = XEUtils.findTree(widgetObjList, item => item && item.id === dragWidget.id, { children: 'children' })
+        const rest = XEUtils.findTree(widgetObjList, (item) => item && item.id === dragWidget.id, { children: 'children' })
         if (!rest) {
           formDesignReactData.sortWidget = dragWidget
           widgetObjList.push(dragWidget)
@@ -56,7 +56,7 @@ export default defineVxeComponent({
           return
         }
         // const targetRest = XEUtils.findTree(widgetObjList, item => item && item.id === widgetId, { children: 'children' })
-        const currRest = XEUtils.findTree(widgetObjList, item => item.id === sortWidget.id, { children: 'children' })
+        const currRest = XEUtils.findTree(widgetObjList, (item) => item.id === sortWidget.id, { children: 'children' })
         if (currRest) {
           const { item, index, items, parent } = currRest
           if (parent && parent.name === 'row') {
@@ -86,7 +86,7 @@ export default defineVxeComponent({
           return
         }
         // const targetRest = XEUtils.findTree(widgetObjList, item => item && item.id === widgetId, { children: 'children' })
-        const currRest = XEUtils.findTree(widgetObjList, item => item.id === sortWidget.id, { children: 'children' })
+        const currRest = XEUtils.findTree(widgetObjList, (item) => item.id === sortWidget.id, { children: 'children' })
         if (currRest) {
           const { item, index, items, parent } = currRest
           if (parent && parent.name === 'row') {
@@ -106,58 +106,78 @@ export default defineVxeComponent({
 
     return () => {
       const { widgetObjList } = formDesignReactData
-      return h('div', {
-        class: 'vxe-form-design--preview',
-        onDragenter: dragenterEvent,
-        onDragover: dragoverEvent
-      }, [
-        h('div', {
-          class: 'vxe-form-design--preview-wrapper'
-        }, [
-          h('div', {
-            class: 'vxe-form-design--preview-place-widget',
-            onDragenter: handleDragenterTopPlaceEvent
-          }),
-          h(VxeUIFormComponent, {
-            customLayout: true,
-            span: 24,
-            vertical: true
-          }, {
-            default () {
-              return h(TransitionGroup, {
-                class: 'vxe-form-design--preview-list',
-                tag: 'div',
-                name: 'vxe-form-design--preview-list'
-              }, {
-                default: () => {
-                  return widgetObjList.map((widget, widgetIndex) => {
-                    return h(ViewItemComponent, {
-                      key: widget.id,
-                      item: widget,
-                      itemIndex: widgetIndex,
-                      items: widgetObjList
-                    }, {
-                      default () {
-                        const { name } = widget
-                        const compConf = renderer.get(name) || {}
-                        const renderWidgetDesignView = compConf.renderFormDesignWidgetEdit || compConf.renderFormDesignWidgetView
-                        const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = widget
-                        const isEditMode = true
-                        const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget, readonly: false, disabled: false, isEditMode, isViewMode: !isEditMode, $formDesign: $xeFormDesign, $formView: null }
-                        return renderWidgetDesignView ? getSlotVNs(renderWidgetDesignView(renderOpts, params)) : []
+      return h(
+        'div',
+        {
+          class: 'vxe-form-design--preview',
+          onDragenter: dragenterEvent,
+          onDragover: dragoverEvent
+        },
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--preview-wrapper'
+            },
+            [
+              h('div', {
+                class: 'vxe-form-design--preview-place-widget',
+                onDragenter: handleDragenterTopPlaceEvent
+              }),
+              h(
+                VxeUIFormComponent,
+                {
+                  customLayout: true,
+                  span: 24,
+                  vertical: true
+                },
+                {
+                  default() {
+                    return h(
+                      TransitionGroup,
+                      {
+                        class: 'vxe-form-design--preview-list',
+                        tag: 'div',
+                        name: 'vxe-form-design--preview-list'
+                      },
+                      {
+                        default: () => {
+                          return widgetObjList.map((widget, widgetIndex) => {
+                            return h(
+                              ViewItemComponent,
+                              {
+                                key: widget.id,
+                                item: widget,
+                                itemIndex: widgetIndex,
+                                items: widgetObjList
+                              },
+                              {
+                                default() {
+                                  const { name } = widget
+                                  const compConf = renderer.get(name) || {}
+                                  const renderWidgetDesignView = compConf.renderFormDesignWidgetEdit || compConf.renderFormDesignWidgetView
+                                  const renderOpts: VxeGlobalRendererHandles.RenderFormDesignWidgetViewOptions = widget
+                                  const isEditMode = true
+                                  const params: VxeGlobalRendererHandles.RenderFormDesignWidgetViewParams = { widget, readonly: false, disabled: false, isEditMode, isViewMode: !isEditMode, $formDesign: $xeFormDesign, $formView: null }
+                                  return renderWidgetDesignView ? getSlotVNs(renderWidgetDesignView(renderOpts, params)) : []
+                                }
+                              }
+                            )
+                          })
+                        }
                       }
-                    })
-                  })
+                    )
+                  }
                 }
+              ),
+              h('div', {
+                class: 'vxe-form-design--preview-place-widget',
+                onDragenter: handleDragenterBottomPlaceEvent
               })
-            }
-          }),
-          h('div', {
-            class: 'vxe-form-design--preview-place-widget',
-            onDragenter: handleDragenterBottomPlaceEvent
-          })
-        ])
-      ])
+            ]
+          )
+        ]
+      )
     }
   }
 })

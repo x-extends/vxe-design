@@ -11,13 +11,16 @@ export const handleGetListDesignActionButtonName = (params: { name: string }) =>
 }
 
 export const createListDesignActionButton = (btnObj?: Partial<VxeListDesignDefines.DefaultSettingFormActionButton>) => {
-  return Object.assign({
-    name: '',
-    icon: '',
-    type: '',
-    classify: '',
-    code: '',
-    status: '',
-    permissionCode: ''
-  }, btnObj)
+  return Object.assign(
+    {
+      name: '',
+      icon: '',
+      type: '',
+      classify: '',
+      code: '',
+      status: '',
+      permissionCode: ''
+    },
+    btnObj
+  )
 }

@@ -26,7 +26,7 @@ const ViewSubItemComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
 
@@ -74,7 +74,7 @@ const ViewSubItemComponent = defineVxeComponent({
           return
         }
         if (targetWidget && !hasFormDesignLayoutType(targetWidget)) {
-          const currRest = XEUtils.findTree(widgetObjList, item => item.id === sortWidget.id, { children: 'children' })
+          const currRest = XEUtils.findTree(widgetObjList, (item) => item.id === sortWidget.id, { children: 'children' })
           if (currRest) {
             const { item, index, items, parent } = currRest
             // 如果是 subtable 内移动
@@ -135,72 +135,95 @@ const ViewSubItemComponent = defineVxeComponent({
         widget: widget
       }
 
-      return h('div', {
-        class: ['vxe-form-design--widget-subtable-view-item', {
-          'is--active': isActive,
-          'is--sort': sortWidget && widget && sortWidget.id === widget.id,
-          'is--drag': dragWidget && widget && dragWidget.id === widget.id
-        }],
-        draggable: true,
-        'data-widget-id': widget.id,
-        onDragstart: sortDragstartSubItemEvent,
-        onDragenter: sortDragenterSubItemEvent,
-        onContextmenu (evnt: MouseEvent) {
-          if (widget) {
-            $xeFormDesign.handleContextmenuWidget(evnt, widget)
+      return h(
+        'div',
+        {
+          class: [
+            'vxe-form-design--widget-subtable-view-item',
+            {
+              'is--active': isActive,
+              'is--sort': sortWidget && widget && sortWidget.id === widget.id,
+              'is--drag': dragWidget && widget && dragWidget.id === widget.id
+            }
+          ],
+          draggable: true,
+          'data-widget-id': widget.id,
+          onDragstart: sortDragstartSubItemEvent,
+          onDragenter: sortDragenterSubItemEvent,
+          onContextmenu(evnt: MouseEvent) {
+            if (widget) {
+              $xeFormDesign.handleContextmenuWidget(evnt, widget)
+            }
+          },
+          onClick(evnt: KeyboardEvent) {
+            if (widget) {
+              $xeFormDesign.handleClickWidget(evnt, widget)
+            }
           }
         },
-        onClick  (evnt: KeyboardEvent) {
-          if (widget) {
-            $xeFormDesign.handleClickWidget(evnt, widget)
-          }
-        }
-      }, [
-        h('div', {
-          class: 'vxe-form-design--widget-subtable-view-item-wrapper'
-        }, [
-          h('div', {
-            class: 'vxe-form-design--widget-subtable-view-item-box vxe-form--item-row'
-          }, renderSubtableView
-            ? h(VxeUIFormItemComponent, {
-              class: ['vxe-form-design--widget-render-form-item'],
-              title: widget.title,
-              field: widget.field,
-              itemRender: {}
-            }, {
-              default () {
-                return getSlotVNs(renderSubtableView(subOpts, subParams))
-              }
-            })
-            : (renderWidgetDesignView
-                ? getSlotVNs(renderWidgetDesignView(renderOpts, defParams))
-                : [])),
-          isActive
-            ? h('div', {
-              class: 'vxe-form-design--preview-item-operate'
-            }, [
-              h(VxeUIButtonComponent, {
-                icon: getIcon().FORM_DESIGN_WIDGET_COPY,
-                status: 'primary',
-                size: 'mini',
-                circle: true,
-                onClick (params) {
-                  $xeFormDesign.handleCopyWidget(params.$event, widget)
-                }
-              }),
-              h(VxeUIButtonComponent, {
-                icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
-                status: 'danger',
-                size: 'mini',
-                circle: true,
-                onClick (params) {
-                  $xeFormDesign.handleRemoveWidget(params.$event, widget)
-                }
-              })
-            ])
-            : createCommentVNode()
-        ])
-      ])
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-form-design--widget-subtable-view-item-wrapper'
+            },
+            [
+              h(
+                'div',
+                {
+                  class: 'vxe-form-design--widget-subtable-view-item-box vxe-form--item-row'
+                },
+                renderSubtableView
+                  ? h(
+                      VxeUIFormItemComponent,
+                      {
+                        class: ['vxe-form-design--widget-render-form-item'],
+                        title: widget.title,
+                        field: widget.field,
+                        itemRender: {}
+                      },
+                      {
+                        default() {
+                          return getSlotVNs(renderSubtableView(subOpts, subParams))
+                        }
+                      }
+                    )
+                  : renderWidgetDesignView
+                    ? getSlotVNs(renderWidgetDesignView(renderOpts, defParams))
+                    : []
+              ),
+              isActive
+                ? h(
+                    'div',
+                    {
+                      class: 'vxe-form-design--preview-item-operate'
+                    },
+                    [
+                      h(VxeUIButtonComponent, {
+                        icon: getIcon().FORM_DESIGN_WIDGET_COPY,
+                        status: 'primary',
+                        size: 'mini',
+                        circle: true,
+                        onClick(params) {
+                          $xeFormDesign.handleCopyWidget(params.$event, widget)
+                        }
+                      }),
+                      h(VxeUIButtonComponent, {
+                        icon: getIcon().FORM_DESIGN_WIDGET_DELETE,
+                        status: 'danger',
+                        size: 'mini',
+                        circle: true,
+                        onClick(params) {
+                          $xeFormDesign.handleRemoveWidget(params.$event, widget)
+                        }
+                      })
+                    ]
+                  )
+                : createCommentVNode()
+            ]
+          )
+        ]
+      )
     }
   }
 })
@@ -217,7 +240,7 @@ export const WidgetSubtableEditComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUICheckboxComponent = VxeUI.getComponent('vxe-checkbox')
 
@@ -248,8 +271,8 @@ export const WidgetSubtableEditComponent = defineVxeComponent({
         return
       }
       // 如果控件不在当前子表中，则拖进去
-      if (widget.name && !widget.children.some(item => item.id === sortWidget.id)) {
-        const rest = XEUtils.findTree(widgetObjList, item => item.id === sortWidget.id, { children: 'children' })
+      if (widget.name && !widget.children.some((item) => item.id === sortWidget.id)) {
+        const rest = XEUtils.findTree(widgetObjList, (item) => item.id === sortWidget.id, { children: 'children' })
         if (rest) {
           const { item, index, items } = rest
           formDesignReactData.sortWidget = null
@@ -271,79 +294,127 @@ export const WidgetSubtableEditComponent = defineVxeComponent({
       const { title, children, options } = widget
       const { showCheckbox } = options
 
-      return h(VxeUIFormItemComponent, {
-        title,
-        className: 'vxe-form-design--widget-subtable-form-item'
-      }, {
-        default () {
-          return h('div', {
-            class: 'vxe-form-design--widget-subtable-view',
-            onDragenter: handleDragenterWrapperEvent,
-            onDragover: handleDragoverWrapperEvent
-          }, [
-            h('div', {
-              class: 'vxe-form-design--widget-subtable-view-left'
-            }, [
-              showCheckbox
-                ? h('div', {
-                  class: 'vxe-form-design--widget-subtable-col'
-                }, [
-                  h('div', {
-                    class: 'vxe-form-design--widget-subtable-head'
-                  }, [
-                    h(VxeUICheckboxComponent)
-                  ]),
-                  h('div', {
-                    class: 'vxe-form-design--widget-subtable-body'
-                  }, [
-                    h(VxeUICheckboxComponent)
-                  ])
-                ])
-                : createCommentVNode(),
-              h('div', {
-                class: 'vxe-form-design--widget-subtable-col'
-              }, [
-                h('div', {
-                  class: 'vxe-form-design--widget-subtable-head'
-                }, getI18n('vxe.formDesign.widgetProp.subtableProp.seqTitle')),
-                h('div', {
-                  class: 'vxe-form-design--widget-subtable-body'
-                }, '1')
-              ])
-            ]),
-            h('div', {
-              class: 'vxe-form-design--widget-subtable-view-right'
-            }, [
-              h('div', {
-                class: 'vxe-form-design--widget-subtable-view-wrapper'
-              }, [
-                h(TransitionGroup, {
-                  class: 'vxe-form-design--widget-subtable-view-list',
-                  tag: 'div',
-                  name: 'vxe-form-design--widget-subtable-view-list'
-                }, {
-                  default: () => {
-                    return children
-                      ? children.map((childWidget, childIndex) => {
-                        return h(ViewSubItemComponent, {
-                          key: childWidget.id,
-                          parentWidget: widget,
-                          widget: childWidget,
-                          childIndex
-                        })
-                      })
-                      : []
-                  }
-                }),
-                h('div', {
-                  key: 'empty',
-                  class: 'vxe-form-design--widget-subtable-view-empty'
-                }, getI18n('vxe.formDesign.widgetProp.subtableProp.colPlace'))
-              ])
-            ])
-          ])
+      return h(
+        VxeUIFormItemComponent,
+        {
+          title,
+          className: 'vxe-form-design--widget-subtable-form-item'
+        },
+        {
+          default() {
+            return h(
+              'div',
+              {
+                class: 'vxe-form-design--widget-subtable-view',
+                onDragenter: handleDragenterWrapperEvent,
+                onDragover: handleDragoverWrapperEvent
+              },
+              [
+                h(
+                  'div',
+                  {
+                    class: 'vxe-form-design--widget-subtable-view-left'
+                  },
+                  [
+                    showCheckbox
+                      ? h(
+                          'div',
+                          {
+                            class: 'vxe-form-design--widget-subtable-col'
+                          },
+                          [
+                            h(
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-subtable-head'
+                              },
+                              [h(VxeUICheckboxComponent)]
+                            ),
+                            h(
+                              'div',
+                              {
+                                class: 'vxe-form-design--widget-subtable-body'
+                              },
+                              [h(VxeUICheckboxComponent)]
+                            )
+                          ]
+                        )
+                      : createCommentVNode(),
+                    h(
+                      'div',
+                      {
+                        class: 'vxe-form-design--widget-subtable-col'
+                      },
+                      [
+                        h(
+                          'div',
+                          {
+                            class: 'vxe-form-design--widget-subtable-head'
+                          },
+                          getI18n('vxe.formDesign.widgetProp.subtableProp.seqTitle')
+                        ),
+                        h(
+                          'div',
+                          {
+                            class: 'vxe-form-design--widget-subtable-body'
+                          },
+                          '1'
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                h(
+                  'div',
+                  {
+                    class: 'vxe-form-design--widget-subtable-view-right'
+                  },
+                  [
+                    h(
+                      'div',
+                      {
+                        class: 'vxe-form-design--widget-subtable-view-wrapper'
+                      },
+                      [
+                        h(
+                          TransitionGroup,
+                          {
+                            class: 'vxe-form-design--widget-subtable-view-list',
+                            tag: 'div',
+                            name: 'vxe-form-design--widget-subtable-view-list'
+                          },
+                          {
+                            default: () => {
+                              return children
+                                ? children.map((childWidget, childIndex) => {
+                                    return h(ViewSubItemComponent, {
+                                      key: childWidget.id,
+                                      parentWidget: widget,
+                                      widget: childWidget,
+                                      childIndex
+                                    })
+                                  })
+                                : []
+                            }
+                          }
+                        ),
+                        h(
+                          'div',
+                          {
+                            key: 'empty',
+                            class: 'vxe-form-design--widget-subtable-view-empty'
+                          },
+                          getI18n('vxe.formDesign.widgetProp.subtableProp.colPlace')
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          }
         }
-      })
+      )
     }
   }
 })
@@ -360,7 +431,7 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIGridComponent = VxeUI.getComponent('vxe-grid')
     const VxeUIButtonComponent = VxeUI.getComponent('vxe-button')
@@ -371,9 +442,7 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
 
     const refGrid = ref<VxeGridInstance>()
 
-    const defaultDataList = ref([
-      {}
-    ])
+    const defaultDataList = ref([{}])
 
     const computeFormReadonly = computed(() => {
       if ($xeFormView) {
@@ -401,7 +470,7 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
         fixed: 'left'
       })
       if (children) {
-        children.forEach(childWidget => {
+        children.forEach((childWidget) => {
           const { name } = childWidget
           const compConf = renderer.get(name) || {}
           const parseSubtableColumn = compConf.parseFormDesignWidgetSubtableColumn
@@ -410,12 +479,15 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
             title: childWidget.title
           }
           if (parseSubtableColumn) {
-            colConf = Object.assign(colConf, parseSubtableColumn({
-              $formView: $xeFormView,
-              name: childWidget.name,
-              widget: childWidget,
-              readonly: !!formReadonly
-            }))
+            colConf = Object.assign(
+              colConf,
+              parseSubtableColumn({
+                $formView: $xeFormView,
+                name: childWidget.name,
+                widget: childWidget,
+                readonly: !!formReadonly
+              })
+            )
           } else {
             if (formReadonly) {
               colConf.cellRender = {
@@ -468,12 +540,12 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
           fixed: 'right',
           width: 80,
           slots: {
-            default ({ row }) {
+            default({ row }) {
               return h(VxeUIButtonComponent, {
                 mode: 'text',
                 icon: 'vxe-icon-delete',
                 status: 'error',
-                onClick () {
+                onClick() {
                   removeSubRow(row)
                 }
               })
@@ -528,7 +600,7 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
       const record: Record<string, any> = {
         _id: Date.now()
       }
-      XEUtils.each(widget.children, childWidget => {
+      XEUtils.each(widget.children, (childWidget) => {
         record[childWidget.field] = null
       })
       return record
@@ -561,7 +633,10 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
       if ($xeFormView) {
         const list: any[] = $xeFormView.getItemValue(widget)
         if (list) {
-          $xeFormView.setItemValue(widget, list.filter(item => item._id !== row._id))
+          $xeFormView.setItemValue(
+            widget,
+            list.filter((item) => item._id !== row._id)
+          )
         }
       }
     }
@@ -573,34 +648,42 @@ export const WidgetSubtableViewComponent = defineVxeComponent({
       const gridOptions = computeGridOptions.value
       const formReadonly = computeFormReadonly.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        title: widget.title,
-        field: widget.field,
-        span: 24
-      }, {
-        default () {
-          return VxeUIGridComponent
-            ? h(VxeUIGridComponent, {
-              ...gridOptions,
-              ref: refGrid
-            }, {
-              toolbarButtons () {
-                return formReadonly
-                  ? []
-                  : [
-                      h(VxeUIButtonComponent, {
-                        content: '新增',
-                        icon: 'vxe-icon-add',
-                        status: 'primary',
-                        onClick: addSubRowEvent
-                      })
-                    ]
-              }
-            })
-            : createCommentVNode()
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          title: widget.title,
+          field: widget.field,
+          span: 24
+        },
+        {
+          default() {
+            return VxeUIGridComponent
+              ? h(
+                  VxeUIGridComponent,
+                  {
+                    ...gridOptions,
+                    ref: refGrid
+                  },
+                  {
+                    toolbarButtons() {
+                      return formReadonly
+                        ? []
+                        : [
+                            h(VxeUIButtonComponent, {
+                              content: '新增',
+                              icon: 'vxe-icon-add',
+                              status: 'primary',
+                              onClick: addSubRowEvent
+                            })
+                          ]
+                    }
+                  }
+                )
+              : createCommentVNode()
+          }
         }
-      })
+      )
     }
   }
 })

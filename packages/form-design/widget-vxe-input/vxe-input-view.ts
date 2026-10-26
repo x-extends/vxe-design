@@ -18,7 +18,7 @@ export const WidgetVxeInputViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIInputComponent = VxeUI.getComponent('vxe-input')
 
@@ -41,25 +41,29 @@ export const WidgetVxeInputViewComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        field: widget.field,
-        title: widget.title,
-        itemRender: {}
-      }, {
-        default () {
-          return h(VxeUIInputComponent, {
-            modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            placeholder: options.placeholder,
-            onChange: changeEvent,
-            'onUpdate:modelValue' (val) {
-              if ($xeFormView) {
-                $xeFormView.setItemValue(widget, val)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          field: widget.field,
+          title: widget.title,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h(VxeUIInputComponent, {
+              modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+              placeholder: options.placeholder,
+              onChange: changeEvent,
+              'onUpdate:modelValue'(val) {
+                if ($xeFormView) {
+                  $xeFormView.setItemValue(widget, val)
+                }
               }
-            }
-          })
+            })
+          }
         }
-      })
+      )
     }
   }
 })

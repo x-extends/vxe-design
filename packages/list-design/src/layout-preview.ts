@@ -14,7 +14,7 @@ export default defineVxeComponent({
   name: 'ListDesignLayoutView',
   props: {},
   emits: [],
-  setup () {
+  setup() {
     const VxeUIGridComponent = VxeUI.getComponent('vxe-grid')
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
 
@@ -38,7 +38,7 @@ export default defineVxeComponent({
             field: 'active',
             title: '',
             folding: false,
-            collapseNode: searchFormItems.some(item => item.folding),
+            collapseNode: searchFormItems.some((item) => item.folding),
             itemRender: {
               name: 'VxeButtonGroup',
               options: [
@@ -63,7 +63,7 @@ export default defineVxeComponent({
           width: 70
         })
       }
-      listTableColumns.forEach(item => {
+      listTableColumns.forEach((item) => {
         columns.push({
           field: item.field,
           title: item.title,
@@ -88,7 +88,7 @@ export default defineVxeComponent({
 
     const updateColumnWidthEvent: VxeTableEvents.ResizableChange = ({ column, resizeWidth }) => {
       const { listTableColumns } = listDesignReactData
-      const rest = XEUtils.findTree(listTableColumns, item => item.field === column.field, { children: 'children' })
+      const rest = XEUtils.findTree(listTableColumns, (item) => item.field === column.field, { children: 'children' })
       if (rest) {
         const { item } = rest
         item.width = resizeWidth
@@ -98,8 +98,8 @@ export default defineVxeComponent({
     const updateTableData = () => {
       const { listTableColumns } = listDesignReactData
       const data: Record<string, any>[] = [{}, {}]
-      data.forEach(row => {
-        listTableColumns.forEach(column => {
+      data.forEach((row) => {
+        listTableColumns.forEach((column) => {
           row[column.field] = '-'
         })
       })
@@ -107,12 +107,18 @@ export default defineVxeComponent({
     }
 
     const dataFlag = ref(0)
-    watch(() => listDesignReactData.listTableColumns ? listDesignReactData.listTableColumns.length : -1, () => {
-      dataFlag.value++
-    })
-    watch(() => listDesignReactData.listTableColumns, () => {
-      dataFlag.value++
-    })
+    watch(
+      () => (listDesignReactData.listTableColumns ? listDesignReactData.listTableColumns.length : -1),
+      () => {
+        dataFlag.value++
+      }
+    )
+    watch(
+      () => listDesignReactData.listTableColumns,
+      () => {
+        dataFlag.value++
+      }
+    )
     watch(dataFlag, () => {
       updateTableData()
     })
@@ -132,61 +138,87 @@ export default defineVxeComponent({
       const formItems = computeFormItems.value
       const tableColumn = computeTableColumn.value
 
-      return h('div', {
-        class: 'vxe-list-design--preview'
-      }, [
-        h('div', {
-          class: 'vxe-list-design--preview-wrapper'
-        }, [
-          h('div', {
-            class: 'vxe-list-design--preview-search'
-          }, [
-            h('div', {
-              class: 'vxe-list-design--preview-title'
-            }, getI18n('vxe.listDesign.searchTitle')),
-            searchFormItems.length
-              ? h(VxeUIFormComponent, {
-                data: searchFormData,
-                items: formItems as VxeFormPropTypes.Items
-              })
-              : h('div', {
-                class: 'vxe-list-design--field-configs-empty-data'
-              }, [
-                h('span', {}, getI18n('vxe.listDesign.search.emptyText'))
-              ])
-          ]),
-          h('div', {
-            class: 'vxe-list-design--preview-table'
-          }, [
-            h('div', {
-              class: 'vxe-list-design--preview-title'
-            }, getI18n('vxe.listDesign.listTitle')),
-            VxeUIGridComponent
-              ? h(VxeUIGridComponent, {
-                ref: refGrid,
-                columns: tableColumn,
-                data: tableData.value,
-                showOverflow: true,
-                border: true,
-                columnConfig: {
-                  minWidth: 'auto',
-                  resizable: true
+      return h(
+        'div',
+        {
+          class: 'vxe-list-design--preview'
+        },
+        [
+          h(
+            'div',
+            {
+              class: 'vxe-list-design--preview-wrapper'
+            },
+            [
+              h(
+                'div',
+                {
+                  class: 'vxe-list-design--preview-search'
                 },
-                rowConfig: {
-                  isHover: true
+                [
+                  h(
+                    'div',
+                    {
+                      class: 'vxe-list-design--preview-title'
+                    },
+                    getI18n('vxe.listDesign.searchTitle')
+                  ),
+                  searchFormItems.length
+                    ? h(VxeUIFormComponent, {
+                        data: searchFormData,
+                        items: formItems as VxeFormPropTypes.Items
+                      })
+                    : h(
+                        'div',
+                        {
+                          class: 'vxe-list-design--field-configs-empty-data'
+                        },
+                        [h('span', {}, getI18n('vxe.listDesign.search.emptyText'))]
+                      )
+                ]
+              ),
+              h(
+                'div',
+                {
+                  class: 'vxe-list-design--preview-table'
                 },
-                scrollX: {
-                  enabled: false
-                },
-                scrollY: {
-                  enabled: false
-                },
-                onResizableChange: updateColumnWidthEvent
-              })
-              : createCommentVNode()
-          ])
-        ])
-      ])
+                [
+                  h(
+                    'div',
+                    {
+                      class: 'vxe-list-design--preview-title'
+                    },
+                    getI18n('vxe.listDesign.listTitle')
+                  ),
+                  VxeUIGridComponent
+                    ? h(VxeUIGridComponent, {
+                        ref: refGrid,
+                        columns: tableColumn,
+                        data: tableData.value,
+                        showOverflow: true,
+                        border: true,
+                        columnConfig: {
+                          minWidth: 'auto',
+                          resizable: true
+                        },
+                        rowConfig: {
+                          isHover: true
+                        },
+                        scrollX: {
+                          enabled: false
+                        },
+                        scrollY: {
+                          enabled: false
+                        },
+                        onResizableChange: updateColumnWidthEvent
+                      })
+                    : createCommentVNode()
+                ]
+              )
+            ]
+          )
+        ]
+      )
     }
   }
 })

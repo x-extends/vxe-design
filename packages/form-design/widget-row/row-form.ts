@@ -19,7 +19,7 @@ export const WidgetRowFormComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormComponent = VxeUI.getComponent('vxe-form')
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIRowComponent = VxeUI.getComponent('vxe-row')
@@ -58,16 +58,12 @@ export const WidgetRowFormComponent = defineVxeComponent({
       {
         label: getI18n('vxe.formDesign.widgetProp.rowProp.col4'),
         value: 4,
-        list: [
-          { value: '6,6,6,6', spans: [6, 6, 6, 6] }
-        ]
+        list: [{ value: '6,6,6,6', spans: [6, 6, 6, 6] }]
       },
       {
         label: getI18n('vxe.formDesign.widgetProp.rowProp.col6'),
         value: 6,
-        list: [
-          { value: '4,4,4,4,4,4', spans: [4, 4, 4, 4, 4, 4] }
-        ]
+        list: [{ value: '4,4,4,4,4,4', spans: [4, 4, 4, 4, 4, 4] }]
       }
     ])
 
@@ -84,22 +80,19 @@ export const WidgetRowFormComponent = defineVxeComponent({
       const { renderParams } = props
       const { widget } = renderParams
       const { options } = widget
-      return spanOptions.value.find(item => item.value === options.colSize)
+      return spanOptions.value.find((item) => item.value === options.colSize)
     })
 
-    const changeColSpan = (item: {
-      value: string
-      spans: number[]
-    }) => {
+    const changeColSpan = (item: { value: string; spans: number[] }) => {
       const { renderParams } = props
       const { widget } = renderParams
       const { options } = widget
       const { reactData: formDesignReactData } = $xeFormDesign
       const { widgetObjList } = formDesignReactData
-      const oldChildList = widget.children.filter(item => item.name)
+      const oldChildList = widget.children.filter((item) => item.name)
       const overList = oldChildList.slice(options.colSize)
       if (overList.length) {
-        const rest = XEUtils.findTree(widgetObjList, obj => obj.id === widget.id, { children: 'children' })
+        const rest = XEUtils.findTree(widgetObjList, (obj) => obj.id === widget.id, { children: 'children' })
         if (rest) {
           const { items, index } = rest
           if (index >= items.length - 1) {
@@ -119,59 +112,78 @@ export const WidgetRowFormComponent = defineVxeComponent({
       const { widget } = renderParams
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormComponent, {
-        class: `vxe-form-design--widget-${kebabCaseName}-form`,
-        vertical: true,
-        span: 24,
-        titleBold: true,
-        titleOverflow: true,
-        data: widget.options
-      }, {
-        default () {
-          return [
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.rowProp.colSize'),
-              field: 'colSize',
-              itemRender: { name: 'VxeRadioGroup', options: spanOptions.value, props: { type: 'button' } }
-            }),
-            h(VxeUIFormItemComponent, {
-              title: getI18n('vxe.formDesign.widgetProp.rowProp.layout')
-            }, {
-              default () {
-                const selectSpanItem = computeSelectSpanItem.value
-                if (selectSpanItem) {
-                  return selectSpanItem.list.map((item, rIndex) => {
-                    return h(VxeUIRowComponent, {
-                      key: rIndex,
-                      class: [`vxe-form-design--widget-${kebabCaseName}-form-row`, {
-                        'is--active': item.value === widget.options.colSpan
-                      }],
-                      onClick () {
-                        changeColSpan(item)
-                      }
-                    }, {
-                      default () {
-                        return item.spans.map((span, sIndex) => {
-                          return h(VxeUIColComponent, {
-                            key: `${rIndex}${sIndex}`,
-                            class: `vxe-form-design--widget-${kebabCaseName}-form-col`,
-                            span
-                          }, {
-                            default () {
-                              return h('div', {}, `${labelMaps[span]}`)
+      return h(
+        VxeUIFormComponent,
+        {
+          class: `vxe-form-design--widget-${kebabCaseName}-form`,
+          vertical: true,
+          span: 24,
+          titleBold: true,
+          titleOverflow: true,
+          data: widget.options
+        },
+        {
+          default() {
+            return [
+              h(VxeUIFormItemComponent, {
+                title: getI18n('vxe.formDesign.widgetProp.rowProp.colSize'),
+                field: 'colSize',
+                itemRender: { name: 'VxeRadioGroup', options: spanOptions.value, props: { type: 'button' } }
+              }),
+              h(
+                VxeUIFormItemComponent,
+                {
+                  title: getI18n('vxe.formDesign.widgetProp.rowProp.layout')
+                },
+                {
+                  default() {
+                    const selectSpanItem = computeSelectSpanItem.value
+                    if (selectSpanItem) {
+                      return selectSpanItem.list.map((item, rIndex) => {
+                        return h(
+                          VxeUIRowComponent,
+                          {
+                            key: rIndex,
+                            class: [
+                              `vxe-form-design--widget-${kebabCaseName}-form-row`,
+                              {
+                                'is--active': item.value === widget.options.colSpan
+                              }
+                            ],
+                            onClick() {
+                              changeColSpan(item)
                             }
-                          })
-                        })
-                      }
-                    })
-                  })
+                          },
+                          {
+                            default() {
+                              return item.spans.map((span, sIndex) => {
+                                return h(
+                                  VxeUIColComponent,
+                                  {
+                                    key: `${rIndex}${sIndex}`,
+                                    class: `vxe-form-design--widget-${kebabCaseName}-form-col`,
+                                    span
+                                  },
+                                  {
+                                    default() {
+                                      return h('div', {}, `${labelMaps[span]}`)
+                                    }
+                                  }
+                                )
+                              })
+                            }
+                          }
+                        )
+                      })
+                    }
+                    return []
+                  }
                 }
-                return []
-              }
-            })
-          ]
+              )
+            ]
+          }
         }
-      })
+      )
     }
   }
 })

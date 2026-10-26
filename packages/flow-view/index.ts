@@ -4,7 +4,7 @@ import { checkDependVersion } from '../ui/src/depend'
 import VxeFlowViewComponent from '../flow-design/src/flow-view'
 
 export const VxeFlowView = Object.assign({}, VxeFlowViewComponent, {
-  install (app: App) {
+  install(app: App) {
     checkDependVersion()
     app.component(VxeFlowViewComponent.name as string, VxeFlowViewComponent)
   }

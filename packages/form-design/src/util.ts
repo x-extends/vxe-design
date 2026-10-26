@@ -5,12 +5,16 @@ import type { VxeFormDesignDefines } from '../../../types'
 
 let maxWidgetId = 100000
 
-export function getNewWidgetId (widgetObjList: VxeFormDesignDefines.WidgetObjItem[]) {
-  XEUtils.eachTree(widgetObjList, item => {
-    if (item) {
-      maxWidgetId = Math.max(maxWidgetId, item.id)
-    }
-  }, { children: 'children' })
+export function getNewWidgetId(widgetObjList: VxeFormDesignDefines.WidgetObjItem[]) {
+  XEUtils.eachTree(
+    widgetObjList,
+    (item) => {
+      if (item) {
+        maxWidgetId = Math.max(maxWidgetId, item.id)
+      }
+    },
+    { children: 'children' }
+  )
   return ++maxWidgetId
 }
 

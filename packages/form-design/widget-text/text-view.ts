@@ -18,7 +18,7 @@ export const WidgetTextViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
 
     const { computeKebabCaseName } = useWidgetName(props)
@@ -29,19 +29,27 @@ export const WidgetTextViewComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        align: options.align
-      }, {
-        default () {
-          return h('div', {
-            style: {
-              fontSize: options.fontSize,
-              fontWeight: options.bold ? 'bold' : ''
-            }
-          }, widget.title)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          align: options.align
+        },
+        {
+          default() {
+            return h(
+              'div',
+              {
+                style: {
+                  fontSize: options.fontSize,
+                  fontWeight: options.bold ? 'bold' : ''
+                }
+              },
+              widget.title
+            )
+          }
         }
-      })
+      )
     }
   }
 })

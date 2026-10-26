@@ -18,7 +18,7 @@ export const WidgetVxeTextareaViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUITextareaComponent = VxeUI.getComponent('vxe-textarea')
 
@@ -41,26 +41,30 @@ export const WidgetVxeTextareaViewComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        title: widget.title,
-        field: widget.field,
-        itemRender: {}
-      }, {
-        default () {
-          return h(VxeUITextareaComponent, {
-            modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            placeholder: options.placeholder,
-            resize: 'node',
-            onChange: changeEvent,
-            'onUpdate:modelValue' (val) {
-              if ($xeFormView) {
-                $xeFormView.setItemValue(widget, val)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          title: widget.title,
+          field: widget.field,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h(VxeUITextareaComponent, {
+              modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+              placeholder: options.placeholder,
+              resize: 'node',
+              onChange: changeEvent,
+              'onUpdate:modelValue'(val) {
+                if ($xeFormView) {
+                  $xeFormView.setItemValue(widget, val)
+                }
               }
-            }
-          })
+            })
+          }
         }
-      })
+      )
     }
   }
 })

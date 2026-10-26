@@ -8,7 +8,7 @@ import './render'
 import type { FormDesignHandleExport } from '../../types'
 
 export const VxeFormDesign = Object.assign({}, VxeFormDesignComponent, {
-  install (app: App) {
+  install(app: App) {
     checkDependVersion()
     app.component(VxeFormDesignComponent.name as string, VxeFormDesignComponent)
   }

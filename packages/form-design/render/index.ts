@@ -31,10 +31,10 @@ const { renderer } = VxeUI
 renderer.mixin({
   text: {
     createFormDesignWidgetConfig: getWidgetTextConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetTextViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetTextFormComponent, { renderOpts, renderParams })
     }
   },
@@ -43,178 +43,178 @@ renderer.mixin({
    */
   title: {
     createFormDesignWidgetConfig: getWidgetTextConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetTextViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetTextFormComponent, { renderOpts, renderParams })
     }
   },
   row: {
     createFormDesignWidgetConfig: getWidgetRowConfig,
-    renderFormDesignWidgetEdit (renderOpts, renderParams) {
+    renderFormDesignWidgetEdit(renderOpts, renderParams) {
       return h(WidgetRowEditComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetRowViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetRowFormComponent, { renderOpts, renderParams })
     }
   },
   subtable: {
     createFormDesignWidgetConfig: getWidgetSubtableConfig,
-    renderFormDesignWidgetEdit (renderOpts, renderParams) {
+    renderFormDesignWidgetEdit(renderOpts, renderParams) {
       return h(WidgetSubtableEditComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetSubtableViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetSubtableFormComponent, { renderOpts, renderParams })
     }
   },
   input: {
     createFormDesignWidgetConfig: getWidgetInputConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetInputViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetInputFormComponent, { renderOpts, renderParams })
     }
   },
   textarea: {
     createFormDesignWidgetConfig: getWidgetTextareaConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetTextareaViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetTextareaFormComponent, { renderOpts, renderParams })
     }
   },
   select: {
     createFormDesignWidgetConfig: getWidgetSelectConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetSelectViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetSelectFormComponent, { renderOpts, renderParams })
     }
   },
   VxeInput: {
     createFormDesignWidgetConfig: getWidgetVxeInputConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeInputViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeInputFormComponent, { renderOpts, renderParams })
     }
   },
   VxeNumberInput: {
     createFormDesignWidgetConfig: getWidgetVxeNumberInputConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeNumberInputViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeNumberInputFormComponent, { renderOpts, renderParams })
     }
   },
   VxeDatePicker: {
     createFormDesignWidgetConfig: getWidgetVxeDatePickerConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeDatePickerViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeDatePickerFormComponent, { renderOpts, renderParams })
     }
   },
   VxeTextarea: {
     createFormDesignWidgetConfig: getWidgetVxeTextareaConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeTextareaViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeTextareaFormComponent, { renderOpts, renderParams })
     }
   },
   VxeSwitch: {
     createFormDesignWidgetConfig: getWidgetVxeSwitchConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeSwitchViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeSwitchFormComponent, { renderOpts, renderParams })
     }
   },
   VxeSelect: {
     createFormDesignWidgetConfig: getWidgetVxeSelectConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeSelectViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeSelectFormComponent, { renderOpts, renderParams })
     }
   },
   VxeTreeSelect: {
     createFormDesignWidgetConfig: getWidgetVxeTreeSelectConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeTreeSelectViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeTreeSelectFormComponent, { renderOpts, renderParams })
     }
   },
   VxeRadioGroup: {
     createFormDesignWidgetConfig: getWidgetVxeRadioGroupConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeRadioGroupViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeRadioGroupFormComponent, { renderOpts, renderParams })
     }
   },
   VxeCheckboxGroup: {
     createFormDesignWidgetConfig: getWidgetVxeCheckboxGroupConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeCheckboxGroupViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeCheckboxGroupFormComponent, { renderOpts, renderParams })
     }
   },
   VxeUploadFile: {
     createFormDesignWidgetConfig: getWidgetVxeUploadFileConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeUploadFileViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeUploadFileFormComponent, { renderOpts, renderParams })
     }
   },
   VxeUploadImage: {
     createFormDesignWidgetConfig: getWidgetVxeUploadImageConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeUploadImageViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeUploadImageFormComponent, { renderOpts, renderParams })
     }
   },
   VxeRate: {
     createFormDesignWidgetConfig: getWidgetVxeRateConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeRateViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeRateFormComponent, { renderOpts, renderParams })
     }
   },
   VxeSlider: {
     createFormDesignWidgetConfig: getWidgetVxeSliderConfig,
-    renderFormDesignWidgetView (renderOpts, renderParams) {
+    renderFormDesignWidgetView(renderOpts, renderParams) {
       return h(WidgetVxeSliderViewComponent, { renderOpts, renderParams })
     },
-    renderFormDesignWidgetFormView (renderOpts, renderParams) {
+    renderFormDesignWidgetFormView(renderOpts, renderParams) {
       return h(WidgetVxeSliderFormComponent, { renderOpts, renderParams })
     }
   }

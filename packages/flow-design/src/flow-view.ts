@@ -6,26 +6,22 @@ import type { FlowViewReactData, VxeFlowViewEmits, FlowViewPrivateRef, VxeFlowVi
 
 export default defineVxeComponent({
   name: 'VxeFlowView',
-  props: {
-  },
-  emits: [
-  ] as VxeFlowViewEmits,
-  setup (props, context) {
+  props: {},
+  emits: [] as VxeFlowViewEmits,
+  setup(props, context) {
     const { slots } = context
 
     const xID = XEUtils.uniqueId()
 
     const refElem = ref<HTMLDivElement>()
 
-    const reactData = reactive<FlowViewReactData>({
-    })
+    const reactData = reactive<FlowViewReactData>({})
 
     const refMaps: FlowViewPrivateRef = {
       refElem
     }
 
-    const computeMaps: VxeFlowViewPrivateComputed = {
-    }
+    const computeMaps: VxeFlowViewPrivateComputed = {}
 
     const $xeFlowView = {
       xID,
@@ -39,17 +35,21 @@ export default defineVxeComponent({
 
     const renderVN = () => {
       const defaultSlot = slots.default
-      return h('div', {
-        ref: refElem,
-        class: ['vxe-flow-view']
-      }, defaultSlot ? defaultSlot({}) : [])
+      return h(
+        'div',
+        {
+          ref: refElem,
+          class: ['vxe-flow-view']
+        },
+        defaultSlot ? defaultSlot({}) : []
+      )
     }
 
     $xeFlowView.renderVN = renderVN
 
     return $xeFlowView
   },
-  render () {
+  render() {
     return this.renderVN()
   }
 })

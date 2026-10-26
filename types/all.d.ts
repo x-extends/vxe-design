@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export function install (app: App, options?: VxeGlobalConfig): void
+export function install(app: App, options?: VxeGlobalConfig): void
 
 interface AllComponents {
   /**

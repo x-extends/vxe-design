@@ -18,7 +18,7 @@ export const WidgetVxeUploadImageViewComponent = defineVxeComponent({
     }
   },
   emits: [],
-  setup (props) {
+  setup(props) {
     const VxeUIFormItemComponent = VxeUI.getComponent('vxe-form-item')
     const VxeUIUploadComponent = VxeUI.getComponent('vxe-upload')
 
@@ -41,28 +41,32 @@ export const WidgetVxeUploadImageViewComponent = defineVxeComponent({
       const { options } = widget
       const kebabCaseName = computeKebabCaseName.value
 
-      return h(VxeUIFormItemComponent, {
-        class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
-        title: widget.title,
-        field: widget.field,
-        itemRender: {}
-      }, {
-        default () {
-          return h(VxeUIUploadComponent, {
-            modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
-            mode: 'image',
-            multiple: options.multiple,
-            limitCount: options.limitCount,
-            limitSize: options.limitSize,
-            onChange: changeEvent,
-            'onUpdate:modelValue' (val) {
-              if ($xeFormView) {
-                $xeFormView.setItemValue(widget, val)
+      return h(
+        VxeUIFormItemComponent,
+        {
+          class: ['vxe-form-design--widget-render-form-item', `widget-${kebabCaseName}`],
+          title: widget.title,
+          field: widget.field,
+          itemRender: {}
+        },
+        {
+          default() {
+            return h(VxeUIUploadComponent, {
+              modelValue: $xeFormView ? $xeFormView.getItemValue(widget) : null,
+              mode: 'image',
+              multiple: options.multiple,
+              limitCount: options.limitCount,
+              limitSize: options.limitSize,
+              onChange: changeEvent,
+              'onUpdate:modelValue'(val) {
+                if ($xeFormView) {
+                  $xeFormView.setItemValue(widget, val)
+                }
               }
-            }
-          })
+            })
+          }
         }
-      })
+      )
     }
   }
 })
