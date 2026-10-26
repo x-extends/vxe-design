@@ -4,7 +4,7 @@ import { checkDependVersion } from '../ui/src/depend'
 import VxeListViewComponent from '../list-design/src/list-view'
 
 export const VxeListView = Object.assign(VxeListViewComponent, {
-  install (app: VueConstructor) {
+  install(app: VueConstructor) {
     checkDependVersion()
     app.component(VxeListViewComponent.name as string, VxeListViewComponent)
   }

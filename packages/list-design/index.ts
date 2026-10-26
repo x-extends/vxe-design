@@ -4,7 +4,7 @@ import { checkDependVersion } from '../ui/src/depend'
 import VxeListDesignComponent from './src/list-design'
 
 export const VxeListDesign = Object.assign({}, VxeListDesignComponent, {
-  install (app: VueConstructor) {
+  install(app: VueConstructor) {
     checkDependVersion()
     app.component(VxeListDesignComponent.name as string, VxeListDesignComponent)
   }

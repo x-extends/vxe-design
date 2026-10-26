@@ -4,7 +4,7 @@ import { checkDependVersion } from '../ui/src/depend'
 import VxeFormDesignComponent from './src/form-design'
 
 export const VxeFormDesign = Object.assign({}, VxeFormDesignComponent, {
-  install (app: VueConstructor) {
+  install(app: VueConstructor) {
     checkDependVersion()
     app.component(VxeFormDesignComponent.name as string, VxeFormDesignComponent)
   }

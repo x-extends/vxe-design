@@ -11,9 +11,8 @@ const { createEvent } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeListDesign',
-  props: {
-  },
-  data () {
+  props: {},
+  data() {
     const xID = XEUtils.uniqueId()
     const reactData: ListDesignReactData = {
       formData: {} as VxeListDesignDefines.DefaultSettingFormDataObjVO,
@@ -30,11 +29,11 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Method
     //
-    dispatchEvent (type: ValueOf<VxeListDesignEmits>, params: Record<string, any>, evnt: Event | null) {
+    dispatchEvent(type: ValueOf<VxeListDesignEmits>, params: Record<string, any>, evnt: Event | null) {
       const $xeListDesign = this
       $xeListDesign.$emit(type, createEvent(evnt, { $listDesign: $xeListDesign }, params))
     },
-    emitModel  (value: any) {
+    emitModel(value: any) {
       const $xeListDesign = this
 
       handleEmitModelVal($xeListDesign, value)
@@ -43,18 +42,22 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Render
     //
-    renderVN (h: CreateElement): VNode {
+    renderVN(h: CreateElement): VNode {
       const $xeListDesign = this
       const slots = $xeListDesign.$scopedSlots
 
       const defaultSlot = slots.default
-      return h('div', {
-        ref: 'refElem',
-        class: 'vxe-list-design'
-      }, defaultSlot ? defaultSlot({}) : [])
+      return h(
+        'div',
+        {
+          ref: 'refElem',
+          class: 'vxe-list-design'
+        },
+        defaultSlot ? defaultSlot({}) : []
+      )
     }
   },
-  render (this: any, h) {
+  render(this: any, h) {
     return this.renderVN(h)
   }
 }) /* define-vxe-component end */

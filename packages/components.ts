@@ -12,19 +12,12 @@ import type { VxeGlobalConfig } from 'vxe-pc-ui'
 
 const { setConfig } = VxeUI
 
-const components = [
-  VxeFlowDesign,
-  VxeFlowView,
-  VxeFormDesign,
-  VxeFormView,
-  VxeListDesign,
-  VxeListView
-]
+const components = [VxeFlowDesign, VxeFlowView, VxeFormDesign, VxeFormView, VxeListDesign, VxeListView]
 
-export function install (app: VueConstructor, options?: VxeGlobalConfig) {
+export function install(app: VueConstructor, options?: VxeGlobalConfig) {
   setConfig(options)
 
-  components.forEach(component => app.use(component))
+  components.forEach((component) => app.use(component))
 }
 
 export { VxeUI }

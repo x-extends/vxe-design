@@ -44,7 +44,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     formRender: Object as PropType<VxeFormDesignPropTypes.FormRender>,
     menuConfig: Object as PropType<VxeFormDesignPropTypes.MenuConfig>
   },
-  data () {
+  data() {
     const xID = XEUtils.uniqueId()
     const reactData: FormDesignReactData = {
       formData: {} as VxeFormDesignDefines.DefaultSettingFormDataObjVO,
@@ -60,7 +60,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     }
   },
   computed: {
-    computeMenuOpts () {
+    computeMenuOpts() {
       const $xeFormDesign = this
       const props = $xeFormDesign
 
@@ -71,11 +71,11 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Method
     //
-    dispatchEvent (type: ValueOf<VxeFormDesignEmits>, params: Record<string, any>, evnt: Event | null) {
+    dispatchEvent(type: ValueOf<VxeFormDesignEmits>, params: Record<string, any>, evnt: Event | null) {
       const $xeFormDesign = this
       $xeFormDesign.$emit(type, createEvent(evnt, { $formDesign: $xeFormDesign }, params))
     },
-    emitModel  (value: any) {
+    emitModel(value: any) {
       const $xeFormDesign = this
 
       handleEmitModelVal($xeFormDesign, value)
@@ -84,18 +84,22 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Render
     //
-    renderVN (h: CreateElement): VNode {
+    renderVN(h: CreateElement): VNode {
       const $xeFormDesign = this
       const slots = $xeFormDesign.$scopedSlots
 
       const defaultSlot = slots.default
-      return h('div', {
-        ref: 'refElem',
-        class: 'vxe-form-design'
-      }, defaultSlot ? defaultSlot({}) : [])
+      return h(
+        'div',
+        {
+          ref: 'refElem',
+          class: 'vxe-form-design'
+        },
+        defaultSlot ? defaultSlot({}) : []
+      )
     }
   },
-  render (this: any, h) {
+  render(this: any, h) {
     return this.renderVN(h)
   }
 }) /* define-vxe-component end */

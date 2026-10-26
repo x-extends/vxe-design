@@ -11,12 +11,10 @@ const { createEvent } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFlowView',
-  props: {
-  },
-  data () {
+  props: {},
+  data() {
     const xID = XEUtils.uniqueId()
-    const reactData: FlowViewReactData = {
-    }
+    const reactData: FlowViewReactData = {}
     return {
       xID,
       reactData
@@ -26,11 +24,11 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Method
     //
-    dispatchEvent (type: ValueOf<VxeFlowViewEmits>, params: Record<string, any>, evnt: Event | null) {
+    dispatchEvent(type: ValueOf<VxeFlowViewEmits>, params: Record<string, any>, evnt: Event | null) {
       const $xeFlowView = this
       $xeFlowView.$emit(type, createEvent(evnt, { $flowView: $xeFlowView }, params))
     },
-    emitModel  (value: any) {
+    emitModel(value: any) {
       const $xeFlowView = this
 
       handleEmitModelVal($xeFlowView, value)
@@ -39,18 +37,22 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Render
     //
-    renderVN (h: CreateElement): VNode {
+    renderVN(h: CreateElement): VNode {
       const $xeFlowView = this
       const slots = $xeFlowView.$scopedSlots
 
       const defaultSlot = slots.default
-      return h('div', {
-        ref: 'refElem',
-        class: 'vxe-flow-view'
-      }, defaultSlot ? defaultSlot({}) : [])
+      return h(
+        'div',
+        {
+          ref: 'refElem',
+          class: 'vxe-flow-view'
+        },
+        defaultSlot ? defaultSlot({}) : []
+      )
     }
   },
-  render (this: any, h) {
+  render(this: any, h) {
     return this.renderVN(h)
   }
 }) /* define-vxe-component end */

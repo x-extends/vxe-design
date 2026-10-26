@@ -10,9 +10,8 @@ const { createEvent } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFormView',
-  props: {
-  },
-  data () {
+  props: {},
+  data() {
     const xID = XEUtils.uniqueId()
     const reactData: FormViewReactData = {
       formConfig: {},
@@ -28,11 +27,11 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Method
     //
-    dispatchEvent (type: ValueOf<VxeFormViewEmits>, params: Record<string, any>, evnt: Event | null) {
+    dispatchEvent(type: ValueOf<VxeFormViewEmits>, params: Record<string, any>, evnt: Event | null) {
       const $xeFormView = this
       $xeFormView.$emit(type, createEvent(evnt, { $formView: $xeFormView }, params))
     },
-    emitModel  (value: any) {
+    emitModel(value: any) {
       const $xeFormView = this
 
       const { _events } = $xeFormView as any
@@ -46,18 +45,22 @@ export default /* define-vxe-component start */ defineVxeComponent({
     //
     // Render
     //
-    renderVN (h: CreateElement): VNode {
+    renderVN(h: CreateElement): VNode {
       const $xeFormView = this
       const slots = $xeFormView.$scopedSlots
 
       const defaultSlot = slots.default
-      return h('div', {
-        ref: 'refElem',
-        class: 'vxe-form-view'
-      }, defaultSlot ? defaultSlot({}) : [])
+      return h(
+        'div',
+        {
+          ref: 'refElem',
+          class: 'vxe-form-view'
+        },
+        defaultSlot ? defaultSlot({}) : []
+      )
     }
   },
-  render (this: any, h) {
+  render(this: any, h) {
     return this.renderVN(h)
   }
 }) /* define-vxe-component end */

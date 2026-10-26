@@ -3,11 +3,11 @@ import XEUtils from 'xe-utils'
 import type { CombinedVueInstance } from 'vue/types/vue'
 import type { VxeComponentSlotType } from 'vxe-pc-ui'
 
-export function getOnName (type: string) {
+export function getOnName(type: string) {
   return XEUtils.kebabCase(type)
 }
 
-export function getModelEvent (name: string) {
+export function getModelEvent(name: string) {
   switch (name) {
     case 'VxeInput':
     case 'VxeTextarea':
@@ -23,27 +23,27 @@ export function getModelEvent (name: string) {
   return 'input'
 }
 
-export function getChangeEvent (name: string) {
+export function getChangeEvent(name: string) {
   switch (name) {
     case 'input':
     case 'textarea':
     case 'VxeInput':
     case 'VxeTextarea':
-    case '$input':// 已废弃
-    case '$textarea':// 已废弃
+    case '$input': // 已废弃
+    case '$textarea': // 已废弃
       return 'input'
   }
   return 'change'
 }
 
-export function getSlotVNs (vns: VxeComponentSlotType | VxeComponentSlotType[] | undefined) {
+export function getSlotVNs(vns: VxeComponentSlotType | VxeComponentSlotType[] | undefined) {
   if (XEUtils.isArray(vns)) {
     return vns
   }
   return vns ? [vns] : []
 }
 
-export function getEventCaseName (_vm: CombinedVueInstance<any, any, any, any, any>, name: string) {
+export function getEventCaseName(_vm: CombinedVueInstance<any, any, any, any, any>, name: string) {
   const caseName = XEUtils.camelCase(name)
   if (caseName === name) {
     return name
@@ -52,7 +52,7 @@ export function getEventCaseName (_vm: CombinedVueInstance<any, any, any, any, a
   return _events && _events[caseName] ? caseName : name
 }
 
-export function handleEmitModelVal (_vm: CombinedVueInstance<any, any, any, any, any>, value: any) {
+export function handleEmitModelVal(_vm: CombinedVueInstance<any, any, any, any, any>, value: any) {
   const { _events } = _vm as any
   if (_events && _events.modelValue && _events.modelValue.length) {
     _vm.$emit('modelValue', value)

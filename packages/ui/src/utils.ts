@@ -4,34 +4,34 @@ import DomZIndex from 'dom-zindex'
 
 const { getConfig } = VxeUI
 
-export function isEnableConf (conf: any): boolean {
+export function isEnableConf(conf: any): boolean {
   return conf && conf.enabled !== false
 }
 
-export function nextZIndex () {
+export function nextZIndex() {
   return DomZIndex.getNext()
 }
 
-export function getLastZIndex () {
+export function getLastZIndex() {
   return DomZIndex.getCurrent()
 }
 
-export function nextSubZIndex () {
+export function nextSubZIndex() {
   return DomZIndex.getSubNext()
 }
 
-export function getSubLastZIndex () {
+export function getSubLastZIndex() {
   return DomZIndex.getSubCurrent()
 }
 
-export function getGlobalDefaultConfig (value: any, globalValue: any) {
+export function getGlobalDefaultConfig(value: any, globalValue: any) {
   if (XEUtils.eqNull(value)) {
     return globalValue
   }
   return value
 }
 
-export function getFuncText (content: string | number | boolean | null | undefined, args?: any) {
+export function getFuncText(content: string | number | boolean | null | undefined, args?: any) {
   if (content) {
     const translate = getConfig().translate
     return XEUtils.toValueString(translate ? translate('' + content, args) : content)
@@ -42,10 +42,10 @@ export function getFuncText (content: string | number | boolean | null | undefin
 /**
  * 判断值为：'' | null | undefined 时都属于空值
  */
-export function eqEmptyValue (cellValue: any) {
+export function eqEmptyValue(cellValue: any) {
   return cellValue === null || cellValue === undefined || cellValue === ''
 }
 
-export function handleBooleanDefaultValue (value: boolean | undefined | null) {
+export function handleBooleanDefaultValue(value: boolean | undefined | null) {
   return XEUtils.isBoolean(value) ? value : null
 }

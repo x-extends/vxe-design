@@ -2,7 +2,7 @@ import XEUtils from 'xe-utils'
 
 let tpImgEl: HTMLImageElement | undefined
 
-export function initTpImg () {
+export function initTpImg() {
   if (!tpImgEl) {
     tpImgEl = new Image()
     tpImgEl.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
@@ -10,7 +10,7 @@ export function initTpImg () {
   return tpImgEl
 }
 
-export function getTpImg () {
+export function getTpImg() {
   if (!tpImgEl) {
     return initTpImg()
   }
@@ -19,14 +19,14 @@ export function getTpImg () {
 
 const reClsMap: { [key: string]: any } = {}
 
-function getClsRE (cls: any) {
+function getClsRE(cls: any) {
   if (!reClsMap[cls]) {
     reClsMap[cls] = new RegExp(`(?:^|\\s)${cls}(?!\\S)`, 'g')
   }
   return reClsMap[cls]
 }
 
-function getNodeOffset (elem: any, container: any, rest: any): any {
+function getNodeOffset(elem: any, container: any, rest: any): any {
   if (elem) {
     const parentElem = elem.parentNode
     rest.top += elem.offsetTop
@@ -42,43 +42,43 @@ function getNodeOffset (elem: any, container: any, rest: any): any {
   return rest
 }
 
-export function isPx (val: any) {
+export function isPx(val: any) {
   return val && /^\d+(\.\d+)?(px)?$/.test(val)
 }
 
-export function isScale (val: any) {
+export function isScale(val: any) {
   return val && /^\d+(\.\d+)?%$/.test(val)
 }
 
-export function hasClass (elem: any, cls: any) {
+export function hasClass(elem: any, cls: any) {
   return !!(elem && elem.className && elem.className.match && elem.className.match(getClsRE(cls)))
 }
 
-export function removeClass (elem: any, cls: any) {
+export function removeClass(elem: any, cls: any) {
   if (elem && hasClass(elem, cls)) {
     elem.className = elem.className.replace(getClsRE(cls), '')
   }
 }
 
-export function addClass (elem: any, cls: string) {
+export function addClass(elem: any, cls: string) {
   if (elem && !hasClass(elem, cls)) {
     removeClass(elem, cls)
     elem.className = `${elem.className} ${cls}`
   }
 }
 
-export function hasControlKey (evnt: KeyboardEvent | MouseEvent | DragEvent) {
+export function hasControlKey(evnt: KeyboardEvent | MouseEvent | DragEvent) {
   return evnt.ctrlKey || evnt.metaKey
 }
 
-export function toCssUnit (val?: number | string | null, unit = 'px') {
+export function toCssUnit(val?: number | string | null, unit = 'px') {
   if (XEUtils.isNumber(val) || /^\d+$/.test(`${val}`)) {
     return `${val}${unit}`
   }
   return `${val || ''}`
 }
 
-export function getDomNode () {
+export function getDomNode() {
   const documentElement = document.documentElement
   const bodyElem = document.body
   return {
@@ -92,9 +92,9 @@ export function getDomNode () {
 /**
  * 检查触发源是否属于目标节点
  */
-export function getEventTargetNode (evnt: any, container: any, queryCls?: string, queryMethod?: (target: Element) => boolean) {
+export function getEventTargetNode(evnt: any, container: any, queryCls?: string, queryMethod?: (target: Element) => boolean) {
   let targetElem
-  let target = (evnt.target.shadowRoot && evnt.composed) ? (evnt.composedPath()[0] || evnt.target) : evnt.target
+  let target = evnt.target.shadowRoot && evnt.composed ? evnt.composedPath()[0] || evnt.target : evnt.target
   while (target && target.nodeType && target !== document) {
     if (queryCls && hasClass(target, queryCls) && (!queryMethod || queryMethod(target))) {
       targetElem = target
@@ -109,11 +109,11 @@ export function getEventTargetNode (evnt: any, container: any, queryCls?: string
 /**
  * 获取元素相对于 document 的位置
  */
-export function getOffsetPos (elem: any, container: any) {
+export function getOffsetPos(elem: any, container: any) {
   return getNodeOffset(elem, container, { left: 0, top: 0 })
 }
 
-export function getAbsolutePos (elem: any) {
+export function getAbsolutePos(elem: any) {
   const bounding = elem.getBoundingClientRect()
   const boundingTop = bounding.top
   const boundingLeft = bounding.left
@@ -124,7 +124,7 @@ export function getAbsolutePos (elem: any) {
 const scrollIntoViewIfNeeded = 'scrollIntoViewIfNeeded'
 const scrollIntoView = 'scrollIntoView'
 
-export function scrollToView (elem: any) {
+export function scrollToView(elem: any) {
   if (elem) {
     if (elem[scrollIntoViewIfNeeded]) {
       elem[scrollIntoViewIfNeeded]()
@@ -134,21 +134,25 @@ export function scrollToView (elem: any) {
   }
 }
 
-export function triggerEvent (targetElem: Element, type: string) {
+export function triggerEvent(targetElem: Element, type: string) {
   if (targetElem) {
     targetElem.dispatchEvent(new Event(type))
   }
 }
 
-export function isNodeElement (elem: any): elem is HTMLElement {
+export function isNodeElement(elem: any): elem is HTMLElement {
   return elem && elem.nodeType === 1
 }
 
-export function updatePanelPlacement (targetElem: HTMLElement | null | undefined, panelElem: HTMLElement | null | undefined, options: {
-  placement?: '' | 'top' | 'bottom' | null
-  teleportTo?: boolean
-  marginSize?: number
-}) {
+export function updatePanelPlacement(
+  targetElem: HTMLElement | null | undefined,
+  panelElem: HTMLElement | null | undefined,
+  options: {
+    placement?: '' | 'top' | 'bottom' | null
+    teleportTo?: boolean
+    marginSize?: number
+  }
+) {
   const { placement, teleportTo, marginSize } = Object.assign({ teleportTo: false, marginSize: 32 }, options)
   let panelPlacement: 'top' | 'bottom' = 'bottom'
   let top: number | '' = ''
