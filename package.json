@@ -75,6 +75,13 @@
     "vxe-pc-ui": "4.20.29",
     "vxe-table": "4.23.9"
   },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "@parcel/watcher@2.5.6": true,
+    "yorkie@2.0.0": true,
+    "core-js@3.49.0": true,
+    "es5-ext@0.10.64": true
+  },
   "vetur": {
     "tags": "helper/vetur/tags.json",
     "attributes": "helper/vetur/attributes.json"
