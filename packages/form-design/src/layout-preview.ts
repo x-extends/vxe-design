@@ -8,7 +8,7 @@ import XEUtils from 'xe-utils'
 
 import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeGlobalRendererHandles } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'FormDesignLayoutPreview',
   props: {},
   emits: [],
@@ -180,4 +180,4 @@ export default defineVxeComponent({
       )
     }
   }
-})
+}) /* define-vxe-component end */

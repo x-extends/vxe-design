@@ -6,7 +6,7 @@ import { DefaultSettingFormComponent } from './default-setting-form'
 
 import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'FormDesignLayoutSetting',
   props: {},
   emits: [],
@@ -133,4 +133,4 @@ export default defineVxeComponent({
       )
     }
   }
-})
+}) /* define-vxe-component end */

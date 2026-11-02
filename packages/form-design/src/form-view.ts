@@ -25,7 +25,7 @@ import type {
   VxeFormDesignLayoutStyle
 } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFormView',
   props: {
     modelValue: Object as PropType<VxeFormViewPropTypes.ModelValue>,
@@ -423,4 +423,4 @@ export default defineVxeComponent({
   render() {
     return this.renderVN()
   }
-})
+}) /* define-vxe-component end */

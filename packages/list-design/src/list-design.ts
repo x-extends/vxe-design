@@ -22,7 +22,7 @@ import type {
   VxeGlobalRendererHandles
 } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeListDesign',
   props: {
     size: {
@@ -388,4 +388,4 @@ export default defineVxeComponent({
   render() {
     return this.renderVN()
   }
-})
+}) /* define-vxe-component end */

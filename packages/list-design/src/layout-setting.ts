@@ -3,7 +3,7 @@ import { defineVxeComponent } from '../../ui/src/comp'
 import { VxeUI, getI18n, getIcon } from '@vxe-ui/core'
 import { DefaultFieldSettingFormComponent, DefaultParameterSettingFormComponent } from './default-setting-form'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'ListDesignLayoutSetting',
   props: {},
   emits: [],
@@ -77,4 +77,4 @@ export default defineVxeComponent({
       )
     }
   }
-})
+}) /* define-vxe-component end */

@@ -4,7 +4,7 @@ import XEUtils from 'xe-utils'
 
 import type { FlowViewReactData, VxeFlowViewEmits, FlowViewPrivateRef, VxeFlowViewPrivateComputed, VxeFlowViewConstructor, VxeFlowViewPrivateMethods } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFlowView',
   props: {},
   emits: [] as VxeFlowViewEmits,
@@ -52,4 +52,4 @@ export default defineVxeComponent({
   render() {
     return this.renderVN()
   }
-})
+}) /* define-vxe-component end */

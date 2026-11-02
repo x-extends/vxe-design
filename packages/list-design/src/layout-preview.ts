@@ -10,7 +10,7 @@ import type { VxeListDesignConstructor, VxeListDesignPrivateMethods } from '../.
 
 const { errLog } = createComponentLog('list-design')
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'ListDesignLayoutView',
   props: {},
   emits: [],
@@ -221,4 +221,4 @@ export default defineVxeComponent({
       )
     }
   }
-})
+}) /* define-vxe-component end */

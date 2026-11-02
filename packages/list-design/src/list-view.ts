@@ -27,7 +27,7 @@ import type { VxeGridInstance, VxeGridPropTypes, VxeGridProps, VxeTableDefines }
 
 const { errLog } = createComponentLog('list-design')
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeListView',
   props: {
     size: {
@@ -519,4 +519,4 @@ export default defineVxeComponent({
   render() {
     return this.renderVN()
   }
-})
+}) /* define-vxe-component end */

@@ -7,7 +7,7 @@ import { getWidgetConfig, getWidgetConfigTitle } from './widget-info'
 
 import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeFormDesignDefines, VxeGlobalRendererHandles, VxeComponentSlotType } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   props: {},
   emits: [],
   setup() {
@@ -200,4 +200,4 @@ export default defineVxeComponent({
       )
     }
   }
-})
+}) /* define-vxe-component end */

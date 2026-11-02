@@ -8,7 +8,7 @@ import { createDefaultFormViewPCFormConfig, createDefaultFormViewMobileFormConfi
 
 import type { VxeFormDesignConstructor, VxeFormViewDefines, VxeFormDesignPrivateMethods, VxeFormDesignDefines, VxeFormDesignLayoutStyle } from '../../../types'
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'FormDesignLayoutStyle',
   props: {},
   emits: [],
@@ -256,4 +256,4 @@ export default defineVxeComponent({
   render() {
     return this.renderVN()
   }
-})
+}) /* define-vxe-component end */

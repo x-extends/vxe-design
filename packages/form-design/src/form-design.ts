@@ -17,7 +17,7 @@ import type { VxeFormDesignDefines, VxeFormDesignPropTypes, VxeFormDesignEmits, 
 const { menus, getConfig, getIcon, getI18n, renderer, createEvent, renderEmptyElement, useFns } = VxeUI
 const { useSize } = useFns
 
-export default defineVxeComponent({
+export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFormDesign',
   props: {
     size: {
@@ -636,4 +636,4 @@ export default defineVxeComponent({
   render() {
     return this.renderVN()
   }
-})
+}) /* define-vxe-component end */
