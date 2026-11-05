@@ -176,7 +176,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     }
 
     const getWidgetDefaultRule = () => {
-      return [{ required: true, content: getI18n('vxe.formDesign.rules.required') }]
+      return [{ required: true, content: getI18n('vxe.formDesign.widgetProp.rules.required') }]
     }
 
     const updateWidgetStatus = (widget: VxeFormDesignDefines.WidgetObjItem, value: any) => {
