@@ -1,12 +1,14 @@
 import { h, ref, inject, createCommentVNode, computed, reactive } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getIcon, getI18n, renderer } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { createListDesignActionButton } from '../render/util'
 import XEUtils from 'xe-utils'
 
 import type { VxeSelectPropTypes, VxeFormItemPropTypes } from 'vxe-pc-ui'
 import type { VxeTableDefines } from 'vxe-table'
 import type { VxeListDesignConstructor, VxeListDesignPrivateMethods, VxeListDesignDefines, VxeGlobalRendererHandles } from '../../../types'
+
+const { getIcon, getI18n, renderer } = VxeUI
 
 interface SearchConfigObjItem extends VxeListDesignDefines.ListColumnObjItem {
   checked: boolean

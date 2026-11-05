@@ -1,12 +1,14 @@
 import { PropType, h, inject, computed, createCommentVNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import { hasFormDesignLayoutType } from '../src/util'
-import { VxeUI, renderer, getIcon } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { getSlotVNs } from '../../ui/src/vn'
 import XEUtils from 'xe-utils'
 import { WidgetRowFormObjVO } from './row-data'
 
 import type { VxeGlobalRendererHandles, VxeFormDesignDefines, VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeFormViewConstructor, VxeFormViewPrivateMethods } from '../../../types'
+
+const { getIcon, getI18n, renderer } = VxeUI
 
 const ViewColItemComponent = defineVxeComponent({
   name: 'ViewColItem',
@@ -194,7 +196,7 @@ const ViewColItemComponent = defineVxeComponent({
                         {
                           class: 'vxe-form-design--widget-row-view-empty'
                         },
-                        '控件位置'
+                        getI18n('vxe.formDesign.widget.row.placeholder')
                       )
                   ]
                 )

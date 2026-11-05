@@ -2,7 +2,7 @@ import { ref, h, PropType, reactive, nextTick, provide, watch } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import XEUtils from 'xe-utils'
 import { toCssUnit } from '../../ui/src/dom'
-import { getConfig, createEvent, renderer, useSize } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { createListDesignActionButton } from '../render/util'
 import { getDefaultSettingFormData } from './default-setting-data'
 import LayoutPreviewComponent from './layout-preview'
@@ -21,6 +21,8 @@ import type {
   VxeFormDesignDefines,
   VxeGlobalRendererHandles
 } from '../../../types'
+
+const { getConfig, createEvent, renderer, useFns } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeListDesign',
@@ -53,7 +55,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
 
     const refElem = ref<HTMLDivElement>()
 
-    const { computeSize } = useSize(props)
+    const { computeSize } = useFns.useSize(props)
 
     const reactData = reactive<ListDesignReactData>({
       formData: {} as VxeListDesignDefines.DefaultSettingFormDataObjVO,

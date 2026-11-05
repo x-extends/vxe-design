@@ -1,10 +1,12 @@
 import { h, inject, createCommentVNode, watch, ref } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getI18n, renderer } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { getSlotVNs } from '../../ui/src/vn'
 import { DefaultSettingFormComponent } from './default-setting-form'
 
 import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods } from '../../../types'
+
+const { getI18n, renderer } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'FormDesignLayoutSetting',

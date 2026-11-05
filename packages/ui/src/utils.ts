@@ -1,6 +1,8 @@
 import XEUtils from 'xe-utils'
-import { getConfig } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import DomZIndex from 'dom-zindex'
+
+const { getConfig } = VxeUI
 
 export function isEnableConf(conf: any): boolean {
   return conf && conf.enabled !== false

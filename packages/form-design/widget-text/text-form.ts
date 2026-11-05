@@ -1,11 +1,13 @@
 import { PropType, h, ref } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import XEUtils from 'xe-utils'
-import { VxeUI, getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { WidgetTextFormObjVO } from './text-data'
 import { useWidgetName } from '../../form-design/src/use'
 
 import type { VxeGlobalRendererHandles } from '../../../types'
+
+const { getI18n } = VxeUI
 
 const getFontSizeOptions = () => {
   return XEUtils.range(12, 27).map((num) => {

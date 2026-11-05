@@ -1,11 +1,13 @@
 import { ref } from 'vue'
-import { renderer } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { getNewWidgetId } from './util'
 import { createComponentLog } from '../../ui/src/log'
 import XEUtils from 'xe-utils'
 
 import type { VxeFormPropTypes } from 'vxe-pc-ui'
 import type { VxeFormDesignConstructor, VxeFormDesignDefines, VxeGlobalRendererHandles } from '../../../types'
+
+const { renderer } = VxeUI
 
 const { errLog } = createComponentLog('form-design')
 

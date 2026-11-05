@@ -1,6 +1,8 @@
-import { getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 
 import type { VxeListDesignDefines } from '../../../types'
+
+const { getI18n } = VxeUI
 
 export const getListDesignActionButtonName = (name: string) => {
   return getI18n(`vxe.listDesign.activeBtn.${name}`)

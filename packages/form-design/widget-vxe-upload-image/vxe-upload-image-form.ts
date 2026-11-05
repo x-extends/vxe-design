@@ -1,11 +1,13 @@
 import { PropType, createCommentVNode, h, ref } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { WidgetVxeUploadImageFormObjVO } from './vxe-upload-image-data'
 import { getLimitSizeOptions } from '../widget-vxe-upload-file/vxe-upload-file-data'
 import { useWidgetName } from '../../form-design/src/use'
 
 import type { VxeGlobalRendererHandles } from '../../../types'
+
+const { getI18n } = VxeUI
 
 export const WidgetVxeUploadImageFormComponent = defineVxeComponent({
   props: {

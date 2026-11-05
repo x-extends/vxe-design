@@ -1,6 +1,6 @@
 import { ref, PropType, inject, h, createCommentVNode, TransitionGroup, computed, nextTick } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, renderer, getIcon, getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import XEUtils from 'xe-utils'
 import { hasFormDesignLayoutType } from '../src/util'
 import { WidgetSubtableFormObjVO } from './subtable-data'
@@ -9,6 +9,8 @@ import { useWidgetName } from '../../form-design/src/use'
 
 import type { VxeTableDefines, VxeColumnPropTypes, VxeGridPropTypes, VxeGridProps, VxeGridInstance } from 'vxe-table'
 import type { VxeGlobalRendererHandles, VxeFormDesignConstructor, VxeFormDesignDefines, VxeFormDesignPrivateMethods, VxeFormViewConstructor, VxeFormViewPrivateMethods } from '../../../types'
+
+const { getI18n, renderer, getIcon } = VxeUI
 
 const ViewSubItemComponent = defineVxeComponent({
   props: {

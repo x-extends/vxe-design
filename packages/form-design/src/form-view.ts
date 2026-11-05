@@ -1,7 +1,7 @@
 import { ref, h, reactive, nextTick, PropType, inject, provide, watch } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import XEUtils from 'xe-utils'
-import { VxeUI, getConfig, renderer, useSize, createEvent, renderEmptyElement } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { getSlotVNs } from '../../ui/src/vn'
 import { createDefaultFormViewPCFormConfig } from './default-setting-data'
 import { configToWidget } from './widget-info'
@@ -24,6 +24,8 @@ import type {
   VxeFormViewDefines,
   VxeFormDesignLayoutStyle
 } from '../../../types'
+
+const { getConfig, getI18n, useFns, renderer, createEvent, renderEmptyElement } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'VxeFormView',
@@ -53,7 +55,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     const refElem = ref<HTMLDivElement>()
     const formRef = ref<VxeFormInstance>()
 
-    const { computeSize } = useSize(props)
+    const { computeSize } = useFns.useSize(props)
 
     const $xeFormDesignLayoutStyle = inject<VxeFormDesignLayoutStyle | null>('$xeFormDesignLayoutStyle', null)
 
@@ -174,7 +176,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     }
 
     const getWidgetDefaultRule = () => {
-      return [{ required: true, content: '该填写该字段！' }]
+      return [{ required: true, content: getI18n('vxe.formDesign.rules.required') }]
     }
 
     const updateWidgetStatus = (widget: VxeFormDesignDefines.WidgetObjItem, value: any) => {

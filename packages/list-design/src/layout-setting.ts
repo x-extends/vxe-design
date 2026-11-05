@@ -1,7 +1,9 @@
 import { h, ref } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getI18n, getIcon } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { DefaultFieldSettingFormComponent, DefaultParameterSettingFormComponent } from './default-setting-form'
+
+const { getIcon, getI18n } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   name: 'ListDesignLayoutSetting',

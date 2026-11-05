@@ -1,9 +1,11 @@
 import { h, PropType, inject, createCommentVNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getIcon } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import XEUtils from 'xe-utils'
 
 import type { VxeFormDesignDefines, VxeFormDesignConstructor, VxeFormDesignPrivateMethods } from '../../../types'
+
+const { getIcon } = VxeUI
 
 export const ViewItemComponent = defineVxeComponent({
   name: 'FormDesignLayoutViewItem',

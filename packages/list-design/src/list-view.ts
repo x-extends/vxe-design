@@ -1,6 +1,6 @@
 import { ref, PropType, h, reactive, provide, watch, nextTick, computed } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getConfig, createEvent, getI18n, renderer, useSize, renderEmptyElement } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { createComponentLog } from '../../ui/src/log'
 import { toCssUnit } from '../../ui/src/dom'
 import { getSlotVNs } from '../../ui/src/vn'
@@ -24,6 +24,8 @@ import type {
 } from '../../../types'
 import type { VxeButtonGroupDefines, VxeButtonGroupPropTypes } from 'vxe-pc-ui'
 import type { VxeGridInstance, VxeGridPropTypes, VxeGridProps, VxeTableDefines } from 'vxe-table'
+
+const { getConfig, createEvent, getI18n, renderer, useFns, renderEmptyElement } = VxeUI
 
 const { errLog } = createComponentLog('list-design')
 
@@ -58,7 +60,7 @@ export default /* define-vxe-component start */ defineVxeComponent({
     const refElem = ref<HTMLDivElement>()
     const refGrid = ref<VxeGridInstance>()
 
-    const { computeSize } = useSize(props)
+    const { computeSize } = useFns.useSize(props)
 
     const reactData = reactive<ListViewReactData>({
       formConfig: {} as VxeListDesignDefines.DefaultSettingFormDataObjVO,

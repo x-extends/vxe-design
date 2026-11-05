@@ -1,10 +1,12 @@
 import { PropType, h, inject } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
-import { VxeUI, getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { WidgetVxeTreeSelectFormObjVO } from './vxe-tree-select-data'
 import { useWidgetName } from '../src/use'
 
 import type { VxeGlobalRendererHandles, VxeFormViewConstructor, VxeFormViewPrivateMethods } from '../../../types'
+
+const { getI18n } = VxeUI
 
 export const WidgetVxeTreeSelectViewComponent = defineVxeComponent({
   props: {

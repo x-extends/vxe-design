@@ -1,7 +1,9 @@
 import { VNode, h, onMounted, ref, watch } from 'vue'
-import { VxeUI, getIcon, getI18n } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 
 import type { VxeGlobalRendererHandles } from '../../../../types'
+
+const { getIcon, getI18n } = VxeUI
 
 export interface WidgetDataSourceOptionSubObjVO {
   value: string

@@ -1,5 +1,7 @@
-import { renderer } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 // import { handleGetListDesignActionButtonName } from './util'
+
+const { renderer } = VxeUI
 
 /**
  * 列表设计器 - 渲染器

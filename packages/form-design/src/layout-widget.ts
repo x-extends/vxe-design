@@ -1,11 +1,13 @@
 import { h, inject, VNode } from 'vue'
 import { defineVxeComponent } from '../../ui/src/comp'
 import XEUtils from 'xe-utils'
-import { getIcon, getI18n, renderer } from '@vxe-ui/core'
+import { VxeUI } from '@vxe-ui/core'
 import { getSlotVNs } from '../../ui/src/vn'
 import { getWidgetConfig, getWidgetConfigTitle } from './widget-info'
 
 import type { VxeFormDesignConstructor, VxeFormDesignPrivateMethods, VxeFormDesignDefines, VxeGlobalRendererHandles, VxeComponentSlotType } from '../../../types'
+
+const { getIcon, getI18n, renderer } = VxeUI
 
 export default /* define-vxe-component start */ defineVxeComponent({
   props: {},
